@@ -21,7 +21,7 @@
 - [ ] Dove.as
 - [ ] Jet.as
 - [X] MenuState.as
-- [ ] Obstacle.as
+- [X] Obstacle.as
 - [-] Player.as
     - few more functions and classes
 - [ ] PlayState.as
