@@ -18,7 +18,7 @@
 - [ ] CBlock.as
 - [ ] CraneTrigger.as
 - [ ] DemoMgr.as
-- [ ] Dove.as
+- [X] Dove.as
 - [ ] Jet.as
 - [X] MenuState.as
 - [X] Obstacle.as
