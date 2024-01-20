@@ -13,7 +13,8 @@
 ## AS3 -> Haxe PROGRESS
 
 - [X] BG.as
-- [ ] Bomb.as
+- [-] Bomb.as
+    - Need to finish implementing some stuff for the emitter + uncomment some code
 - [ ] CBlock.as
 - [ ] CraneTrigger.as
 - [ ] DemoMgr.as
@@ -21,9 +22,13 @@
 - [ ] Jet.as
 - [X] MenuState.as
 - [ ] Obstacle.as
-- [ ] Player.as
+- [-] Player.as
+    - few more functions and classes
 - [ ] PlayState.as
 - [ ] Sequence.as
 - [X] Shard.as : Needs in-game testing
 - [ ] Walker.as
 - [ ] Window.as
+- [X] Canabalt.as -> Main.hx
+- [ ] Preloader.as 
+    - Convert / just remake the preloader, with a button to load the title screen.
