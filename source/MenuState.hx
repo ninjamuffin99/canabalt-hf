@@ -14,6 +14,8 @@ class MenuState extends FlxState
     {
         FlxG.camera.bgColor = 0xff35353d;
         FlxSprite.defaultAntialiasing = false;
+        FlxG.mouse.load("assets/images/cursor.png", 2);
+        FlxG.sound.playMusic("assets/music/title.ogg");
 
         _title = new FlxSprite(0, -FlxG.height, "assets/images/title.png");
         _title.velocity.y = 135;
@@ -27,8 +29,6 @@ class MenuState extends FlxState
         _title3 = new FlxSprite(FlxG.width - 204, FlxG.height - 12, "assets/images/title3.png");
         _title3.alpha = 0;
         add(_title3);
-
-        FlxG.mouse.load("assets/images/cursor.png", 2);
 
         super.create();
     }
@@ -44,5 +44,10 @@ class MenuState extends FlxState
 
         if((_title2.alpha >= 1) && (_title3.alpha < 1))
             _title3.alpha += FlxG.elapsed/2;
+
+        if (Controls.kb || Controls.ka)
+        {
+            FlxG.switchState(new PlayState());
+        }
     }
 }

@@ -8,3 +8,22 @@
 2. Install `hmm` (run `haxelib --global install hmm` and then `haxelib --global run hmm setup`)
 3. Install haxelibs by running `hmm install`
 4. Compile via `lime test PLATFORM`, `mac`, `linux`, `windows`, `html5` and probably even `hl` 
+
+
+## AS3 -> Haxe PROGRESS
+
+- [X] BG.as
+- [ ] Bomb.as
+- [ ] CBlock.as
+- [ ] CraneTrigger.as
+- [ ] DemoMgr.as
+- [ ] Dove.as
+- [ ] Jet.as
+- [X] MenuState.as
+- [ ] Obstacle.as
+- [ ] Player.as
+- [ ] PlayState.as
+- [ ] Sequence.as
+- [X] Shard.as : Needs in-game testing
+- [ ] Walker.as
+- [ ] Window.as
