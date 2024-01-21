@@ -1,15 +1,15 @@
 package;
 
+import flixel.system.debug.watch.Tracker.TrackerProfile;
 import flixel.FlxG;
 import flixel.FlxSprite;
 
 class Player extends FlxSprite {
-	private var _jump:Float;
-
+	
+    private var _jump:Float;
 	public var jumpLimit:Float;
 	public var _onFloor:Bool;
 	public var _stumble:Bool;
-
 	private var _my:Float = 0;
 
 	private var _ft:Float;
@@ -45,15 +45,24 @@ class Player extends FlxSprite {
 		velocity.x = 100;
 		maxVelocity.y = 300;
 
+        jumpLimit = 0;
+
 		_my = 0;
 		_fc = 0;
 		_craneFeet = false;
 
 		epitaph = "falling to your death.";
+
+        FlxG.debugger.addTrackerProfile(new TrackerProfile(Player, ["_jump", "jumpLimit", "_onFloor", "_stumble", "_my", "touching"]));
+        FlxG.debugger.track(this);
+        FlxG.debugger.addTrackerProfile(new TrackerProfile(Controls, ["ka", "kb"]));
+        FlxG.debugger.track(Controls);
 	}
 
 	override function update(elapsed:Float) {
-		if (y > 340) {
+		
+        FlxG.watch.addQuick("touching", touching.toString());
+        if (y > 340) {
 			alive = false;
 			return;
 		}
@@ -71,9 +80,20 @@ class Player extends FlxSprite {
 				stumble();
 
 			if (!Controls.ka && !Controls.kb)
-				_jump = 0;
+                _jump = 0;
+            
+			    
 			_my = 0;
 		}
+        else 
+            _onFloor = false;
+
+        if (isTouching(WALL))
+        {
+            acceleration.x = velocity.x = 0;
+            FlxG.sound.play("assets/sounds/wall.ogg");
+            epitaph = "hitting a wall and tumbling to your death.";
+        }
 
 		// Speed & acceleration
 		if (velocity.x < 0)
@@ -103,11 +123,15 @@ class Player extends FlxSprite {
 			_jump += elapsed;
 			if (_jump > jumpLimit)
 				_jump = -1;
-		} else
-			_jump = -1;
+		} 
+        
+        if (Controls.kbR || Controls.kaR)
+            _jump = -1;
+        
+			
 
 		if (_jump > 0) {
-			_onFloor = false;
+            _onFloor = false;
 			_craneFeet = false;
 			if (_jump < 0.08)
 				velocity.y = -maxVelocity.y * 0.65;
@@ -158,7 +182,6 @@ class Player extends FlxSprite {
 		super.update(elapsed);
 		if (_onFloor)
 			velocity.y = 0;
-		_onFloor = false;
 
 		if (velocity.y == maxVelocity.y)
 			_my += FlxG.elapsed;

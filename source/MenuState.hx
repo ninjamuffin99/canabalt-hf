@@ -48,6 +48,7 @@ class MenuState extends FlxState
         if (Controls.kb || Controls.ka)
         {
             FlxG.switchState(new PlayState());
+            FlxG.sound.playMusic("assets/music/run.ogg");
         }
     }
 }

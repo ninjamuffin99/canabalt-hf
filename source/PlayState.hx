@@ -1,5 +1,6 @@
 package;
 
+import flixel.text.FlxText;
 import flixel.FlxObject;
 import flixel.effects.particles.FlxParticle;
 import flixel.group.FlxGroup;
@@ -18,6 +19,8 @@ class PlayState extends FlxState
 	private var _seqA:Sequence;
 	private var _seqB:Sequence;
 	private var _smoke:FlxGroup;
+	private var _gameover:Float;
+	private var _epitaph:String;
 
 	override public function create()
 	{
@@ -106,12 +109,22 @@ class PlayState extends FlxState
 		add(_shardsB);
 
 		add(_player);
+
+
+		FlxG.camera.shake(0.01, 3, null, true, Y);
+		FlxG.sound.play("assets/sounds/crumble.ogg");
 	}
 
+	
 	override public function update(elapsed:Float)
 	{	
+		if (_gameover > 0) _gameover += elapsed;
+		if ((_gameover > 0.35) && (Controls.ka || Controls.kb))
+			FlxG.switchState(new PlayState());
 
 		FlxG.worldBounds.set(camera.scroll.x, camera.scroll.y, camera.width, camera.height);
+		
+		var wasDead:Bool = !_player.alive;
 		super.update(elapsed);
 
 		_focus.x = _player.x + FlxG.width * 0.5;
@@ -119,5 +132,21 @@ class PlayState extends FlxState
 
 		FlxG.collide(_seqA.blocks, _player);
 		FlxG.collide(_seqB.blocks, _player);
+
+		if (!_player.alive && !wasDead)
+		{
+			_gameover = 0.01;
+			var h:Int = 42;
+
+			var t:FlxText;
+			var distance:Int = Std.int(_player.x / 10);
+			_epitaph = "You ran " + distance + "m before " + _player.epitaph;
+
+			t = new FlxText(0, h + 50, FlxG.width, _epitaph, 8);
+			t.alignment = CENTER;
+			t.scrollFactor.set();
+			add(t);
+		}
+		
 	}
 }
