@@ -1,5 +1,6 @@
 package;
 
+import flixel.FlxObject;
 import flixel.effects.particles.FlxParticle;
 import flixel.group.FlxGroup;
 import flixel.effects.particles.FlxEmitter;
@@ -10,7 +11,12 @@ import flixel.FlxState;
 class PlayState extends FlxState
 {
 	private var _player:Player;
+	private var _focus:FlxObject;
 
+	private var _shardsA:FlxGroup;
+	private var _shardsB:FlxGroup;
+	private var _seqA:Sequence;
+	private var _seqB:Sequence;
 	private var _smoke:FlxGroup;
 
 	override public function create()
@@ -66,15 +72,52 @@ class PlayState extends FlxState
 		add(mid2);
 
 
+		// camera settings
+		_focus = new FlxObject(0, 0, 1, 1);
+		add(_focus);
+		FlxG.camera.follow(_focus, LOCKON);
+		FlxG.camera.setScrollBounds(0, null, 0, 320);
+		FlxG.camera.followLead.set(15, 15);
 
 		_player = new Player(0, 80-14);
 		// Infinite level sequence objects
+		var numShards:Int = 50;
+
+		_shardsA = new FlxGroup();
+		_shardsB = new FlxGroup();
+		for (i in 0...numShards)
+		{
+			_shardsA.add(new Shard());
+			_shardsB.add(new Shard());
+		}
+			
+
+		Sequence.curIndex = 0;
+		Sequence.nextIndex = FlxG.random.int(3, 6);
+		Sequence.nextType = 1;
+		_seqA = new Sequence(_player, _shardsA, _shardsB);
+		_seqB = new Sequence(_player, _shardsA, _shardsB);
+		add(_seqA);
+		add(_seqB);
+		_seqA.init(_seqB);
+		_seqB.init(_seqA);
+
+		add(_shardsA);
+		add(_shardsB);
 
 		add(_player);
 	}
 
 	override public function update(elapsed:Float)
-	{
+	{	
+
+		FlxG.worldBounds.set(camera.scroll.x, camera.scroll.y, camera.width, camera.height);
 		super.update(elapsed);
+
+		_focus.x = _player.x + FlxG.width * 0.5;
+		_focus.y = _player.y + FlxG.height * 0.18 + (_player._onFloor ? 0 : 20);
+
+		FlxG.collide(_seqA.blocks, _player);
+		FlxG.collide(_seqB.blocks, _player);
 	}
 }

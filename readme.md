@@ -32,3 +32,9 @@
 - [X] Canabalt.as -> Main.hx
 - [ ] Preloader.as 
     - Convert / just remake the preloader, with a button to load the title screen.
+
+## todo, and other notes
+- [ ] Controller support
+- [ ] Touch screen support (in HTML5)
+- [ ] Newgrounds Leaderboard API
+    - proper in-game filtering
