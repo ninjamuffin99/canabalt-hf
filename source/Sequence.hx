@@ -44,7 +44,7 @@ class Sequence extends FlxObject {
 	}
 
     override function update(elapsed:Float) {
-        if (_player.getScreenPosition().x + width < 0) resetSeq();
+        if (getScreenPosition().x + width < 0) resetSeq();
 		
 		_layer.update(elapsed);
         super.update(elapsed);
@@ -59,7 +59,6 @@ class Sequence extends FlxObject {
 
 	public function resetSeq():Void {
 		clearSeq();
-		_layer = new FlxGroup();
 
 		var type:StructureType = ROOF;
 		var types:Array<StructureType> = [HALLWAY, COLLAPSE, BOMB, CRANE];
@@ -332,6 +331,8 @@ class Sequence extends FlxObject {
 				}
 			}
 
+			s = 200;
+
 			for (i in 0...n)
 			{
 				if (FlxG.random.bool())
@@ -341,9 +342,6 @@ class Sequence extends FlxObject {
 					_layer.add(reservoir);
 				}
 			}
-
-
-			s = 200;
 		}
 
 		if (FlxG.random.bool(40))
