@@ -34,6 +34,11 @@
     - Convert / just remake the preloader, with a button to load the title screen.
 
 ## todo, and other notes
+### TODOS
+- [ ] hallway roofs
+- [ ] rest of the sequences
+
+### other notes
 - [ ] Controller support
 - [ ] Touch screen support (in HTML5)
 - [ ] Newgrounds Leaderboard API
