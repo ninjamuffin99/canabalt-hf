@@ -7,9 +7,9 @@ import flixel.FlxSprite;
 class Obstacle extends FlxSprite
 {   
     private var _p:Player;
-    public function new(x:Float, y:Float, P:Player, Alt:Bool = false)
+    public function new(X:Float, Y:Float, P:Player, Alt:Bool = false)
     {
-        super(x, y);
+        super(X, Y);
         loadGraphic(Alt ? "assets/images/obstacles2.png" : "assets/images/obstacles.png", true, 14, 14);
         frame = frames.frames[FlxG.random.int(0, frames.numFrames - 1)];
         width = 12;
@@ -18,7 +18,6 @@ class Obstacle extends FlxSprite
         offset.y = 12;
         y -= height;
         _p = P;
-
     }
 
     override function update(elapsed:Float) {
@@ -38,7 +37,10 @@ class Obstacle extends FlxSprite
             acceleration.y = 320;
             kill();
         }
+        
         super.update(elapsed);
+       
+        
     }
 
     override function kill()

@@ -14,8 +14,8 @@ class PlayState extends FlxState
 	private var _player:Player;
 	private var _focus:FlxObject;
 
-	private var _shardsA:FlxGroup;
-	private var _shardsB:FlxGroup;
+	private var _shardsA:FlxTypedGroup<Shard>;
+	private var _shardsB:FlxTypedGroup<Shard>;
 	private var _seqA:Sequence;
 	private var _seqB:Sequence;
 	private var _smoke:FlxGroup;
@@ -86,8 +86,8 @@ class PlayState extends FlxState
 		// Infinite level sequence objects
 		var numShards:Int = 50;
 
-		_shardsA = new FlxGroup();
-		_shardsB = new FlxGroup();
+		_shardsA = new FlxTypedGroup<Shard>();
+		_shardsB = new FlxTypedGroup<Shard>();
 		for (i in 0...numShards)
 		{
 			_shardsA.add(new Shard());
@@ -122,7 +122,7 @@ class PlayState extends FlxState
 		if ((_gameover > 0.35) && (Controls.ka || Controls.kb))
 			FlxG.switchState(new PlayState());
 
-		FlxG.worldBounds.set(camera.scroll.x, camera.scroll.y, camera.width, camera.height);
+		FlxG.worldBounds.set(camera.scroll.x - FlxG.width, camera.scroll.y - FlxG.height, camera.width + FlxG.width * 2, camera.height + FlxG.height * 2);
 		
 		var wasDead:Bool = !_player.alive;
 		super.update(elapsed);
@@ -132,6 +132,11 @@ class PlayState extends FlxState
 
 		FlxG.collide(_seqA.blocks, _player);
 		FlxG.collide(_seqB.blocks, _player);
+
+		FlxG.collide(_seqA.blocks, _shardsA);
+		FlxG.collide(_seqA.blocks, _shardsB);
+		FlxG.collide(_seqB.blocks, _shardsA);
+		FlxG.collide(_seqB.blocks, _shardsB);
 
 		if (!_player.alive && !wasDead)
 		{

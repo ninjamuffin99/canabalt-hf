@@ -1,13 +1,16 @@
 package;
 
+import flixel.effects.particles.FlxParticle;
 import flixel.FlxG;
 import flixel.FlxSprite;
 
-class Shard extends FlxSprite
+class Shard extends FlxParticle
 {   
     public function new()
     {
-        super(-100, -100);
+        super();
+        x = -100;
+        y = -100;
         makeGraphic(FlxG.random.int(1, 5), FlxG.random.int(1, 5));
     }
 

@@ -13,14 +13,14 @@ class Sequence extends FlxObject {
 	private var _layer:FlxGroup;
 	private var _seq:Sequence;
 	private var _player:Player;
-	private var _shardsA:FlxGroup;
-	private var _shardsB:FlxGroup;
+	private var _shardsA:FlxTypedGroup<Shard>;
+	private var _shardsB:FlxTypedGroup<Shard>;
 
 	public static var nextIndex:Int = 0;
 	public static var nextType:Int = 0;
 	public static var curIndex:Int = 0;
 
-	public function new(player:Player, shardsA:FlxGroup, shardsB:FlxGroup) {
+	public function new(player:Player, shardsA:FlxTypedGroup<Shard>, shardsB:FlxTypedGroup<Shard>) {
 		super();
 
 		_player = player;
@@ -43,9 +43,10 @@ class Sequence extends FlxObject {
 
     override function update(elapsed:Float) {
         if (_player.getScreenPosition().x + width < 0) resetSeq();
-
+		
+		_layer.update(elapsed);
         super.update(elapsed);
-        _layer.update(elapsed);
+        
     }
 
     override function draw() {
@@ -155,10 +156,39 @@ class Sequence extends FlxObject {
         mainBlock = new FlxTileblock(Std.int(x), Std.int(y), Std.int(width + 8), Std.int(height));
         mainBlock.makeGraphic(Std.int(mainBlock.width), Std.int(mainBlock.height), 0xff000000);
         blocks.add(mainBlock);
+
+
+		// Hallways get a lot of special treatment - special obstacles, doors, windows, etc.
+		if (type == HALLWAY)
+		{
+			hallHeight *= _tileSize;
+			var blockRoof:FlxTileblock = new FlxTileblock(Std.int(x), -128, Std.int(width), Std.int(y - hallHeight + 128));
+			blockRoof.makeGraphic(Std.int(blockRoof.width), Std.int(blockRoof.height), 0xffCC00CC);
+			blocks.add(blockRoof);
+
+			_layer.add(new Window(x + width - Window.w - 1, y, hallHeight, _layer, _player, _shardsA));
+			_layer.add(new Window(x + 1, y, hallHeight, _layer, _player, _shardsB));
+
+			if (curIndex == 0)
+			{
+				_layer.add(new Obstacle(32 * _tileSize, y, _player));
+				_layer.add(new Obstacle(48 * _tileSize, y, _player));
+			}
+			else
+			{
+				for (i in 0...3)
+				{
+					if (FlxG.random.bool(65))
+						_layer.add(new Obstacle(x + width /8 + FlxG.random.float(0, (width / 2)), y, _player));
+				}
+			}
+		}
+
+		curIndex++;
 	}
 
 	public function clearSeq():Void {
-		_layer.kill();
+		_layer.destroy();
 		blocks.clear();
 	}
 }
