@@ -28,15 +28,17 @@
 - [ ] Sequence.as
 - [X] Shard.as : Needs in-game testing
 - [ ] Walker.as
-- [ ] Window.as
+- [X] Window.as
 - [X] Canabalt.as -> Main.hx
 - [ ] Preloader.as 
     - Convert / just remake the preloader, with a button to load the title screen.
 
 ## todo, and other notes
 ### TODOS
-- [ ] hallway roofs
+- [X] hallway roofs
 - [ ] rest of the sequences
+- [ ] graphics
+- [ ] Cache audio
 
 ### other notes
 - [ ] Controller support

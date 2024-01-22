@@ -1,5 +1,7 @@
 package;
 
+import flixel.FlxSprite;
+import flixel.effects.particles.FlxEmitter;
 import flixel.tile.FlxTileblock;
 import flixel.FlxG;
 import flixel.group.FlxGroup;
@@ -157,6 +159,67 @@ class Sequence extends FlxObject {
         mainBlock.makeGraphic(Std.int(mainBlock.width), Std.int(mainBlock.height), 0xff000000);
         blocks.add(mainBlock);
 
+		var b:Bomb;
+		var f:FlxEmitter;
+
+		if ((type == ROOF) || (type == COLLAPSE) || (type == BOMB))
+		{
+			if (y > _seq.y)
+			{
+				var antenna:FlxSprite = new FlxSprite(x + _tileSize, y - 128);
+				antenna.loadGraphic("assets/images/antenna" + FlxG.random.int(0, 6) + ".png");
+				_layer.add(antenna);
+			}
+
+			var rt:Float = FlxG.random.float();
+			var rw:Int;
+			var rh:Int;
+			if (rt < 0.2)
+				decorate(Std.int(x), Std.int(y), Std.int(width));
+			else if (rt < 0.6)
+			{
+				// BLOCK ROOF:
+				var indent:Int = Std.int(2 + FlxG.random.float(0, (width / _tileSize) / 4));
+				rw = Std.int(width / _tileSize - indent * 2);
+				rh = FlxG.random.int(1, 5);
+
+				if (rh > 2)
+				{
+					var block:FlxTileblock = new FlxTileblock(Std.int(x + indent * _tileSize), Std.int(y - rh * _tileSize), Std.int(rw * _tileSize), Std.int((rh - 1) * _tileSize));
+					block.loadTiles("assets/images/block.png", _tileSize, _tileSize);
+					_layer.add(block);
+
+					var block1:FlxTileblock = new FlxTileblock(Std.int(x + (indent + 1)), Std.int(y - _tileSize), Std.int((rw - 2) * _tileSize), Std.int(_tileSize));
+					block1.loadTiles("assets/images/block.png", _tileSize, _tileSize);
+					_layer.add(block1);
+				}
+				else
+				{
+					var block:FlxTileblock = new FlxTileblock(Std.int(x + indent * _tileSize), Std.int(y - rh * _tileSize), Std.int(rw * _tileSize), Std.int(rh * _tileSize));
+					block.loadTiles("assets/images/block.png", _tileSize, _tileSize);
+					_layer.add(block);
+
+				}
+				decorate(Std.int(x + indent * _tileSize), Std.int(y - rh * _tileSize), Std.int(rw * _tileSize));
+				
+			}
+			else
+			{
+				// SLOPE ROOF
+			}
+		}
+
+		if (type != HALLWAY)
+		{
+			// Doves!
+			if (FlxG.random.bool(0.35))
+			{
+				for (i in 0...Std.int((width / 120) * (FlxG.random.float(2, 14))))
+				{
+					_layer.add(new Dove(x + FlxG.random.int(0, Std.int(width - 8)), y - 8, _player, Std.int(x)));
+				}
+			}
+		}
 
 		// Hallways get a lot of special treatment - special obstacles, doors, windows, etc.
 		if (type == HALLWAY)
@@ -187,8 +250,113 @@ class Sequence extends FlxObject {
 		curIndex++;
 	}
 
+	private function decorate(seqX:Int, seqY:Int, seqWidth:Int):Void
+	{
+		var s:Int;
+
+		// AC boxes
+		s = 40;
+		for (i in 0...Std.int(seqWidth / s))
+		{
+			if (FlxG.random.bool(30))
+			{
+				var ac:FlxSprite = new FlxSprite(seqX + _tileSize + s * i, seqY - _tileSize);
+				ac.loadGraphic("assets/images/ac.png");
+				_layer.add(ac);
+			}
+		}
+
+		if (FlxG.random.bool())
+		{
+			// Pipes roof
+			s = 100;
+			for (i in 0...Std.int(seqWidth / s))
+			{
+				if (FlxG.random.bool(35))
+				{
+					var pipe1:FlxSprite = new FlxSprite(seqX + _tileSize + s * i, seqY - _tileSize);
+					pipe1.loadGraphic("assets/images/pipe1.png");
+				}
+			}
+
+			s = 70;
+			for (i in 0...Std.int(seqWidth / s))
+			{
+				if (FlxG.random.bool(35))
+				{
+					var pipe2:FlxSprite = new FlxSprite(seqX + _tileSize + s * i, seqY - _tileSize * 2);
+					pipe2.loadGraphic("assets/images/pipe2.png");
+				}
+			}
+
+			if (FlxG.random.bool())
+			{
+				// Antennas!!
+				s = 16;
+				for (i in 0...Std.int((seqWidth - 32) / s))
+				{
+					if (FlxG.random.bool(30))
+					{
+						var antenna:FlxSprite = new FlxSprite(seqX + _tileSize + s * i, seqY - 128);
+						antenna.loadGraphic("assets/images/antenna" + FlxG.random.int(0, 6) + ".png");
+						_layer.add(antenna);
+					}
+				}
+			}
+		}
+		else
+		{
+			// Skylights, rooft access + reservoirs
+			var n:Int = Std.int(seqWidth / s);
+			s = 140;
+			
+			for (i in 0...n)
+			{
+				if (FlxG.random.bool())
+				{
+					var skylight:FlxSprite = new FlxSprite(seqX + _tileSize + s * i, seqY - _tileSize + 1);
+					skylight.loadGraphic("assets/images/skylight.png");
+					_layer.add(skylight);
+				}
+			}
+
+			s = 200;
+
+			for (i in 0...n)
+			{
+				if (FlxG.random.bool(25))
+				{
+					var access:FlxSprite = new FlxSprite(seqX + _tileSize + s * i, seqY - 24);
+					access.loadGraphic("assets/images/access.png");
+					_layer.add(access);
+				}
+			}
+
+			for (i in 0...n)
+			{
+				if (FlxG.random.bool())
+				{
+					var reservoir:FlxSprite = new FlxSprite(seqX + _tileSize + s * i, seqY - _tileSize * 6);
+					reservoir.loadGraphic("assets/images/reservoir.png");
+					_layer.add(reservoir);
+				}
+			}
+
+
+			s = 200;
+		}
+
+		if (FlxG.random.bool(40))
+		{
+			// Add chainlink fences
+			var fence:FlxTileblock = new FlxTileblock(seqX + 32, seqY - 32, Std.int((seqWidth / 32 - 1) * 32), 32);
+			fence.loadTiles("assets/images/fence.png", 32, 32);
+			_layer.add(fence);
+		}
+	}
+
 	public function clearSeq():Void {
-		_layer.destroy();
+		_layer.clear();
 		blocks.clear();
 	}
 }
