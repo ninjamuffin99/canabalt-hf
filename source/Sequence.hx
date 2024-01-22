@@ -60,6 +60,8 @@ class Sequence extends FlxObject {
 	public function resetSeq():Void {
 		clearSeq();
 
+		var wallPath:String = "assets/images/wall" + FlxG.random.int(1, 4) + ".png";
+
 		var type:StructureType = ROOF;
 		var types:Array<StructureType> = [HALLWAY, COLLAPSE, BOMB, CRANE];
 
@@ -220,6 +222,22 @@ class Sequence extends FlxObject {
 			}
 		}
 
+		// Add graphics for the wall and roof
+		if (type == CRANE)
+		{
+
+		}
+		else
+		{
+			if (type == HALLWAY)
+				_layer.add(new CBlock(Std.int(x), Std.int(y), Std.int(width), _tileSize, "assets/images/floor" + FlxG.random.int(1, 2) + ".png"));
+			else
+				_layer.add(new CBlock(Std.int(x), Std.int(y), Std.int(width), _tileSize, "assets/images/roof" + FlxG.random.int(1, 5) + ".png"));
+
+			_layer.add(new CBlock(Std.int(x), Std.int(y + _tileSize), Std.int(width), Std.int(height -_tileSize), wallPath));
+
+		}
+
 		// Hallways get a lot of special treatment - special obstacles, doors, windows, etc.
 		if (type == HALLWAY)
 		{
@@ -227,6 +245,14 @@ class Sequence extends FlxObject {
 			var blockRoof:FlxTileblock = new FlxTileblock(Std.int(x), -128, Std.int(width), Std.int(y - hallHeight + 128));
 			blockRoof.makeGraphic(Std.int(blockRoof.width), Std.int(blockRoof.height), 0xffCC00CC);
 			blocks.add(blockRoof);
+
+			_layer.add(new CBlock(Std.int(x), 0, Std.int(width), Std.int(y - hallHeight), wallPath));
+
+
+
+			_layer.add(new CBlock(Std.int(x), Std.int(y - _tileSize), Std.int(width), _tileSize, "assets/images/hall1.png"));
+			_layer.add(new CBlock(Std.int(x), Std.int(y - 2 * _tileSize), Std.int(width), _tileSize, "assets/images/hall2.png"));
+			_layer.add(new FlxSprite(x, y-hallHeight).makeGraphic(Std.int(width), Std.int(hallHeight - 2 * _tileSize), 0xFF35353d));
 
 			_layer.add(new Window(x + width - Window.w - 1, y, hallHeight, _layer, _player, _shardsA));
 			_layer.add(new Window(x + 1, y, hallHeight, _layer, _player, _shardsB));

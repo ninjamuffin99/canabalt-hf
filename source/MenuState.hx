@@ -1,5 +1,6 @@
 package;
 
+import openfl.Assets;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxState;
@@ -29,6 +30,8 @@ class MenuState extends FlxState
         _title3 = new FlxSprite(FlxG.width - 204, FlxG.height - 12, "assets/images/title3.png");
         _title3.alpha = 0;
         add(_title3);
+
+        Assets.getSound("assets/music/run.ogg");
 
         super.create();
     }
