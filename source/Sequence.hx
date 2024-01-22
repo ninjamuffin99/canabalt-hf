@@ -61,6 +61,7 @@ class Sequence extends FlxObject {
 		clearSeq();
 
 		var wallPath:String = "assets/images/wall" + FlxG.random.int(1, 4) + ".png";
+		var windowPath:String = "assets/images/window" + FlxG.random.int(1, 4) + ".png";
 
 		var type:StructureType = ROOF;
 		var types:Array<StructureType> = [HALLWAY, COLLAPSE, BOMB, CRANE];
@@ -235,6 +236,11 @@ class Sequence extends FlxObject {
 				_layer.add(new CBlock(Std.int(x), Std.int(y), Std.int(width), _tileSize, "assets/images/roof" + FlxG.random.int(1, 5) + ".png"));
 
 			_layer.add(new CBlock(Std.int(x), Std.int(y + _tileSize), Std.int(width), Std.int(height -_tileSize), wallPath));
+
+			// if collaps
+
+			for (i in 0...Std.int((height / _tileSize - 1) / 2))
+				_layer.add(new FlxTileblock(Std.int(x + _tileSize), Std.int(y + (2 + i * 2) * _tileSize), Std.int(width - 2 * _tileSize), _tileSize).loadTiles(windowPath, _tileSize, _tileSize));
 
 		}
 
