@@ -11,7 +11,7 @@ class Dove extends FlxSprite
 
     public function new(X:Float, Y:Float, player:Player, trigger:Int)
     {
-        super(x, y);
+        super(X, Y);
         loadGraphic("assets/images/dove.png", true, 8, 8);
         _player = player;
         _trigger = Std.int(trigger + Math.random() * (X - trigger) * 0.5);

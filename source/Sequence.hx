@@ -46,15 +46,15 @@ class Sequence extends FlxObject {
     override function update(elapsed:Float) {
         if (getScreenPosition().x + width < 0) resetSeq();
 		
-		_layer.update(elapsed);
+		
         super.update(elapsed);
-        
+        _layer.update(elapsed);
     }
 
     override function draw() {
         super.draw();
+		blocks.draw();
         _layer.draw();
-        blocks.draw();
     }
 
 	public function resetSeq():Void {
@@ -211,8 +211,8 @@ class Sequence extends FlxObject {
 		if (type != HALLWAY)
 		{
 			// Doves!
-			if (FlxG.random.bool(0.35))
-			{
+			if (FlxG.random.bool(35))
+		{
 				for (i in 0...Std.int((width / 120) * (FlxG.random.float(2, 14))))
 				{
 					_layer.add(new Dove(x + FlxG.random.int(0, Std.int(width - 8)), y - 8, _player, Std.int(x)));
