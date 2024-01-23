@@ -1,13 +1,18 @@
 package;
 
+import flixel.tile.FlxTilemap;
 import flixel.tile.FlxTileblock;
 
 
-class CBlock extends FlxTileblock
+class CBlock extends FlxTilemap
 {
     public function new(X:Int, Y:Int, Width:Int, Height:Int, graphic:String, ?tileSize:Int = 16)
     {
-        super(X, Y, Width, Height);
+        super();
+        this.x = X;
+        this.y = Y;
+        
+
         exists = true;
         active = true;
         visible = true;
@@ -15,12 +20,14 @@ class CBlock extends FlxTileblock
         scrollFactor.set(1, 1);
 
         var _tileSize = tileSize ?? 16;
-        loadTiles(graphic, _tileSize, _tileSize);
 
-        var widthInTiles:Int = Math.ceil(width / _tileSize);
-        var heightInTiles:Int = Math.ceil(height / _tileSize);
-        width = widthInTiles * _tileSize;
-        height = heightInTiles * _tileSize;
+        var widthInTiles:Int = Math.ceil(Width / _tileSize);
+        var heightInTiles:Int = Math.ceil(Height / _tileSize);
+
+        //width = widthInTiles * _tileSize;
+        //height = heightInTiles * _tileSize;
+
+        var mapData:Array<Int> = [];
         var numTiles:Int = widthInTiles * heightInTiles;
         
         var index:Int;
@@ -38,7 +45,9 @@ class CBlock extends FlxTileblock
             else
                 index = 1;
 
-            setTile(i % widthInTiles, Math.floor(i / widthInTiles), index);
+            mapData.push(index);
         }
+
+        loadMapFromArray(mapData, widthInTiles, heightInTiles, graphic, tileSize, tileSize, null, 0, 0, 0);
     }
 }

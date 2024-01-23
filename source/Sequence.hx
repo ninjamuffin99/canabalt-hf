@@ -60,7 +60,7 @@ class Sequence extends FlxObject {
 
 	override function draw() {
 		super.draw();
-		blocks.draw();
+		// blocks.draw();
 		_layer.draw();
 	}
 
