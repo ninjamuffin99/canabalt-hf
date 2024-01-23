@@ -14,6 +14,10 @@ class PlayState extends FlxState
 	private var _player:Player;
 	private var _focus:FlxObject;
 
+	private var _distText:FlxText;
+	private var _distText2:FlxText;
+	private var _distText3:FlxText;
+
 	private var _shardsA:FlxTypedGroup<Shard>;
 	private var _shardsB:FlxTypedGroup<Shard>;
 	private var _seqA:Sequence;
@@ -112,8 +116,27 @@ class PlayState extends FlxState
 		add(_player);
 
 
+		_distText2 = new FlxText(FlxG.width - 80, 1, 80, "", 8);
+		_distText2.color = 0xFF35353d;
+		_distText2.alignment = RIGHT;
+		_distText2.scrollFactor.set();
+		add(_distText2);
+
+		_distText3 = new FlxText(FlxG.width - 79, 1, 80, "", 8);
+		_distText3.color = 0xFF35353d;
+		_distText3.alignment = RIGHT;
+		_distText3.scrollFactor.set();
+		add(_distText3);
+
+		_distText = new FlxText(FlxG.width - 80, 0, 80, "", 8);
+		_distText.alignment = RIGHT;
+		_distText.scrollFactor.set();
+		add(_distText);
+
 		FlxG.camera.shake(0.01, 3, null, true, Y);
 		FlxG.sound.play("assets/sounds/crumble.ogg");
+
+		_gameover = 0;
 	}
 
 	
@@ -139,10 +162,33 @@ class PlayState extends FlxState
 		FlxG.collide(_seqB.blocks, _shardsA);
 		FlxG.collide(_seqB.blocks, _shardsB);
 
+		var hud:String = Std.int(_player.x / 10) + "m";
+
+		_distText.text = hud;
+		_distText2.text = hud;
+		_distText3.text = hud;
+
+
 		if (!_player.alive && !wasDead)
 		{
 			_gameover = 0.01;
 			var h:Int = 42;
+
+			var s:FlxSprite = new FlxSprite(0, h + 35).makeGraphic(FlxG.width, 32, 0xff35353d);
+			s.scrollFactor.set();
+			add(s);
+
+			var s = new FlxSprite(0, h + 67).makeGraphic(FlxG.width, 1);
+			s.scrollFactor.set();
+			add(s);
+
+			var s = new FlxSprite(0, FlxG.height - 18).makeGraphic(FlxG.width, 18, 0xff35353d);
+			s.scrollFactor.set();
+			add(s);
+
+			var s = new FlxSprite((FlxG.width - 390) / 2, h).loadGraphic("assets/images/gameover.png");
+			s.scrollFactor.set();
+			add(s);
 
 			var t:FlxText;
 			var distance:Int = Std.int(_player.x / 10);
@@ -152,6 +198,15 @@ class PlayState extends FlxState
 			t.alignment = CENTER;
 			t.scrollFactor.set();
 			add(t);
+
+			var t = new FlxText(0, FlxG.height - 15, FlxG.width - 3, "Jump to retry your daring escape", 8);
+			t.alignment = RIGHT;
+			t.scrollFactor.set();
+			add(t);
+
+			_distText.visible = false;
+			_distText2.visible = false;
+			_distText3.visible = false;
 		}
 		
 	}

@@ -310,6 +310,7 @@ class Sequence extends FlxObject {
 				_layer.add(new Obstacle(32 * _tileSize, y, _player));
 				_layer.add(new Obstacle(48 * _tileSize, y, _player));
 			} else {
+				// Throw in a few obstacles here and there
 				for (i in 0...3) {
 					if (FlxG.random.bool(65))
 						_layer.add(new Obstacle(x + width / 8 + FlxG.random.float(0, (width / 2)), y, _player));

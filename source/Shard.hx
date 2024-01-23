@@ -10,6 +10,7 @@ class Shard extends FlxParticle {
 		x = -100;
 		y = -100;
 		makeGraphic(FlxG.random.int(1, 5), FlxG.random.int(1, 5));
+        antialiasing = true;
         // elasticity = 1;
 	}
 
