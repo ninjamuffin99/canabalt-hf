@@ -1,5 +1,6 @@
 package;
 
+import flixel.system.debug.watch.Tracker.TrackerProfile;
 import flixel.FlxSprite;
 import flixel.effects.particles.FlxEmitter;
 import flixel.tile.FlxTileblock;
@@ -22,6 +23,8 @@ class Sequence extends FlxObject {
 	public static var nextType:Int = 0;
 	public static var curIndex:Int = 0;
 
+	private var forceType:StructureType = null;
+
 	public function new(player:Player, shardsA:FlxTypedGroup<Shard>, shardsB:FlxTypedGroup<Shard>) {
 		super();
 
@@ -36,6 +39,9 @@ class Sequence extends FlxObject {
 		_layer = new FlxGroup();
 		blocks = new FlxGroup();
 		roof = false;
+
+		FlxG.debugger.addTrackerProfile(new TrackerProfile(Sequence, ["forceType"]));
+		FlxG.debugger.track(this);
 	}
 
 	public function init(seq:Sequence):Void {
@@ -49,6 +55,7 @@ class Sequence extends FlxObject {
 
 		super.update(elapsed);
 		_layer.update(elapsed);
+		blocks.update(elapsed);
 	}
 
 	override function draw() {
@@ -64,14 +71,18 @@ class Sequence extends FlxObject {
 		var windowPath:String = "assets/images/window" + FlxG.random.int(1, 4) + ".png";
 
 		var type:StructureType = ROOF;
-		var types:Array<StructureType> = [HALLWAY, CRANE];
+		var types:Array<StructureType> = [HALLWAY, COLLAPSE, CRANE];
 
 		if (curIndex == nextIndex) {
 			type = types[nextType];
 			nextIndex += FlxG.random.int(3, 8);
 			nextType = FlxG.random.int(0, types.length - 1);
 		}
-		// type = CRANE; // DEBUG: force all buildings to specific type
+
+		if (forceType != null && forceType != NONE) {
+			type = forceType;
+		}
+		// type = COLLAPSE; // DEBUG: force all buildings to specific type
 
 		// The first two buildings are special
 		if (curIndex == 0) {
@@ -258,6 +269,10 @@ class Sequence extends FlxObject {
 			_layer.add(new CBlock(Std.int(x), Std.int(y + _tileSize), Std.int(width), Std.int(height - _tileSize), wallPath));
 
 			// if collaps
+			if (type == COLLAPSE)
+			{
+				_layer.add(new FlxTileblock(Std.int(x), Std.int(y), Std.int(width), Std.int(height)).loadTiles("assets/images/cracks.png", _tileSize, _tileSize));
+			}
 
 			for (i in 0...Std.int((height / _tileSize - 1) / 2))
 				_layer.add(new FlxTileblock(Std.int(x + _tileSize), Std.int(y + (2 + i * 2) * _tileSize), Std.int(width - 2 * _tileSize),
@@ -274,7 +289,19 @@ class Sequence extends FlxObject {
 
 		if (type == BOMB) {}
 
-		if (type == COLLAPSE) {} else if ((type == ROOF) && (curIndex > 1)) {
+		if (type == COLLAPSE) {
+			var dm:DemoMgr = new DemoMgr(Std.int(x), _player, _layer);
+			mainBlock.moves = true;
+			mainBlock.active = true;
+			dm.add(mainBlock);
+			f = new FlxEmitter(x, y);
+			f.width = width;
+			f.height = height;
+			f.launchMode = SQUARE;
+
+			_layer.add(dm);
+
+		} else if ((type == ROOF) && (curIndex > 1)) {
 			// Normal rooftops should sometimes get some obstacles if you're not going too fast
 			for (i in 0...3) {
 				if (FlxG.random.bool(15))
@@ -316,6 +343,17 @@ class Sequence extends FlxObject {
 						_layer.add(new Obstacle(x + width / 8 + FlxG.random.float(0, (width / 2)), y, _player));
 				}
 			}
+		}
+
+		//Estimate out basic sequence changes due to the collapsing building's height change
+		if (type == COLLAPSE)
+		{
+			var cd:Int = Std.int((width / _tileSize) * 0.5);
+			if (cd > height / _tileSize - 1)
+				cd = Std.int(height / _tileSize - 1);
+
+			height -= cd * _tileSize;
+			y += cd * _tileSize;
 		}
 
 		curIndex++;
@@ -416,6 +454,7 @@ class Sequence extends FlxObject {
 }
 
 enum abstract StructureType(String) {
+	var NONE = "none"; // used for forceType debug!
 	var ROOF = "roof";
 	var HALLWAY = "hallway";
 	var COLLAPSE = "collapse";
