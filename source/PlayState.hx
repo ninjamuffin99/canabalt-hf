@@ -74,6 +74,7 @@ class PlayState extends FlxState
 		mid2.scrollFactor.set(0.4, 0.2);
 		add(mid2);
 
+		add(new Jet());
 
 		// camera settings
 		_focus = new FlxObject(0, 0, 1, 1);

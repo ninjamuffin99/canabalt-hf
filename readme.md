@@ -19,14 +19,19 @@
 - [ ] CraneTrigger.as
 - [ ] DemoMgr.as
 - [X] Dove.as
-- [ ] Jet.as
+- [X] Jet.as
 - [X] MenuState.as
 - [X] Obstacle.as
-- [-] Player.as
-    - few more functions and classes
-- [ ] PlayState.as
+- [X] Player.as
+- [-] PlayState.as
+    - Need full gameover stuff
+    - Distance UI
 - [ ] Sequence.as
-- [X] Shard.as : Needs in-game testing
+    - Need Cranes
+    - Need Collapsible buildings
+    - Bomb Code
+- [X] Shard.as
+    - collision with rooftops
 - [ ] Walker.as
 - [X] Window.as
 - [X] Canabalt.as -> Main.hx
@@ -37,7 +42,6 @@
 ### TODOS
 - [X] hallway roofs
 - [ ] rest of the sequences
-- [ ] graphics
 - [ ] Cache audio
 
 ### other notes
