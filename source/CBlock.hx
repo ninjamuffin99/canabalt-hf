@@ -5,7 +5,7 @@ import flixel.tile.FlxTileblock;
 
 class CBlock extends FlxTileblock
 {
-    public function new(X:Int, Y:Int, Width:Int, Height:Int, graphic:String)
+    public function new(X:Int, Y:Int, Width:Int, Height:Int, graphic:String, ?tileSize:Int = 16)
     {
         super(X, Y, Width, Height);
         exists = true;
@@ -14,7 +14,7 @@ class CBlock extends FlxTileblock
         alive = true;
         scrollFactor.set(1, 1);
 
-        var _tileSize = 16;
+        var _tileSize = tileSize ?? 16;
         loadTiles(graphic, _tileSize, _tileSize);
 
         var widthInTiles:Int = Math.ceil(width / _tileSize);
