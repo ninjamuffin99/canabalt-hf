@@ -32,7 +32,6 @@
     - Bomb Code
     - Generate doors in hallways
 - [X] Shard.as
-    - collision with rooftops
 - [ ] Walker.as
 - [X] Window.as
 - [X] Canabalt.as -> Main.hx

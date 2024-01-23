@@ -33,7 +33,7 @@ class Sequence extends FlxObject {
 		width = 0;
 		height = 0;
 
-        _layer = new FlxGroup();
+		_layer = new FlxGroup();
 		blocks = new FlxGroup();
 		roof = false;
 	}
@@ -43,19 +43,19 @@ class Sequence extends FlxObject {
 		resetSeq();
 	}
 
-    override function update(elapsed:Float) {
-        if (getScreenPosition().x + width < 0) resetSeq();
-		
-		
-        super.update(elapsed);
-        _layer.update(elapsed);
-    }
+	override function update(elapsed:Float) {
+		if (getScreenPosition().x + width < 0)
+			resetSeq();
 
-    override function draw() {
-        super.draw();
+		super.update(elapsed);
+		_layer.update(elapsed);
+	}
+
+	override function draw() {
+		super.draw();
 		blocks.draw();
-        _layer.draw();
-    }
+		_layer.draw();
+	}
 
 	public function resetSeq():Void {
 		clearSeq();
@@ -140,34 +140,31 @@ class Sequence extends FlxObject {
 			width = Math.floor(FlxG.random.float(minW, maxW + minW)) * _tileSize;
 		}
 
-        // 1 - If collapsing is likely going to kill the player, just don't do it
-        // 2 - Only bomb roofs that are pretty wide
-        // 3 - Don't put cranes right on the very bottom, that's dumb
-        if( ((type == COLLAPSE) && (width / height > _player.velocity.x / 75)) || ((type == BOMB) && (width < _player.velocity.x)) ||
-            ((type == CRANE) && ((height < 32) || (width < 400))) )
-        {
-            type = ROOF;
-            nextIndex = curIndex + 1;
-        }
+		// 1 - If collapsing is likely going to kill the player, just don't do it
+		// 2 - Only bomb roofs that are pretty wide
+		// 3 - Don't put cranes right on the very bottom, that's dumb
+		if (((type == COLLAPSE) && (width / height > _player.velocity.x / 75))
+			|| ((type == BOMB) && (width < _player.velocity.x))
+			|| ((type == CRANE) && ((height < 32) || (width < 400)))) {
+			type = ROOF;
+			nextIndex = curIndex + 1;
+		}
 
-        // Make sure crane is on 32s
-        if (type == CRANE)
-        {
-            width = Std.int(width * 32); // round it to 32s
-            width *= 32;
-        }
+		// Make sure crane is on 32s
+		if (type == CRANE) {
+			width = Std.int(width * 32); // round it to 32s
+			width *= 32;
+		}
 
-        mainBlock = new FlxTileblock(Std.int(x), Std.int(y), Std.int(width + 8), Std.int(height));
-        mainBlock.makeGraphic(Std.int(mainBlock.width), Std.int(mainBlock.height), 0xff000000);
-        blocks.add(mainBlock);
+		mainBlock = new FlxTileblock(Std.int(x), Std.int(y), Std.int(width + 8), Std.int(height));
+		mainBlock.makeGraphic(Std.int(mainBlock.width), Std.int(mainBlock.height), 0xff000000);
+		blocks.add(mainBlock);
 
 		var b:Bomb;
 		var f:FlxEmitter;
 
-		if ((type == ROOF) || (type == COLLAPSE) || (type == BOMB))
-		{
-			if (y > _seq.y)
-			{
+		if ((type == ROOF) || (type == COLLAPSE) || (type == BOMB)) {
+			if (y > _seq.y) {
 				var antenna:FlxSprite = new FlxSprite(x + _tileSize, y - 128);
 				antenna.loadGraphic("assets/images/antenna" + FlxG.random.int(0, 6) + ".png");
 				_layer.add(antenna);
@@ -178,75 +175,86 @@ class Sequence extends FlxObject {
 			var rh:Int;
 			if (rt < 0.2)
 				decorate(Std.int(x), Std.int(y), Std.int(width));
-			else if (rt < 0.6)
-			{
+			else if (rt < 0.6) {
 				// BLOCK ROOF:
 				var indent:Int = Std.int(2 + FlxG.random.float(0, (width / _tileSize) / 4));
 				rw = Std.int(width / _tileSize - indent * 2);
 				rh = FlxG.random.int(1, 5);
 
-				if (rh > 2)
-				{
-					var block:FlxTileblock = new FlxTileblock(Std.int(x + indent * _tileSize), Std.int(y - rh * _tileSize), Std.int(rw * _tileSize), Std.int((rh - 1) * _tileSize));
+				if (rh > 2) {
+					var block:FlxTileblock = new FlxTileblock(Std.int(x + indent * _tileSize), Std.int(y - rh * _tileSize), Std.int(rw * _tileSize),
+						Std.int((rh - 1) * _tileSize));
 					block.loadTiles("assets/images/block.png", _tileSize, _tileSize);
 					_layer.add(block);
 
-					var block1:FlxTileblock = new FlxTileblock(Std.int(x + (indent + 1)), Std.int(y - _tileSize), Std.int((rw - 2) * _tileSize), Std.int(_tileSize));
+					var block1:FlxTileblock = new FlxTileblock(Std.int(x + (indent + 1)), Std.int(y - _tileSize), Std.int((rw - 2) * _tileSize),
+						Std.int(_tileSize));
 					block1.loadTiles("assets/images/block.png", _tileSize, _tileSize);
 					_layer.add(block1);
-				}
-				else
-				{
-					var block:FlxTileblock = new FlxTileblock(Std.int(x + indent * _tileSize), Std.int(y - rh * _tileSize), Std.int(rw * _tileSize), Std.int(rh * _tileSize));
+				} else {
+					var block:FlxTileblock = new FlxTileblock(Std.int(x + indent * _tileSize), Std.int(y - rh * _tileSize), Std.int(rw * _tileSize),
+						Std.int(rh * _tileSize));
 					block.loadTiles("assets/images/block.png", _tileSize, _tileSize);
 					_layer.add(block);
-
 				}
 				decorate(Std.int(x + indent * _tileSize), Std.int(y - rh * _tileSize), Std.int(rw * _tileSize));
-				
-			}
-			else
-			{
+			} else {
 				// SLOPE ROOF
+				rh = FlxG.random.int(1, 5);
+				if (width < 12 * _tileSize)
+					rh = 1;
+
+				for (i in 0...Std.int(rh))
+					_layer.add(new CBlock(Std.int(x + (1 + i) * _tileSize), Std.int(y - (i + 1) * _tileSize), Std.int(width - 2 * (i + 1) * _tileSize),
+						_tileSize, "assets/images/slope.png"));
+                
+                decorate(Std.int(x + rh * _tileSize), Std.int(y - rh * _tileSize), Std.int(width - 2 * (rh + 1) * _tileSize));
 			}
 		}
 
-		if (type != HALLWAY)
-		{
-			// Doves!
-			if (FlxG.random.bool(35))
-		{
-				for (i in 0...Std.int((width / 120) * (FlxG.random.float(2, 14))))
-				{
-					_layer.add(new Dove(x + FlxG.random.int(0, Std.int(width - 8)), y - 8, _player, Std.int(x)));
-				}
-			}
-		}
+		
 
 		// Add graphics for the wall and roof
-		if (type == CRANE)
-		{
-
-		}
-		else
-		{
+		if (type == CRANE) {} else {
 			if (type == HALLWAY)
 				_layer.add(new CBlock(Std.int(x), Std.int(y), Std.int(width), _tileSize, "assets/images/floor" + FlxG.random.int(1, 2) + ".png"));
 			else
 				_layer.add(new CBlock(Std.int(x), Std.int(y), Std.int(width), _tileSize, "assets/images/roof" + FlxG.random.int(1, 5) + ".png"));
 
-			_layer.add(new CBlock(Std.int(x), Std.int(y + _tileSize), Std.int(width), Std.int(height -_tileSize), wallPath));
+			_layer.add(new CBlock(Std.int(x), Std.int(y + _tileSize), Std.int(width), Std.int(height - _tileSize), wallPath));
 
 			// if collaps
 
 			for (i in 0...Std.int((height / _tileSize - 1) / 2))
-				_layer.add(new FlxTileblock(Std.int(x + _tileSize), Std.int(y + (2 + i * 2) * _tileSize), Std.int(width - 2 * _tileSize), _tileSize).loadTiles(windowPath, _tileSize, _tileSize));
-
+				_layer.add(new FlxTileblock(Std.int(x + _tileSize), Std.int(y + (2 + i * 2) * _tileSize), Std.int(width - 2 * _tileSize),
+					_tileSize).loadTiles(windowPath, _tileSize, _tileSize));
 		}
 
+        if (type != HALLWAY) {
+			// Doves!
+			if (FlxG.random.bool(35)) {
+				for (i in 0...Std.int((width / 120) * (FlxG.random.float(2, 14))))
+					_layer.add(new Dove(x + FlxG.random.int(0, Std.int(width - 8)), y - 8, _player, Std.int(x)));
+			}
+		}
+
+        if (type == BOMB)
+            {}
+
+        if (type == COLLAPSE)
+        {}
+        else if ((type == ROOF) && (curIndex > 1))
+        {
+            // Normal rooftops should sometimes get some obstacles if you're not going too fast
+            for (i in 0...3)
+            {
+                if (FlxG.random.bool(15))
+                    _layer.add(new Obstacle(x + width / 8 + FlxG.random.float(0, (width / 2)), y, _player, true));
+            }
+        }
+
 		// Hallways get a lot of special treatment - special obstacles, doors, windows, etc.
-		if (type == HALLWAY)
-		{
+		if (type == HALLWAY) {
 			hallHeight *= _tileSize;
 			var blockRoof:FlxTileblock = new FlxTileblock(Std.int(x), -128, Std.int(width), Std.int(y - hallHeight + 128));
 			blockRoof.makeGraphic(Std.int(blockRoof.width), Std.int(blockRoof.height), 0xffCC00CC);
@@ -254,26 +262,30 @@ class Sequence extends FlxObject {
 
 			_layer.add(new CBlock(Std.int(x), 0, Std.int(width), Std.int(y - hallHeight), wallPath));
 
-
-
 			_layer.add(new CBlock(Std.int(x), Std.int(y - _tileSize), Std.int(width), _tileSize, "assets/images/hall1.png"));
 			_layer.add(new CBlock(Std.int(x), Std.int(y - 2 * _tileSize), Std.int(width), _tileSize, "assets/images/hall2.png"));
-			_layer.add(new FlxSprite(x, y-hallHeight).makeGraphic(Std.int(width), Std.int(hallHeight - 2 * _tileSize), 0xFF35353d));
+			_layer.add(new FlxSprite(x, y - hallHeight).makeGraphic(Std.int(width), Std.int(hallHeight - 2 * _tileSize), 0xFF35353d));
 
 			_layer.add(new Window(x + width - Window.w - 1, y, hallHeight, _layer, _player, _shardsA));
 			_layer.add(new Window(x + 1, y, hallHeight, _layer, _player, _shardsB));
 
-			if (curIndex == 0)
-			{
+            for (i in 1...Std.int((width / _tileSize - 3) / 4))
+            {
+                if (FlxG.random.bool(65))
+                {
+                    var door:FlxSprite = new FlxSprite(x + i * _tileSize * 4 - _tileSize, y - 19).loadGraphic("assets/images/doors.png", true, 12, 19);
+                    door.frame = door.frames.frames[FlxG.random.int(0, 3)];
+                    _layer.add(door);
+                }
+            }
+
+			if (curIndex == 0) {
 				_layer.add(new Obstacle(32 * _tileSize, y, _player));
 				_layer.add(new Obstacle(48 * _tileSize, y, _player));
-			}
-			else
-			{
-				for (i in 0...3)
-				{
+			} else {
+				for (i in 0...3) {
 					if (FlxG.random.bool(65))
-						_layer.add(new Obstacle(x + width /8 + FlxG.random.float(0, (width / 2)), y, _player));
+						_layer.add(new Obstacle(x + width / 8 + FlxG.random.float(0, (width / 2)), y, _player));
 				}
 			}
 		}
@@ -281,70 +293,55 @@ class Sequence extends FlxObject {
 		curIndex++;
 	}
 
-	private function decorate(seqX:Int, seqY:Int, seqWidth:Int):Void
-	{
+	private function decorate(seqX:Int, seqY:Int, seqWidth:Int):Void {
 		var s:Int;
 
 		// AC boxes
 		s = 40;
-		for (i in 0...Std.int(seqWidth / s))
-		{
-			if (FlxG.random.bool(30))
-			{
+		for (i in 0...Std.int(seqWidth / s)) {
+			if (FlxG.random.bool(30)) {
 				var ac:FlxSprite = new FlxSprite(seqX + _tileSize + s * i, seqY - _tileSize);
 				ac.loadGraphic("assets/images/ac.png");
 				_layer.add(ac);
 			}
 		}
 
-		if (FlxG.random.bool())
-		{
+		if (FlxG.random.bool()) {
 			// Pipes roof
 			s = 100;
-			for (i in 0...Std.int(seqWidth / s))
-			{
-				if (FlxG.random.bool(35))
-				{
+			for (i in 0...Std.int(seqWidth / s)) {
+				if (FlxG.random.bool(35)) {
 					var pipe1:FlxSprite = new FlxSprite(seqX + _tileSize + s * i, seqY - _tileSize);
 					pipe1.loadGraphic("assets/images/pipe1.png");
 				}
 			}
 
 			s = 70;
-			for (i in 0...Std.int(seqWidth / s))
-			{
-				if (FlxG.random.bool(35))
-				{
+			for (i in 0...Std.int(seqWidth / s)) {
+				if (FlxG.random.bool(35)) {
 					var pipe2:FlxSprite = new FlxSprite(seqX + _tileSize + s * i, seqY - _tileSize * 2);
 					pipe2.loadGraphic("assets/images/pipe2.png");
 				}
 			}
 
-			if (FlxG.random.bool())
-			{
+			if (FlxG.random.bool()) {
 				// Antennas!!
 				s = 16;
-				for (i in 0...Std.int((seqWidth - 32) / s))
-				{
-					if (FlxG.random.bool(30))
-					{
+				for (i in 0...Std.int((seqWidth - 32) / s)) {
+					if (FlxG.random.bool(30)) {
 						var antenna:FlxSprite = new FlxSprite(seqX + _tileSize + s * i, seqY - 128);
 						antenna.loadGraphic("assets/images/antenna" + FlxG.random.int(0, 6) + ".png");
 						_layer.add(antenna);
 					}
 				}
 			}
-		}
-		else
-		{
+		} else {
 			// Skylights, rooft access + reservoirs
 			var n:Int = Std.int(seqWidth / s);
 			s = 140;
-			
-			for (i in 0...n)
-			{
-				if (FlxG.random.bool())
-				{
+
+			for (i in 0...n) {
+				if (FlxG.random.bool()) {
 					var skylight:FlxSprite = new FlxSprite(seqX + _tileSize + s * i, seqY - _tileSize + 1);
 					skylight.loadGraphic("assets/images/skylight.png");
 					_layer.add(skylight);
@@ -353,10 +350,8 @@ class Sequence extends FlxObject {
 
 			s = 200;
 
-			for (i in 0...n)
-			{
-				if (FlxG.random.bool(25))
-				{
+			for (i in 0...n) {
+				if (FlxG.random.bool(25)) {
 					var access:FlxSprite = new FlxSprite(seqX + _tileSize + s * i, seqY - 24);
 					access.loadGraphic("assets/images/access.png");
 					_layer.add(access);
@@ -365,10 +360,8 @@ class Sequence extends FlxObject {
 
 			s = 200;
 
-			for (i in 0...n)
-			{
-				if (FlxG.random.bool())
-				{
+			for (i in 0...n) {
+				if (FlxG.random.bool()) {
 					var reservoir:FlxSprite = new FlxSprite(seqX + _tileSize + s * i, seqY - _tileSize * 6);
 					reservoir.loadGraphic("assets/images/reservoir.png");
 					_layer.add(reservoir);
@@ -376,8 +369,7 @@ class Sequence extends FlxObject {
 			}
 		}
 
-		if (FlxG.random.bool(40))
-		{
+		if (FlxG.random.bool(40)) {
 			// Add chainlink fences
 			var fence:FlxTileblock = new FlxTileblock(seqX + 32, seqY - 32, Std.int((seqWidth / 32 - 1) * 32), 32);
 			fence.loadTiles("assets/images/fence.png", 32, 32);
