@@ -71,7 +71,7 @@ class Sequence extends FlxObject {
 			nextIndex += FlxG.random.int(3, 8);
 			nextType = FlxG.random.int(0, types.length - 1);
 		}
-		type = CRANE; // DEBUG: force all buildings to specific type
+		// type = CRANE; // DEBUG: force all buildings to specific type
 
 		// The first two buildings are special
 		if (curIndex == 0) {
