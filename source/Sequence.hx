@@ -187,7 +187,7 @@ class Sequence extends FlxObject {
 					block.loadTiles("assets/images/block.png", _tileSize, _tileSize);
 					_layer.add(block);
 
-					var block1:FlxTileblock = new FlxTileblock(Std.int(x + (indent + 1)), Std.int(y - _tileSize), Std.int((rw - 2) * _tileSize),
+					var block1:FlxTileblock = new FlxTileblock(Std.int(x + (indent + 1) * _tileSize), Std.int(y - _tileSize), Std.int((rw - 2) * _tileSize),
 						Std.int(_tileSize));
 					block1.loadTiles("assets/images/block.png", _tileSize, _tileSize);
 					_layer.add(block1);
@@ -313,6 +313,7 @@ class Sequence extends FlxObject {
 				if (FlxG.random.bool(35)) {
 					var pipe1:FlxSprite = new FlxSprite(seqX + _tileSize + s * i, seqY - _tileSize);
 					pipe1.loadGraphic("assets/images/pipe1.png");
+					_layer.add(pipe1);
 				}
 			}
 
@@ -321,6 +322,7 @@ class Sequence extends FlxObject {
 				if (FlxG.random.bool(35)) {
 					var pipe2:FlxSprite = new FlxSprite(seqX + _tileSize + s * i, seqY - _tileSize * 2);
 					pipe2.loadGraphic("assets/images/pipe2.png");
+					_layer.add(pipe2);
 				}
 			}
 
@@ -337,8 +339,8 @@ class Sequence extends FlxObject {
 			}
 		} else {
 			// Skylights, rooft access + reservoirs
-			var n:Int = Std.int(seqWidth / s);
 			s = 140;
+			var n:Int = Std.int(seqWidth / s);
 
 			for (i in 0...n) {
 				if (FlxG.random.bool()) {
@@ -349,6 +351,7 @@ class Sequence extends FlxObject {
 			}
 
 			s = 200;
+			n = Std.int(seqWidth / s);
 
 			for (i in 0...n) {
 				if (FlxG.random.bool(25)) {
@@ -359,6 +362,7 @@ class Sequence extends FlxObject {
 			}
 
 			s = 200;
+			n = Std.int(seqWidth / s);
 
 			for (i in 0...n) {
 				if (FlxG.random.bool()) {
