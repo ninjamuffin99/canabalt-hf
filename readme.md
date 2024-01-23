@@ -15,7 +15,7 @@
 - [X] BG.as
 - [-] Bomb.as
     - Need to finish implementing some stuff for the emitter + uncomment some code
-- [ ] CBlock.as
+- [X] CBlock.as
 - [ ] CraneTrigger.as
 - [ ] DemoMgr.as
 - [X] Dove.as
