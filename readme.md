@@ -30,6 +30,7 @@
     - Need Cranes
     - Need Collapsible buildings
     - Bomb Code
+    - Generate doors in hallways
 - [X] Shard.as
     - collision with rooftops
 - [ ] Walker.as
