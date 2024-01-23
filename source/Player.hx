@@ -67,6 +67,13 @@ class Player extends FlxSprite {
 			return;
 		}
 
+		if (justTouched(WALL))
+		{
+			acceleration.x = velocity.x = 0;
+			FlxG.sound.play("assets/sounds/wall" + Main.SOUND_EXT +  "");
+			epitaph = "hitting a wall and tumbling to your death.";
+		}
+
 		// Walldeath
 		if (acceleration.x <= 0) {
 			maxVelocity.y = 1000;
@@ -88,12 +95,7 @@ class Player extends FlxSprite {
         else 
             _onFloor = false;
 
-        if (justTouched(WALL))
-        {
-            acceleration.x = velocity.x = 0;
-            FlxG.sound.play("assets/sounds/wall" + Main.SOUND_EXT +  "");
-            epitaph = "hitting a wall and tumbling to your death.";
-        }
+        
 
 		// Speed & acceleration
 		if (velocity.x < 0)

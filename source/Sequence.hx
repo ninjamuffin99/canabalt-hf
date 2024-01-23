@@ -1,5 +1,6 @@
 package;
 
+import flixel.tile.FlxTilemap;
 import flixel.system.debug.watch.Tracker.TrackerProfile;
 import flixel.FlxSprite;
 import flixel.effects.particles.FlxEmitter;
@@ -193,17 +194,17 @@ class Sequence extends FlxObject {
 				rh = FlxG.random.int(1, 5);
 
 				if (rh > 2) {
-					var block:FlxTileblock = new FlxTileblock(Std.int(x + indent * _tileSize), Std.int(y - rh * _tileSize), Std.int(rw * _tileSize),
+					var block:FlxBlock = new FlxBlock(Std.int(x + indent * _tileSize), Std.int(y - rh * _tileSize), Std.int(rw * _tileSize),
 						Std.int((rh - 1) * _tileSize));
 					block.loadTiles("assets/images/block.png", _tileSize, _tileSize);
 					_layer.add(block);
 
-					var block1:FlxTileblock = new FlxTileblock(Std.int(x + (indent + 1) * _tileSize), Std.int(y - _tileSize), Std.int((rw - 2) * _tileSize),
+					var block1:FlxBlock = new FlxBlock(Std.int(x + (indent + 1) * _tileSize), Std.int(y - _tileSize), Std.int((rw - 2) * _tileSize),
 						Std.int(_tileSize));
 					block1.loadTiles("assets/images/block.png", _tileSize, _tileSize);
 					_layer.add(block1);
 				} else {
-					var block:FlxTileblock = new FlxTileblock(Std.int(x + indent * _tileSize), Std.int(y - rh * _tileSize), Std.int(rw * _tileSize),
+					var block:FlxBlock = new FlxBlock(Std.int(x + indent * _tileSize), Std.int(y - rh * _tileSize), Std.int(rw * _tileSize),
 						Std.int(rh * _tileSize));
 					block.loadTiles("assets/images/block.png", _tileSize, _tileSize);
 					_layer.add(block);
@@ -233,7 +234,7 @@ class Sequence extends FlxObject {
 				cx = 128;
 
 			if (left) {
-				_layer.add(new FlxTileblock(Std.int(x + cx), Std.int(y + 32), 32, Std.int(height - 32)).loadTiles("assets/images/crane2.png", 32, 32));
+				_layer.add(new FlxBlock(Std.int(x + cx), Std.int(y + 32), 32, Std.int(height - 32)).loadTiles("assets/images/crane2.png", 32, 32));
 				_layer.add(new FlxSprite(x + 8, y + 4).loadGraphic("assets/images/crane3.png"));
 				// antennas
 				_layer.add(new FlxSprite(x - 8, y - 128).loadGraphic("assets/images/antenna5.png"));
@@ -244,7 +245,7 @@ class Sequence extends FlxObject {
 				_layer.add(new FlxSprite(x + cx + FlxG.random.float(0, width - cx - 64), y + 20).loadGraphic("assets/images/crane5.png")); // pulley
 			} else {
 
-				_layer.add(new FlxTileblock(Std.int(x + width - cx - 32), Std.int(y + 32), 32, Std.int(height - 32)).loadTiles("assets/images/crane2.png", 32, 32)); // post
+				_layer.add(new FlxBlock(Std.int(x + width - cx - 32), Std.int(y + 32), 32, Std.int(height - 32)).loadTiles("assets/images/crane2.png", 32, 32)); // post
 				_layer.add(new FlxSprite(x + width - 72, y + 4).loadGraphic("assets/images/crane3.png")); // counterweight
 				// antennas
 				_layer.add(new FlxSprite(x - 8, y - 128).loadGraphic("assets/images/antenna5.png"));
@@ -271,11 +272,11 @@ class Sequence extends FlxObject {
 			// if collaps
 			if (type == COLLAPSE)
 			{
-				_layer.add(new FlxTileblock(Std.int(x), Std.int(y), Std.int(width), Std.int(height)).loadTiles("assets/images/cracks.png", _tileSize, _tileSize));
+				_layer.add(new FlxBlock(Std.int(x), Std.int(y), Std.int(width), Std.int(height)).loadTiles("assets/images/cracks.png", _tileSize, _tileSize));
 			}
 
 			for (i in 0...Std.int((height / _tileSize - 1) / 2))
-				_layer.add(new FlxTileblock(Std.int(x + _tileSize), Std.int(y + (2 + i * 2) * _tileSize), Std.int(width - 2 * _tileSize),
+				_layer.add(new FlxBlock(Std.int(x + _tileSize), Std.int(y + (2 + i * 2) * _tileSize), Std.int(width - 2 * _tileSize),
 					_tileSize).loadTiles(windowPath, _tileSize, _tileSize));
 		}
 
@@ -441,7 +442,8 @@ class Sequence extends FlxObject {
 
 		if (FlxG.random.bool(40)) {
 			// Add chainlink fences
-			var fence:FlxTileblock = new FlxTileblock(seqX + 32, seqY - 32, Std.int((seqWidth / 32 - 1) * 32), 32);
+
+			var fence:FlxBlock = new FlxBlock(seqX + 32, seqY - 32, Std.int((seqWidth / 32 - 1) * 32), 32);
 			fence.loadTiles("assets/images/fence.png", 32, 32);
 			_layer.add(fence);
 		}
