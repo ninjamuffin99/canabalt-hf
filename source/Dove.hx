@@ -29,7 +29,7 @@ class Dove extends FlxSprite
         {
             if (velocity.y == 0)
             {
-                if (Math.random() < 0.5) FlxG.sound.play("assets/sounds/flap" + FlxG.random.int(1, 3) + ".ogg");
+                if (Math.random() < 0.5) FlxG.sound.play("assets/sounds/flap" + FlxG.random.int(1, 3) + "" + Main.SOUND_EXT +  "");
                 animation.play("fly");
                 velocity.y = -50 - Math.random() * 50;
                 acceleration.y = -50 - Math.random() * 300;

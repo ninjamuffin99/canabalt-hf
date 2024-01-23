@@ -157,7 +157,7 @@ class Sequence extends FlxObject {
 		}
 
 		mainBlock = new FlxTileblock(Std.int(x), Std.int(y), Std.int(width + 8), Std.int(height));
-		mainBlock.makeGraphic(Std.int(mainBlock.width), Std.int(mainBlock.height), 0xff000000);
+		// mainBlock.makeGraphic(Std.int(mainBlock.width), Std.int(mainBlock.height), 0xff000000);
 		blocks.add(mainBlock);
 
 		var b:Bomb;

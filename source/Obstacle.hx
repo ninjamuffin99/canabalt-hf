@@ -30,7 +30,7 @@ class Obstacle extends FlxSprite
             // or if my math is just fuckie!
             var rs:Int = FlxG.random.int(0, 3);
             if (rs != 0)
-                FlxG.sound.play("assets/sounds/obstacle" + rs + ".ogg");
+                FlxG.sound.play("assets/sounds/obstacle" + rs + "" + Main.SOUND_EXT +  "");
 
             velocity.x = _p.velocity.x + FlxG.random.float(-50, 50);
             velocity.y = -120;

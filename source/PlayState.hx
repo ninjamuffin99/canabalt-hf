@@ -22,7 +22,7 @@ class PlayState extends FlxState
 	private var _shardsB:FlxTypedGroup<Shard>;
 	private var _seqA:Sequence;
 	private var _seqB:Sequence;
-	private var _smoke:FlxGroup;
+	private var _smoke:FlxTypedGroup<FlxEmitter>;
 	private var _gameover:Float;
 	private var _epitaph:String;
 
@@ -39,11 +39,12 @@ class PlayState extends FlxState
 		add(mothership);
 
 		
-		_smoke = new FlxGroup();
+		_smoke = new FlxTypedGroup<FlxEmitter>();
 		
 		for (i in 0...5)
 		{	
 			var e:FlxEmitter = new FlxEmitter(0, 0);
+			e.launchMode = SQUARE;
 			e.frequency = 0.15;
 			e.maxSize = 100;
 			e.velocity.set(-2, 1, 1, -6);
@@ -62,13 +63,16 @@ class PlayState extends FlxState
 
 		}
 
+		add(new Walker(_smoke));
+		add(new Walker(_smoke));
+
 		var bg:BG = new BG("assets/images/background.png", 0, 12);
 		bg.scrollFactor.set(0.15, 0.1);
 		add(bg);
 
 		var bg2:BG = new BG("assets/images/background.png", 480, 12);
 		bg2.scrollFactor.set(0.15, 0.1);
-		add(bg);
+		add(bg2);
 
 		var mid:BG = new BG("assets/images/midground1.png", 0, 42);
 		mid.scrollFactor.set(0.4, 0.2);
@@ -83,9 +87,9 @@ class PlayState extends FlxState
 		// camera settings
 		_focus = new FlxObject(0, 0, 1, 1);
 		add(_focus);
-		FlxG.camera.follow(_focus, LOCKON);
+		FlxG.camera.follow(_focus, NO_DEAD_ZONE, 15 / 60);
 		FlxG.camera.setScrollBounds(0, null, 0, 320);
-		FlxG.camera.followLead.set(15, 15);
+		FlxG.camera.followLead.set(1.5, 0);
 
 		_player = new Player(0, 80-14);
 		// Infinite level sequence objects
@@ -115,6 +119,14 @@ class PlayState extends FlxState
 
 		add(_player);
 
+		var girder:BG = new BG("assets/images/girder.png", 3000, 0, true);
+		girder.scrollFactor.set(3, 1.5);
+		add(girder);
+
+		var girder2:BG = new BG("assets/images/girder2.png", 3000, 0, true);
+		girder2.scrollFactor.set(4, 1.5);
+		add(girder2);
+
 
 		_distText2 = new FlxText(FlxG.width - 80, 1, 80, "", 8);
 		_distText2.color = 0xFF35353d;
@@ -134,7 +146,7 @@ class PlayState extends FlxState
 		add(_distText);
 
 		FlxG.camera.shake(0.01, 3, null, true, Y);
-		FlxG.sound.play("assets/sounds/crumble.ogg");
+		FlxG.sound.play("assets/sounds/crumble" + Main.SOUND_EXT +  "");
 
 		_gameover = 0;
 	}

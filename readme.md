@@ -16,7 +16,7 @@
 - [-] Bomb.as
     - Need to finish implementing some stuff for the emitter + uncomment some code
 - [X] CBlock.as
-- [ ] CraneTrigger.as
+- [X] CraneTrigger.as
 - [ ] DemoMgr.as
 - [X] Dove.as
 - [X] Jet.as
@@ -32,7 +32,7 @@
     - Bomb Code
     - Generate doors in hallways
 - [X] Shard.as
-- [ ] Walker.as
+- [X] Walker.as
 - [X] Window.as
 - [X] Canabalt.as -> Main.hx
 - [ ] Preloader.as 
@@ -40,12 +40,12 @@
 
 ## todo, and other notes
 ### TODOS
-- [X] hallway roofs
-- [ ] rest of the sequences
+- [ ] Collapsible buildings
+- [ ] Bomb buildings
 - [ ] Cache audio
 
 ### other notes
-- [ ] Controller support
-- [ ] Touch screen support (in HTML5)
+- [X] Controller support
+- [X] Touch screen support (in HTML5)
 - [ ] Newgrounds Leaderboard API
     - proper in-game filtering

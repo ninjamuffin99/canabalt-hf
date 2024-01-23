@@ -38,7 +38,7 @@ class Window extends FlxSprite
     override function update(elapsed:Float) {
         if (overlaps(_player))
         {   
-            FlxG.sound.play("assets/sounds/window" + FlxG.random.int(1, 2) + ".ogg", 0.35);
+            FlxG.sound.play("assets/sounds/window" + FlxG.random.int(1, 2) + "" + Main.SOUND_EXT +  "", 0.35);
 
             exists = false;
             _shards.velocity.start.min.x = _player.velocity.x / 2;

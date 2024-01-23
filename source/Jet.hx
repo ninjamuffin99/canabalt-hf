@@ -27,7 +27,7 @@ class Jet extends FlxSprite
             x = 960;
             y = FlxG.random.float(-20, 60);
             FlxG.camera.shake(0.015, 1.4, null, true, Y);
-            FlxG.sound.play("assets/sounds/flyby.ogg");
+            FlxG.sound.play("assets/sounds/flyby" + Main.SOUND_EXT +  "");
             _timer = 0;
             _limit = FlxG.random.float(10, 30);
         }

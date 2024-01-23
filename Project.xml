@@ -16,7 +16,7 @@
 	<!-- ____________________________ Window Settings ___________________________ -->
 
 	<!--These window settings apply to all targets-->
-	<window width="960" height="320" fps="60" background="#000000" hardware="true" vsync="false" />
+	<window width="960" height="320" fps="" background="#000000" hardware="true" vsync="false" />
 
 	<!--HTML5-specific-->
 	<window if="html5" resizable="true" />
@@ -31,7 +31,13 @@
 
 	<set name="BUILD_DIR" value="export" />
 	<source path="source" />
-	<assets path="assets" />
+	<assets path="assets/data" />
+	<assets path="assets/images" />
+	<assets path="assets/music/ogg" rename="assets/music" unless="web"/>
+	<assets path="assets/music/mp3" rename="assets/music" if="web"/>
+
+	<assets path="assets/sounds/ogg" rename="assets/sounds" unless="web"/>
+	<assets path="assets/sounds/mp3" rename="assets/sounds" if="web"/>
 
 	<!-- _______________________________ Libraries ______________________________ -->
 
@@ -60,7 +66,7 @@
 	<!--Optimise inputs, be careful you will get null errors if you don't use conditionals in your game-->
 	<!-- <haxedef name="FLX_NO_MOUSE" if="mobile" /> -->
 	<!-- <haxedef name="FLX_NO_KEYBOARD" if="mobile" /> -->
-	<haxedef name="FLX_NO_TOUCH" if="desktop" />
+	<!-- <haxedef name="FLX_NO_TOUCH" if="desktop" /> -->
 	<!--<haxedef name="FLX_NO_GAMEPAD" />-->
 
 	<!--Disable the Flixel core sound tray-->

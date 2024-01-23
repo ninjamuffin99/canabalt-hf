@@ -88,10 +88,10 @@ class Player extends FlxSprite {
         else 
             _onFloor = false;
 
-        if (isTouching(WALL))
+        if (justTouched(WALL))
         {
             acceleration.x = velocity.x = 0;
-            FlxG.sound.play("assets/sounds/wall.ogg");
+            FlxG.sound.play("assets/sounds/wall" + Main.SOUND_EXT +  "");
             epitaph = "hitting a wall and tumbling to your death.";
         }
 
@@ -117,7 +117,7 @@ class Player extends FlxSprite {
 			if (_jump == 0) {
 				var rs:Int = FlxG.random.int(0, 3);
 				if (rs != 0) {
-					FlxG.sound.play("assets/sounds/jump" + rs + ".ogg");
+					FlxG.sound.play("assets/sounds/jump" + rs + "" + Main.SOUND_EXT +  "");
 				}
 			}
 			_jump += elapsed;
@@ -149,10 +149,10 @@ class Player extends FlxSprite {
 			if (_fc > _ft) {
 				_fc = 0;
 				if (_craneFeet) {
-					FlxG.sound.play("assets/sounds/footc" + FlxG.random.int(1, 4) + ".ogg");
+					FlxG.sound.play("assets/sounds/footc" + FlxG.random.int(1, 4) + "" + Main.SOUND_EXT +  "");
 					_craneFeet = false;
 				} else
-					FlxG.sound.play("assets/sounds/foot" + FlxG.random.int(1, 4) + ".ogg");
+					FlxG.sound.play("assets/sounds/foot" + FlxG.random.int(1, 4) + "" + Main.SOUND_EXT +  "");
 			}
 
 			// Stumble / run animations
@@ -188,7 +188,7 @@ class Player extends FlxSprite {
 	}
 
 	public function stumble():Void {
-		FlxG.sound.play("assets/sounds/tumble.ogg");
+		FlxG.sound.play("assets/sounds/tumble" + Main.SOUND_EXT +  "");
 		_stumble = true;
 		if (velocity.x > 500)
 			animation.play("stumble4", true);

@@ -24,7 +24,7 @@ class Bomb extends FlxSprite
         height = 48;
         offset.y = 16;
         velocity.y = 800;
-        FlxG.sound.play("assets/sounds/bomb_launch.ogg", 0.35);
+        FlxG.sound.play("assets/sounds/bomb_launch" + Main.SOUND_EXT +  "", 0.35);
     }
 
     override function update(elapsed:Float) {
@@ -32,7 +32,7 @@ class Bomb extends FlxSprite
         if (y <= -64)
         {
             if (_p.x > x - 480)
-                FlxG.sound.play("assets/sounds/bomb_pre.ogg");
+                FlxG.sound.play("assets/sounds/bomb_pre" + Main.SOUND_EXT +  "");
         }
 
         if (_p.x > x - 480)
@@ -50,11 +50,11 @@ class Bomb extends FlxSprite
                 FlxG.camera.shake(0.065, 0.15);
                 // for loop emitter
 
-                FlxG.sound.play("assets/sounds/bomb_hit.ogg");
+                FlxG.sound.play("assets/sounds/bomb_hit" + Main.SOUND_EXT +  "");
             }
             else if (overlaps(_p))
             {
-                FlxG.sound.play("assets/sounds/bomb_explode.ogg");
+                FlxG.sound.play("assets/sounds/bomb_explode" + Main.SOUND_EXT +  "");
                 _p.y = 400;
                 // _p.epitaph = "turning into a fine mist.";
                 // _s.aftermath();

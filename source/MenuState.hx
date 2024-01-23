@@ -12,11 +12,12 @@ class MenuState extends FlxState
     var _title3:FlxSprite;
 
     override public function create()
-    {
+    {   
+        FlxG.fixedTimestep = false;
         FlxG.camera.bgColor = 0xff35353d;
         FlxSprite.defaultAntialiasing = false;
         FlxG.mouse.load("assets/images/cursor.png", 2);
-        FlxG.sound.playMusic("assets/music/title.ogg");
+        FlxG.sound.playMusic("assets/music/title" + Main.SOUND_EXT +  "");
 
         _title = new FlxSprite(0, -FlxG.height, "assets/images/title.png");
         _title.velocity.y = 135;
@@ -31,7 +32,7 @@ class MenuState extends FlxState
         _title3.alpha = 0;
         add(_title3);
 
-        Assets.getSound("assets/music/run.ogg");
+        Assets.getSound("assets/music/run" + Main.SOUND_EXT +  "");
 
         super.create();
     }
@@ -51,7 +52,7 @@ class MenuState extends FlxState
         if (Controls.kb || Controls.ka)
         {
             FlxG.switchState(new PlayState());
-            FlxG.sound.playMusic("assets/music/run.ogg");
+            FlxG.sound.playMusic("assets/music/run" + Main.SOUND_EXT +  "");
         }
     }
 }

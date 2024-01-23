@@ -20,7 +20,7 @@ class Shard extends FlxParticle {
         
         if (touching == FLOOR) {
 			if ((width + height > 6) && (velocity.y > 150))
-				FlxG.sound.play("assets/sounds/glass" + FlxG.random.int(1, 2) + ".ogg", 0.5);
+				FlxG.sound.play("assets/sounds/glass" + FlxG.random.int(1, 2) + "" + Main.SOUND_EXT +  "", 0.5);
 			// velocity.y = -velocity.y * 0.35;
 			velocity.x *= 0.65;
             velocityRange.start.x = velocity.x;

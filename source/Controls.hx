@@ -17,32 +17,71 @@ class Controls
 
     static function get_ka():Bool
     {
-        return FlxG.keys.anyPressed(["X", "TAB"]);
+        var didPress:Bool = FlxG.keys.anyPressed(["X", "TAB"]);
+
+        if (FlxG.gamepads.lastActive != null)
+            didPress = didPress || FlxG.gamepads.lastActive.anyPressed(["B"]);
+
+        if (FlxG.touches.list != null)
+            didPress = didPress || FlxG.touches.getFirst()?.pressed;
+
+        return didPress;
     }
 
     static function get_kb():Bool
     {
-        return FlxG.keys.anyPressed(["SPACE", "C"]);
+        var didPress:Bool = FlxG.keys.anyPressed(["SPACE", "C"]);
+
+        if (FlxG.gamepads.lastActive != null)
+            didPress = didPress || FlxG.gamepads.lastActive.anyPressed(["A"]);
+
+        return didPress;
     }
 
     static function get_kaP():Bool
     {
-        return FlxG.keys.anyJustPressed(["X", "TAB"]);
+        var didPress:Bool = FlxG.keys.anyJustPressed(["X", "TAB"]);
+
+        if (FlxG.gamepads.lastActive != null)
+            didPress = didPress || FlxG.gamepads.lastActive.anyJustPressed(["B"]);
+
+        if (FlxG.touches.list != null)
+            didPress = didPress || FlxG.touches.getFirst()?.justPressed;
+
+        return didPress;
     }
 
     static function get_kbP():Bool
     {
-        return FlxG.keys.anyJustPressed(["SPACE", "C"]);
+        var didPress:Bool = FlxG.keys.anyJustPressed(["SPACE", "C"]);
+
+        if (FlxG.gamepads.lastActive != null)
+            didPress = didPress || FlxG.gamepads.lastActive.anyJustPressed(["A"]);
+
+        return didPress;
     }
 
     static function get_kaR():Bool
     {
-        return FlxG.keys.anyJustReleased(["X", "TAB"]);
+        var didPress:Bool = FlxG.keys.anyJustReleased(["X", "TAB"]);
+
+        if (FlxG.gamepads.lastActive != null)
+            didPress = didPress || FlxG.gamepads.lastActive.anyJustReleased(["B"]);
+
+        if (FlxG.touches.list != null)
+            didPress = didPress || FlxG.touches.getFirst()?.justReleased;
+
+        return didPress;
     }
 
     static function get_kbR():Bool
     {
-        return FlxG.keys.anyJustReleased(["SPACE", "C"]);
+        var didPress:Bool = FlxG.keys.anyJustReleased(["SPACE", "C"]);
+
+        if (FlxG.gamepads.lastActive != null)
+            didPress = didPress || FlxG.gamepads.lastActive.anyJustReleased(["A"]);
+
+        return didPress;
     }
 
 
