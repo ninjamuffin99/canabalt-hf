@@ -1,5 +1,6 @@
 package;
 
+import flixel.system.scaleModes.PixelPerfectScaleMode;
 import openfl.Assets;
 import flixel.FlxG;
 import flixel.FlxSprite;
@@ -13,6 +14,7 @@ class MenuState extends FlxState
 
     override public function create()
     {   
+        FlxG.scaleMode = new PixelPerfectScaleMode();
         FlxG.fixedTimestep = false;
         FlxG.camera.bgColor = 0xff35353d;
         FlxSprite.defaultAntialiasing = false;

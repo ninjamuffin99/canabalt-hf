@@ -24,13 +24,9 @@
 - [X] Obstacle.as
 - [X] Player.as
 - [-] PlayState.as
-    - Need full gameover stuff
-    - Distance UI
 - [ ] Sequence.as
-    - Need Cranes
     - Need Collapsible buildings
     - Bomb Code
-    - Generate doors in hallways
 - [X] Shard.as
 - [X] Walker.as
 - [X] Window.as
@@ -40,9 +36,7 @@
 
 ## todo, and other notes
 ### TODOS
-- [ ] Collapsible buildings
 - [ ] Bomb buildings
-- [ ] Cache audio
 
 ### other notes
 - [X] Controller support

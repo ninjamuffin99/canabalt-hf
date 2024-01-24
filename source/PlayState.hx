@@ -47,17 +47,18 @@ class PlayState extends FlxState
 			e.launchMode = SQUARE;
 			e.frequency = 0.15;
 			e.maxSize = 100;
-			e.velocity.set(-2, 1, 1, -6);
-			e.angularVelocity.set(-18, 0);
+			e.velocity.start.min.x = -2;
+			e.velocity.start.max.x = 1;
+			e.velocity.start.min.y = -18;
+			e.velocity.start.max.y = -6;
+			e.lifespan.set(10, 20);
+
+			// e.angularVelocity.set(-18, 0);
+			e.loadParticles("assets/images/smoke.png", 100, 0);
 			
-			for (j in 0...100)
-			{
-				var smokeSpr:FlxParticle = new FlxParticle();
-				smokeSpr.loadGraphic("assets/images/smoke.png");
-				smokeSpr.scrollFactor.set(0.1, 0.05);
-				e.add(smokeSpr);
-			}
-			
+			for (p in e.members)
+				p.scrollFactor.set(0.1, 0.05);
+
 			add(e);
 			_smoke.add(e);
 
@@ -99,8 +100,8 @@ class PlayState extends FlxState
 		_shardsB = new FlxTypedGroup<Shard>();
 		for (i in 0...numShards)
 		{
-			_shardsA.add(new Shard());
-			_shardsB.add(new Shard());
+			_shardsA.add(new Shard(_shardsA));
+			_shardsB.add(new Shard(_shardsB));
 		}
 			
 

@@ -1,12 +1,16 @@
 package;
 
+import flixel.group.FlxGroup.FlxTypedGroup;
+import flixel.effects.particles.FlxEmitter;
 import flixel.effects.particles.FlxParticle;
 import flixel.FlxG;
 import flixel.FlxSprite;
 
 class Shard extends FlxParticle {
-	public function new() {
+	var parent:FlxTypedGroup<Shard>;
+	public function new(parent:FlxTypedGroup<Shard>) {
 		super();
+		this.parent = parent;
 		x = -100;
 		y = -100;
 		makeGraphic(FlxG.random.int(1, 5), FlxG.random.int(1, 5));
@@ -15,12 +19,10 @@ class Shard extends FlxParticle {
 	}
 
 	override function update(elapsed:Float) {
-		
-        
-        
         if (touching == FLOOR) {
-			if ((width + height > 6) && (velocity.y > 150))
+			if ((width + height > 6) && (Math.abs(velocity.y) > 150))
 				FlxG.sound.play("assets/sounds/glass" + FlxG.random.int(1, 2) + "" + Main.SOUND_EXT +  "", 0.5);
+				
 			// velocity.y = -velocity.y * 0.35;
 			velocity.x *= 0.65;
             velocityRange.start.x = velocity.x;

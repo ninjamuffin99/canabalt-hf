@@ -1,5 +1,7 @@
 package;
 
+import flixel.FlxObject;
+import flixel.group.FlxGroup;
 import flixel.FlxG;
 import flixel.effects.particles.FlxEmitter;
 import flixel.FlxSprite;
@@ -9,16 +11,16 @@ class Bomb extends FlxSprite
     private var _y:Int;
     private var _p:Player;
     private var _e:FlxEmitter;
-    // private var _en:FlxArray; // figure out context of FlxArray here
+    private var _en:FlxTypedGroup<FlxSprite>; // figure out context of FlxArray here
     private var _s:Sequence;
 
-    public function new(x:Int, y:Int, P:Player, Entry, S:Sequence)
+    public function new(x:Int, y:Int, P:Player, Entry:FlxTypedGroup<FlxSprite>, S:Sequence)
     {
         super(x, -64);
         loadGraphic("assets/images/bomb.png");
         _y = y - 24;
         _p = P;
-        // _en = Entry;
+        _en = Entry;
         _s = S;
         x -= Std.int(width / 2);
         height = 48;
@@ -49,16 +51,23 @@ class Bomb extends FlxSprite
                 // _e.reset(); // figure out the hf equivalent
                 FlxG.camera.shake(0.065, 0.15);
                 // for loop emitter
+                for (i in 0..._en.length)
+                {   
+                    _en.members[i].reset(x - 16 + i * 8, _y + FlxG.random.float(12, 20));
+                    _en.members[i].frame = _en.members[i].frames.frames[FlxG.random.int(0, _en.members[i].frames.frames.length - 1)];
+
+                }
 
                 FlxG.sound.play("assets/sounds/bomb_hit" + Main.SOUND_EXT +  "");
             }
-            else if (overlaps(_p))
+            
+        }
+        else if (overlaps(_p))
             {
                 FlxG.sound.play("assets/sounds/bomb_explode" + Main.SOUND_EXT +  "");
                 _p.y = 400;
-                // _p.epitaph = "turning into a fine mist.";
-                // _s.aftermath();
+                _p.epitaph = "turning into a fine mist.";
+                _s.aftermath();
             }
-        }
     }
 }

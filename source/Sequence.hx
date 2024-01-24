@@ -1,5 +1,6 @@
 package;
 
+import flixel.util.FlxColor;
 import flixel.tile.FlxTilemap;
 import flixel.system.debug.watch.Tracker.TrackerProfile;
 import flixel.FlxSprite;
@@ -72,7 +73,7 @@ class Sequence extends FlxObject {
 		var windowPath:String = "assets/images/window" + FlxG.random.int(1, 4) + ".png";
 
 		var type:StructureType = ROOF;
-		var types:Array<StructureType> = [HALLWAY, COLLAPSE, CRANE];
+		var types:Array<StructureType> = [HALLWAY, COLLAPSE, BOMB, CRANE];
 
 		if (curIndex == nextIndex) {
 			type = types[nextType];
@@ -221,6 +222,22 @@ class Sequence extends FlxObject {
 						_tileSize, "assets/images/slope.png"));
 
 				decorate(Std.int(x + rh * _tileSize), Std.int(y - rh * _tileSize), Std.int(width - 2 * (rh + 1) * _tileSize));
+			}
+
+			// Fire escapes
+			if (FlxG.random.bool())
+				_layer.add(new FlxBlock(x + width, y + 16, 32, height).loadTiles("assets/images/escape.png", 32, 32));
+
+			// Add a bomb if it's a bomb
+			if (type == BOMB)
+			{
+				var entry:FlxTypedGroup<FlxSprite> = new FlxTypedGroup<FlxSprite>();
+				for (i in 0...6)
+					entry.add(new FlxSprite(-100, -100).loadGraphic("assets/images/demo_gibs.png", true, 16, 16));
+				b = new Bomb(Std.int(x + width / 2), Std.int(y), _player, entry, this);
+				_layer.add(b);
+				for (i in entry.members)
+					_layer.add(i);
 			}
 		}
 
@@ -452,6 +469,12 @@ class Sequence extends FlxObject {
 	public function clearSeq():Void {
 		_layer.clear();
 		blocks.clear();
+	}
+
+	public function aftermath():Void
+	{
+		FlxG.camera.flash(FlxColor.WHITE, 4);
+		clearSeq();
 	}
 }
 

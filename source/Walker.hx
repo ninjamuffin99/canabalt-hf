@@ -40,7 +40,7 @@ class Walker extends FlxSprite {
 					_s = 0;
 				_smoke.members[_s].x = x + ((facing == LEFT) ? (width - 22) : 10);
 				_smoke.members[_s].y = y + height;
-				_smoke.members[_s].start();
+				_smoke.members[_s].start(false, _smoke.members[_s].frequency);
 			}
 		} else if (_firing) {
 			if (animation.finished) {
@@ -62,7 +62,7 @@ class Walker extends FlxSprite {
                     if (++_s >= _smoke.length) _s = 0;
                     _smoke.members[_s].x = x + ((facing == LEFT) ? (width - 22) : 10);
                     _smoke.members[_s].y = y + height;
-                    _smoke.members[_s].start();
+                    _smoke.members[_s].start(false, _smoke.members[_s].frequency);
 				}
 			}
 		}
