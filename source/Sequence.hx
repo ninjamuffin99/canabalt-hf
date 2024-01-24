@@ -246,7 +246,7 @@ class Sequence extends FlxObject {
 				cx = 128;
 
 			if (left) {
-				_layer.add(new FlxBlock(Std.int(x + cx), Std.int(y + 32), 32, Std.int(height - 32)).loadTiles("assets/images/crane2.png", 32, 32));
+				_layer.add(new FlxBlock(Std.int(x + cx), Std.int(y + 32), 32, Std.int(height)).loadTiles("assets/images/crane2.png", 32, 32));
 				_layer.add(new FlxSprite(x + 8, y + 4).loadGraphic("assets/images/crane3.png"));
 				// antennas
 				_layer.add(new FlxSprite(x - 8, y - 128).loadGraphic("assets/images/antenna5.png"));
@@ -257,7 +257,7 @@ class Sequence extends FlxObject {
 				_layer.add(new FlxSprite(x + cx + FlxG.random.float(0, width - cx - 64), y + 20).loadGraphic("assets/images/crane5.png")); // pulley
 			} else {
 
-				_layer.add(new FlxBlock(Std.int(x + width - cx - 32), Std.int(y + 32), 32, Std.int(height - 32)).loadTiles("assets/images/crane2.png", 32, 32)); // post
+				_layer.add(new FlxBlock(Std.int(x + width - cx - 32), Std.int(y + 32), 32, Std.int(height)).loadTiles("assets/images/crane2.png", 32, 32)); // post
 				_layer.add(new FlxSprite(x + width - 72, y + 4).loadGraphic("assets/images/crane3.png")); // counterweight
 				// antennas
 				_layer.add(new FlxSprite(x - 8, y - 128).loadGraphic("assets/images/antenna5.png"));

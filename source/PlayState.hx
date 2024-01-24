@@ -30,6 +30,8 @@ class PlayState extends FlxState
 	{
 		super.create();
 
+		FlxG.mouse.visible = false;
+
 		var s:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, FlxG.height,0xffb0b0bf);
 		s.scrollFactor.set();
 		add(s);
@@ -186,7 +188,13 @@ class PlayState extends FlxState
 
 
 		if (!_player.alive && !wasDead)
-		{
+		{	
+			if (!FlxG.onMobile)
+			{
+				FlxG.mouse.visible = true;
+			}
+			
+
 			_gameover = 0.01;
 			var h:Int = 42;
 

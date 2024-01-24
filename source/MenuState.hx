@@ -18,6 +18,7 @@ class MenuState extends FlxState
         FlxG.camera.bgColor = 0xff35353d;
         FlxSprite.defaultAntialiasing = false;
         FlxG.mouse.load("assets/images/cursor.png", 2);
+        FlxG.mouse.visible = false;
         FlxG.sound.playMusic("assets/music/title" + Main.SOUND_EXT +  "");
 
         _title = new FlxSprite(0, -FlxG.height, "assets/images/title.png");
