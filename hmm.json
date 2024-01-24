@@ -21,6 +21,11 @@
       "version": null
     },
     {
+      "name": "newgrounds",
+      "type": "haxelib",
+      "version": null
+    },
+    {
       "name": "openfl",
       "type": "haxelib",
       "version": null

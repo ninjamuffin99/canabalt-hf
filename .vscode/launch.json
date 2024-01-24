@@ -5,10 +5,9 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "HXCPP",
-            "type": "hxcpp",
-            "request": "launch",
-            "program": "${workspaceFolder}/bin/yourExecutable.exe"
+            "name": "Lime",
+            "type": "lime",
+            "request": "launch"
         }
     ]
 }
