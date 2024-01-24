@@ -43,18 +43,21 @@ class PlayState extends FlxState
 		
 		for (i in 0...5)
 		{	
-			var e:FlxEmitter = new FlxEmitter(0, 0);
+			var e:FlxEmitter = new FlxEmitter(0, 0, 50);
 			e.launchMode = SQUARE;
 			e.frequency = 0.15;
-			e.maxSize = 100;
+			e.maxSize = 50;
 			e.velocity.start.min.x = -2;
 			e.velocity.start.max.x = 1;
 			e.velocity.start.min.y = -18;
 			e.velocity.start.max.y = -6;
+
+			e.velocity.end = e.velocity.start;
+
 			e.lifespan.set(10, 20);
 
 			// e.angularVelocity.set(-18, 0);
-			e.loadParticles("assets/images/smoke.png", 100, 0);
+			e.loadParticles("assets/images/smoke.png", 50, 0);
 			
 			for (p in e.members)
 				p.scrollFactor.set(0.1, 0.05);

@@ -14,7 +14,6 @@ class MenuState extends FlxState
 
     override public function create()
     {   
-        FlxG.scaleMode = new PixelPerfectScaleMode();
         FlxG.fixedTimestep = false;
         FlxG.camera.bgColor = 0xff35353d;
         FlxSprite.defaultAntialiasing = false;
