@@ -11,8 +11,6 @@ class Shard extends FlxParticle {
 	public function new(parent:FlxTypedGroup<Shard>) {
 		super();
 		this.parent = parent;
-		x = -100;
-		y = -100;
 		makeGraphic(FlxG.random.int(1, 5), FlxG.random.int(1, 5));
         antialiasing = true;
         // elasticity = 1;
@@ -39,4 +37,5 @@ class Shard extends FlxParticle {
 
 		super.update(elapsed);
 	}
+
 }

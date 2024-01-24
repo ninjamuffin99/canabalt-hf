@@ -20,13 +20,14 @@ class Window extends FlxSprite
         _player = player;
         _shards = new FlxEmitter(x, y, 50);
         _shards.allowCollisions = ANY;
-        _shards.width = width;
+        _shards.width = w;
         _shards.height = height;
         _shards.angularVelocity.set(-720, 720);
         _shards.acceleration.set(0, 500);
         _shards.particleClass = Shard;
         _shards.launchMode = FlxEmitterMode.SQUARE;
         _shards.elasticity.set(0.35);
+        _shards.lifespan.set(3, 6);
         
         for (shard in shards.members)
             _shards.add(shard);
@@ -47,6 +48,8 @@ class Window extends FlxSprite
             _shards.velocity.start.min.y = _player.velocity.y / 2 - FlxG.random.float(0, 40);
             _shards.velocity.start.max.y = _shards.velocity.start.min.y * 3;
             
+            _shards.velocity.end = _shards.velocity.start;
+
             _shards.start();
 
         }
