@@ -13,6 +13,7 @@ class DemoMgr extends FlxObject
     private var _c:FlxGroup;
     private var _p:Player;
     private var _go:Bool;
+    private var emitter:FlxEmitter;
 
     public function new(X:Int, P:Player, Children:FlxGroup)
     {
@@ -37,6 +38,11 @@ class DemoMgr extends FlxObject
         _c.add(Child);
     }
 
+    public function addEmitter(Child:FlxEmitter)
+    {
+        emitter = Child;
+    }
+
     override function update(elapsed:Float) {
         
         if (!_go)
@@ -48,6 +54,7 @@ class DemoMgr extends FlxObject
                 FlxG.camera.shake(0.005, 3, null, true, Y);
                 // var c:FlxObject = cast _c.members[_c.length - 1];
                 // _c.members[_c.length - 1].reset();
+                emitter.start(false, emitter.frequency);
             }
         }
 

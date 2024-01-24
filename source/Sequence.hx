@@ -173,7 +173,7 @@ class Sequence extends FlxObject {
 		// mainBlock.makeGraphic(Std.int(mainBlock.width), Std.int(mainBlock.height), 0xff000000);
 		blocks.add(mainBlock);
 
-		var b:Bomb;
+		var b:Bomb = null;
 		var f:FlxEmitter;
 
 		if ((type == ROOF) || (type == COLLAPSE) || (type == BOMB)) {
@@ -228,16 +228,11 @@ class Sequence extends FlxObject {
 			if (FlxG.random.bool())
 				_layer.add(new FlxBlock(x + width, y + 16, 32, height).loadTiles("assets/images/escape.png", 32, 32));
 
-			// Add a bomb if it's a bomb
+			// Drop the bomb if necessary
 			if (type == BOMB)
 			{
-				var entry:FlxTypedGroup<FlxSprite> = new FlxTypedGroup<FlxSprite>();
-				for (i in 0...6)
-					entry.add(new FlxSprite(-100, -100).loadGraphic("assets/images/demo_gibs.png", true, 16, 16));
-				b = new Bomb(Std.int(x + width / 2), Std.int(y), _player, entry, this);
+				b = new Bomb(Std.int(x + width / 2), Std.int(y), _player, this);
 				_layer.add(b);
-				for (i in entry.members)
-					_layer.add(i);
 			}
 		}
 
@@ -305,7 +300,22 @@ class Sequence extends FlxObject {
 			}
 		}
 
-		if (type == BOMB) {}
+
+		//Collapsing buildings need the big gib spawners to be rendered up on top
+		if (type == BOMB) {
+
+			f = new FlxEmitter(x + width / 2 - 32, y);
+			f.width = 64;
+			f.height = 0;
+			f.lifespan.set(3);
+			f.velocity.set(-240, -320, 240, 0);
+			f.angle.set(-720, 720);
+			f.acceleration.set(0, 800);
+			f.loadParticles("assets/images/demo_gibs.png", 50, 0, true);
+			b?.addEmitter(f); // will always be init by here... compiler just shoutin at me!
+			_layer.add(f);
+
+		}
 
 		if (type == COLLAPSE) {
 			var dm:DemoMgr = new DemoMgr(Std.int(x), _player, _layer);
@@ -316,6 +326,13 @@ class Sequence extends FlxObject {
 			f.width = width;
 			f.height = height;
 			f.launchMode = SQUARE;
+			f.frequency = 0.01;
+			f.velocity.set(-200, -120, 200, 0);
+			f.angle.set(-720, 720);
+			f.acceleration.set(0, 400);
+			f.loadParticles("assets/images/demo_gibs.png", 50, 0, true);
+			_layer.add(f);
+			dm.addEmitter(f);
 
 			_layer.add(dm);
 
@@ -475,6 +492,16 @@ class Sequence extends FlxObject {
 	{
 		FlxG.camera.flash(FlxColor.WHITE, 4);
 		clearSeq();
+
+		var em:FlxEmitter = new FlxEmitter(x + width / 2, -FlxG.height);
+		em.width = FlxG.width;
+		em.height = FlxG.height;
+		em.lifespan.set(10);
+		em.velocity.set(0, -400, 0, 200);
+		em.acceleration.set(0, 100);
+		em.loadParticles("assets/images/demo_gibs.png", 200, 0, true);
+		_layer.add(em);
+		em.start();
 	}
 }
 
