@@ -14,6 +14,9 @@
 
 - [ ] Preloader.as 
     - Convert / just remake the preloader, with a button to load the title screen.
+- [ ] Crane tiling bug
+- [ ] Hide cursor on boot until game over, then hide again
+- [ ] Not loading on Safari grrr...
 
 ### other notes
 - [ ] Newgrounds Leaderboard API
