@@ -24,7 +24,6 @@ class FlxSplash extends FlxState
     var _gfxBottomLeft:Graphics;
     var _gfxBottomRight:Graphics;
 
-    var parts:Array<Graphics>;
     var drawFuncs:Array<Int->Graphics->Void>;
     var cols:Array<Int>;
     var _layers:Array<Sprite>;
@@ -35,14 +34,13 @@ class FlxSplash extends FlxState
     override function create() {
         FlxG.cameras.bgColor = 0xff35353d;
         FlxG.mouse.visible = false;
-
         FlxG.autoPause = false;
+        FlxG.fixedTimestep = false;
         
         var stageWidth:Int = Lib.current.stage.stageWidth;
         var stageHeight:Int = Lib.current.stage.stageHeight;
 
         cols = [colGreen, colYellow, colRed, colBlue, colLightBlue];
-        parts = [_gfxMid, _gfxTopLeft, _gfxTopRight, _gfxBottomLeft, _gfxBottomRight];
         drawFuncs = [drawMiddle, drawTopLeft, drawTopRight, drawBottomLeft, drawBottomRight];
         _layers = [];
         _whiteSpr = [];
@@ -87,7 +85,8 @@ class FlxSplash extends FlxState
         _camFade = new Bitmap(new BitmapData(stageWidth, stageHeight, true, 0xff000000));
         FlxG.stage.addChild(_camFade);
 
-        onResize(stageWidth, stageHeight);
+        // onResize(stageWidth, stageHeight);
+        resizeShit(stageWidth, stageHeight);
 
 
         #if FLX_SOUND_SYSTEM
@@ -97,8 +96,21 @@ class FlxSplash extends FlxState
         super.create();
     }
 
-    override function onResize(Width:Int, Height:Int) {
-        super.onResize(Width, Height);
+    override function destroy() {
+        _gfx = null;
+        _layers = null;
+        cols = null;
+        _camFade = null;
+        //_curLayerBatch = null;
+        //layerCounter = null;
+        poweredBy = null;
+        drawFuncs = null;
+
+        super.destroy();
+    }
+
+    function resizeShit(Width:Int, Height:Int) {
+        // super.onResize(Width, Height);
 
         for (_sprite in _layers)
         {
@@ -129,7 +141,7 @@ class FlxSplash extends FlxState
             for (curLayer in Std.int(Math.max(0, _curLayerBatch - 5))..._curLayerBatch)
             {   
                 if (_layers[curLayer].alpha > 0.1)
-                    _layers[curLayer].alpha -= 0.1;
+                    _layers[curLayer].alpha -= 0.1 * (elapsed / (1 / 60));
                 else
                 {
                     _layers[curLayer].alpha = 0;
@@ -161,6 +173,8 @@ class FlxSplash extends FlxState
 
             for (spr in _layers)
                 FlxG.stage.removeChild(spr);
+
+            FlxG.stage.removeChild(_camFade);
 
             FlxG.switchState(new MenuState());
         }
