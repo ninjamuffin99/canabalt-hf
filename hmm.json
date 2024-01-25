@@ -3,32 +3,32 @@
     {
       "name": "flixel",
       "type": "haxelib",
-      "version": null
+      "version": "5.5.0"
     },
     {
       "name": "hscript",
       "type": "haxelib",
-      "version": null
+      "version": "2.5.0"
     },
     {
       "name": "hxcpp",
       "type": "haxelib",
-      "version": null
+      "version": "4.3.0"
     },
     {
       "name": "lime",
       "type": "haxelib",
-      "version": null
+      "version": "8.1.1"
     },
     {
       "name": "newgrounds",
       "type": "haxelib",
-      "version": null
+      "version": "2.0.2"
     },
     {
       "name": "openfl",
       "type": "haxelib",
-      "version": null
+      "version": "9.3.2"
     }
   ]
 }
