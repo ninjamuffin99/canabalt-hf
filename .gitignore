@@ -1,3 +1,5 @@
 **/*.DS_STORE
 export/
 .haxelib/
+ngapi.txt
+ngenc.txt

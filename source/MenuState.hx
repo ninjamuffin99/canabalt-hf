@@ -1,5 +1,11 @@
 package;
 
+import haxe.macro.Compiler;
+import haxe.macro.ExprTools;
+import haxe.macro.Context;
+import io.newgrounds.objects.events.Outcome;
+import io.newgrounds.NGLite.LoginOutcome;
+import io.newgrounds.NG;
 import flixel.system.scaleModes.PixelPerfectScaleMode;
 import openfl.Assets;
 import flixel.FlxG;
@@ -21,6 +27,8 @@ class MenuState extends FlxState
         FlxG.mouse.visible = false;
         FlxG.sound.playMusic("assets/music/title" + Main.SOUND_EXT +  "");
 
+        initNG();
+
         _title = new FlxSprite(0, -FlxG.height, "assets/images/title.png");
         _title.velocity.y = 135;
         _title.drag.y = 60;
@@ -39,8 +47,49 @@ class MenuState extends FlxState
         super.create();
     }
 
+    function initNG()
+    {   
+
+        // somewhat gracefully fallback if there's no API keys stuff
+        var api:String = "";
+        var enc:String = "";
+
+        var assetList:Array<String> = Assets.list();
+        if (assetList.contains("assets/data/ngapi.txt"))
+            api = Assets.getText("assets/data/ngapi.txt");
+
+        if (assetList.contains("assets/data/ngenc.txt"))
+            enc = Assets.getText("assets/data/ngenc.txt");
+
+        if (api == "" || enc == "")
+            return;
+
+        NG.createAndCheckSession(api, true, null);
+        NG.core.setupEncryption(enc);
+
+        var notifString:String = "Connected to Newgrounds";
+
+        if (!NG.core.loggedIn)
+            notifString += ". Press N to login";
+
+        Notification.instance.genTexts(notifString);
+    }
+    
+
     override function update(elapsed:Float) {
         super.update(elapsed);
+
+        if (!NG.core?.loggedIn && FlxG.keys.justPressed.N)
+        {
+            NG.core.requestLogin((callback) -> {
+                var notifText:String = callback.getName();
+                if (callback.match(Outcome.SUCCESS))
+                {
+                    notifText = "Connected user: " + NG.core.user.name;
+                }
+                Notification.instance.genTexts(notifText, 3);
+            });
+        }
 
         if ((_title.velocity.y >= 0) && (_title2.alpha < 1))
             _title2.alpha += elapsed;
