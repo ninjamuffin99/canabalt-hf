@@ -3,8 +3,8 @@
 	xsi:schemaLocation="http://lime.software/project/1.0.2 http://lime.openfl.org/xsd/project-1.0.4.xsd">
 
 	<!-- _________________________ Application Settings _________________________ -->
-
 	<app title="hf-source" file="hf-source" main="Main" version="0.0.1" company="HaxeFlixel" />
+	<prebuild haxe="source/APIsetup.hx"/>
 
 	<!--The flixel preloader is not accurate in Chrome. You can use it regularly if you embed the swf into a html file
 		or you can set the actual size of your file manually at "FlxPreloaderBase-onUpdate-bytesTotal"-->
@@ -31,7 +31,7 @@
 
 	<set name="BUILD_DIR" value="export" />
 	<source path="source" />
-	<assets path="assets/data" embed="true"/>
+	<assets path="assets/data"/>
 	<assets path="assets/images" />
 	<assets path="assets/music/ogg" rename="assets/music" unless="web"/>
 	<assets path="assets/music/mp3" rename="assets/music" if="web"/>
@@ -44,7 +44,12 @@
 	<haxelib name="flixel" />
 	<haxelib name="newgrounds"/>
 	
+	<!-- <haxelib name="hxobfuscator" if="web" /> -->
+	<!-- <haxedef name="STRIP_CHARS" if="hxobfuscator" /> -->
 
+	<!-- <haxeflag name="-dce " /> -->
+
+	
 	<!--In case you want to use the addons package-->
 	<!--<haxelib name="flixel-addons" />-->
 

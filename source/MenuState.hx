@@ -49,23 +49,10 @@ class MenuState extends FlxState
 
     function initNG()
     {   
-
         // somewhat gracefully fallback if there's no API keys stuff
-        var api:String = "";
-        var enc:String = "";
 
-        var assetList:Array<String> = Assets.list();
-        if (assetList.contains("assets/data/ngapi.txt"))
-            api = Assets.getText("assets/data/ngapi.txt");
-
-        if (assetList.contains("assets/data/ngenc.txt"))
-            enc = Assets.getText("assets/data/ngenc.txt");
-
-        if (api == "" || enc == "")
-            return;
-
-        NG.createAndCheckSession(api, true, null);
-        NG.core.setupEncryption(enc);
+        NG.createAndCheckSession(API.ngapi, true, null);
+        NG.core.setupEncryption(API.ngenc);
 
         var notifString:String = "Connected to Newgrounds";
 

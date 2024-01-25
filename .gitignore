@@ -1,5 +1,4 @@
 **/*.DS_STORE
 export/
 .haxelib/
-ngapi.txt
-ngenc.txt
+API.hx
