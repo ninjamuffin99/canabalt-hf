@@ -1,5 +1,6 @@
 package;
 
+import flixel.FlxSprite;
 import openfl.display.Bitmap;
 import openfl.Lib;
 import openfl.display.Sprite;
@@ -29,6 +30,7 @@ class FlxSplash extends FlxState
     var _layers:Array<Sprite>;
     var _whiteSpr:Array<Sprite>;
     var _curLayerBatch:Int = 0;
+    var poweredBy:FlxSprite;
 
     override function create() {
         FlxG.cameras.bgColor = 0xff35353d;
@@ -69,6 +71,12 @@ class FlxSplash extends FlxState
         
         _curLayerBatch = _layers.length;
         layerCounter = 0;
+
+        poweredBy = new FlxSprite(0, 0);
+        poweredBy.loadGraphic("assets/images/poweredby.png");
+        poweredBy.x = FlxG.width / 2 - poweredBy.width / 2;
+        poweredBy.y = (FlxG.height / 2 - 32 * 2) + 32 * 3;
+        add(poweredBy);
         
         // drawMiddle(colGreen);
         // drawTopLeft(colYellow);
@@ -146,6 +154,8 @@ class FlxSplash extends FlxState
         {
             // FlxG.stage.removeChild(_sprite);
             
+            poweredBy.kill();
+
             for (spr in _whiteSpr)
                 FlxG.stage.removeChild(spr);
 
