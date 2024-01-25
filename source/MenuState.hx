@@ -1,8 +1,5 @@
 package;
 
-import haxe.macro.Compiler;
-import haxe.macro.ExprTools;
-import haxe.macro.Context;
 import io.newgrounds.objects.events.Outcome;
 import io.newgrounds.NGLite.LoginOutcome;
 import io.newgrounds.NG;
@@ -27,7 +24,8 @@ class MenuState extends FlxState
         FlxG.mouse.visible = false;
         FlxG.sound.playMusic("assets/music/title" + Main.SOUND_EXT +  "");
 
-        initNG();
+        if (!NG.core?.loggedIn) // not already logged in, maybe preloader got skipped!
+            initNG();
 
         _title = new FlxSprite(0, -FlxG.height, "assets/images/title.png");
         _title.velocity.y = 135;

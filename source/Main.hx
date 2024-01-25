@@ -25,6 +25,6 @@ class Main extends Sprite
 			Application.current.window.element.style.setProperty("image-rendering", "pixelated");
 		#end
 
-		addChild(new FlxGame(480, 160, MenuState, framerate, framerate));
+		addChild(new FlxGame(480, 160, FlxSplash, framerate, framerate, true));
 	}
 }

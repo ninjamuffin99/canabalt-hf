@@ -1,5 +1,12 @@
 package;
 
+import openfl.events.ProgressEvent;
+import openfl.net.URLRequest;
+import openfl.net.URLLoader;
+import io.newgrounds.Call.CallError;
+import io.newgrounds.objects.events.Outcome.TypedOutcome;
+import flixel.util.FlxTimer;
+import io.newgrounds.NG;
 import flixel.text.FlxText;
 import flixel.FlxObject;
 import flixel.effects.particles.FlxParticle;
@@ -155,6 +162,17 @@ class PlayState extends FlxState
 		FlxG.sound.play("assets/sounds/crumble" + Main.SOUND_EXT +  "");
 
 		_gameover = 0;
+
+
+		// Pings every 3 minutes to keep session alive
+		// Hashlink isn't threaded / async! it stutters funny!
+		if (NG.core.loggedIn)
+		{
+			new FlxTimer().start(180, _ -> {
+				if (NG.core.loggedIn)
+					NG.core.calls.gateway.ping().send();
+			}, 0);
+		}
 	}
 
 	
@@ -231,7 +249,37 @@ class PlayState extends FlxState
 			_distText.visible = false;
 			_distText2.visible = false;
 			_distText3.visible = false;
+
+			postScore(distance);
 		}
+		
+	}
+
+	function postScore(distance:Int)
+	{	
+		var urlLoad:URLLoader = new URLLoader(new URLRequest("https://aicon.ngfiles.com/1268/1268788_medium.webp?f1701991388"));
+		urlLoad.addEventListener('progress', (e:ProgressEvent) -> {
+			trace(e.bytesLoaded + " / " + e.bytesTotal);
+		});
+
+		if (!NG.core.loggedIn)
+			return;
+
+		if (NG.core.scoreBoards.state == Loaded)
+			NG.core.scoreBoards.get(12451).postScore(distance, _player.epitaph);
+		else
+		{
+			NG.core.scoreBoards.loadList(outcum -> {
+			switch (outcum)
+			{
+				case SUCCESS:
+					NG.core.scoreBoards.get(13451).postScore(distance, _player.epitaph);
+				case FAIL(error):
+					trace("Failed to load scoreboards: " + error);
+			}
+			});
+		}
+
 		
 	}
 }

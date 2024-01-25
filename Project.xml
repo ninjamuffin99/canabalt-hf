@@ -3,7 +3,7 @@
 	xsi:schemaLocation="http://lime.software/project/1.0.2 http://lime.openfl.org/xsd/project-1.0.4.xsd">
 
 	<!-- _________________________ Application Settings _________________________ -->
-	<app title="hf-source" file="hf-source" main="Main" version="0.0.1" company="HaxeFlixel" />
+	<app title="Canabalt" file="canabalt" main="Main" version="1.0.0" company="Finji" />
 	<prebuild haxe="source/APIsetup.hx"/>
 
 	<!--The flixel preloader is not accurate in Chrome. You can use it regularly if you embed the swf into a html file
