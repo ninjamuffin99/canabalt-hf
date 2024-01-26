@@ -47,22 +47,22 @@ class Notification extends FlxTypedGroup<FlxText>
         super.update(elapsed);
     }
 
-    public function genTexts(text:String, notifTime:Float = 1.2)
+    public function genTexts(text:String, notifTime:Float = 1.2, location:NotificationLocation = TOP_LEFT)
     {   
 
-        var txt:FlxText = new FlxText(8, 1, 0, text, 8);
+        var txt:FlxText = new FlxText(2, 1, 0, text, 8);
         txt.color = 0xFF35353d;
         // txt.alignment = CENTER;
         txt.scrollFactor.x = txt.scrollFactor.y = 0;
         add(txt);
 
-        var txt2:FlxText = new FlxText(7, 1, 0, text, 8);
+        var txt2:FlxText = new FlxText(1, 1, 0, text, 8);
         txt2.color = 0xFF35353d;
         // txt2.alignment = CENTER;
         txt2.scrollFactor.x = txt2.scrollFactor.y = 0;
         add(txt2);
 
-        var txt3:FlxText = new FlxText(8, 0, 0, text, 8);
+        var txt3:FlxText = new FlxText(2, 0, 0, text, 8);
         // txt3.alignment = CENTER;
         txt3.scrollFactor.x = txt3.scrollFactor.y = 0;
         add(txt3);
@@ -70,8 +70,29 @@ class Notification extends FlxTypedGroup<FlxText>
         for (i in members.length - 3...members.length)
         {   
             var txtMember:FlxText = members[i];
-            txtMember.y = -8 + txtMember.y;
-            FlxTween.tween(txtMember, {y: txtMember.y + 10}, notifTime, {ease: FlxEase.quartOut, onComplete: _ -> {
+            txtMember.y = switch(location)
+            {
+                case TOP_LEFT:
+                    -8 + txtMember.y;
+                case BOTTOM_LEFT:
+                    FlxG.height + txtMember.y;
+                case _:
+                    -8 + txtMember.y;
+            
+            }
+
+            var tweenLocation:Float = switch(location)
+            {
+                case TOP_LEFT:
+                    txtMember.y + 10;
+                case BOTTOM_LEFT:
+                    txtMember.y - 2 - txtMember.height;
+                case _:
+                    txtMember.y + 10;
+            
+            }
+
+            FlxTween.tween(txtMember, {y: tweenLocation}, notifTime, {ease: FlxEase.quartOut, onComplete: _ -> {
                 txtMember.kill();
                 remove(txtMember, true);
                 txtMember.destroy();
@@ -79,4 +100,10 @@ class Notification extends FlxTypedGroup<FlxText>
         }
         
     }
+}
+
+enum NotificationLocation
+{
+    TOP_LEFT;
+    BOTTOM_LEFT;
 }

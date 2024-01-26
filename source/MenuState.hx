@@ -1,5 +1,6 @@
 package;
 
+import flixel.util.FlxTimer;
 import io.newgrounds.objects.events.Outcome;
 import io.newgrounds.NGLite.LoginOutcome;
 import io.newgrounds.NG;
@@ -56,25 +57,48 @@ class MenuState extends FlxState
         var notifString:String = "Connected to Newgrounds";
 
         if (!NG.core.loggedIn)
-            notifString += ". Press N to login";
+        {
+            if (FlxG.onMobile)
+                notifString += ". Tap here to login";
+            else 
+                notifString += ". Press N to login";
+        }
 
-        Notification.instance.genTexts(notifString);
+        new FlxTimer().start(4, _ -> {
+            Notification.instance.genTexts(notifString, 4, BOTTOM_LEFT);
+        });
+        
     }
     
+    function attemptLogin()
+    {
+        NG.core.requestLogin((callback) -> {
+            var notifText:String = callback.getName();
+            if (callback.match(Outcome.SUCCESS))
+            {
+                notifText = "Connected user: " + NG.core.user.name;
+            }
+            Notification.instance.genTexts(notifText, 3, BOTTOM_LEFT);
+        });
+    }
 
     override function update(elapsed:Float) {
         super.update(elapsed);
 
         if (!NG.core?.loggedIn && FlxG.keys.justPressed.N)
         {
-            NG.core.requestLogin((callback) -> {
-                var notifText:String = callback.getName();
-                if (callback.match(Outcome.SUCCESS))
-                {
-                    notifText = "Connected user: " + NG.core.user.name;
-                }
-                Notification.instance.genTexts(notifText, 3);
-            });
+            attemptLogin();
+        }
+
+        if (FlxG.onMobile)
+        {   
+            var firstTouch = FlxG.touches.getFirst();
+            if (firstTouch?.justPressed)
+            {
+                if (firstTouch.y > FlxG.height - 20)
+                    attemptLogin();
+                
+            }
         }
 
         if ((_title.velocity.y == 0) && (_title2.alpha < 1))
@@ -85,6 +109,8 @@ class MenuState extends FlxState
 
         if (Controls.kb || Controls.ka)
         {
+            if (FlxG.onMobile && FlxG.touches.getFirst()?.justPressedPosition.y > FlxG.height - 20)
+                return;
             FlxG.switchState(new PlayState());
             FlxG.sound.playMusic("assets/music/run" + Main.SOUND_EXT +  "");
         }
