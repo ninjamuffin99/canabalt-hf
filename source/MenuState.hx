@@ -22,7 +22,8 @@ class MenuState extends FlxState
         FlxSprite.defaultAntialiasing = false;
         FlxG.mouse.load("assets/images/cursor.png", 2);
         FlxG.mouse.visible = false;
-        FlxG.sound.playMusic("assets/music/title" + Main.SOUND_EXT +  "");
+        FlxG.sound.playMusic("assets/music/title" + Main.SOUND_EXT +  "", 0);
+        FlxG.sound.music.fadeIn(1);
 
         if (!NG.core?.loggedIn) // not already logged in, maybe preloader got skipped!
             initNG();

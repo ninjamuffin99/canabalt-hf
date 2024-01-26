@@ -1,5 +1,6 @@
 package;
 
+import flixel.math.FlxMath;
 import flixel.tweens.FlxTween;
 import flixel.FlxSprite;
 import openfl.display.Bitmap;
@@ -164,7 +165,19 @@ class FlxSplash extends FlxState
         if (_logoTimer > 2)
         {
             // FlxG.stage.removeChild(_sprite);
+            var alphaTimer:Float = FlxMath.remapToRange(_logoTimer, 2, 2.5, 1, 0);
+            poweredBy.alpha = alphaTimer;
+
+            for (spr in _whiteSpr)
+                spr.alpha = alphaTimer;
+
+            for (spr in _layers)
+                spr.alpha = 0;
             
+        }
+
+        if (_logoTimer > 2.8)
+        {
             poweredBy.kill();
 
             for (spr in _whiteSpr)
@@ -186,6 +199,8 @@ class FlxSplash extends FlxState
     var colRed:Int = 0xFFf5274e;
     var colBlue:Int = 0xFF3641ff;
     var colLightBlue:Int = 0xFF04cdfb;
+
+    
 
     private function drawMiddle(col:Int, gfx:Graphics):Void
     {
@@ -249,5 +264,6 @@ class FlxSplash extends FlxState
         gfx.lineTo(50, 50);
         gfx.endFill();
     }
+
 
 }
