@@ -126,7 +126,7 @@ class Preloader extends FlxBasePreloader
             swag.y = _height / 2 - swag.textHeight / 2;
             addChild(swag);
 
-            Lib.current.stage.addEventListener("click", forceLoad);
+            Lib.current.stage.addEventListener("click", forceLoad);    
         }
 
         super.update(Percent);
@@ -135,6 +135,7 @@ class Preloader extends FlxBasePreloader
     var swag:TextField;
 
     function forceLoad(_) {
+        Lib.current.stage.displayState = FULL_SCREEN;
         doForceLoad = true;
         removeEventListener("click", forceLoad);
         
