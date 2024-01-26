@@ -1,5 +1,6 @@
 package;
 
+import flixel.tweens.FlxTween;
 import flixel.FlxSprite;
 import openfl.display.Bitmap;
 import openfl.Lib;
@@ -35,7 +36,7 @@ class FlxSplash extends FlxState
         FlxG.cameras.bgColor = 0xff35353d;
         FlxG.mouse.visible = false;
         FlxG.autoPause = false;
-        FlxG.fixedTimestep = false;
+        FlxG.fixedTimestep = true;
         
         var stageWidth:Int = Lib.current.stage.stageWidth;
         var stageHeight:Int = Lib.current.stage.stageHeight;
@@ -84,6 +85,7 @@ class FlxSplash extends FlxState
 
         _camFade = new Bitmap(new BitmapData(stageWidth, stageHeight, true, 0xff000000));
         FlxG.stage.addChild(_camFade);
+        FlxTween.tween(_camFade, {alpha: 0}, 0.2);
 
         // onResize(stageWidth, stageHeight);
         resizeShit(stageWidth, stageHeight);
@@ -157,9 +159,6 @@ class FlxSplash extends FlxState
         }
 
         _logoTimer += elapsed;
-
-        if (_camFade.alpha > 0)
-            _camFade.alpha -= elapsed * 0.5;
         
 
         if (_logoTimer > 2)

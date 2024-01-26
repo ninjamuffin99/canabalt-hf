@@ -1,4 +1,4 @@
-package;
+package source; // need source here since it's run from the main directory!
 
 import flixel.system.FlxBasePreloader;
 

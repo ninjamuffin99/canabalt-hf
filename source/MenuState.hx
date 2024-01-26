@@ -76,10 +76,7 @@ class MenuState extends FlxState
             });
         }
 
-        if ((_title.velocity.y >= 0) && (_title2.alpha < 1))
-            _title2.alpha += elapsed;
-
-        if((_title.velocity.y == 0) && (_title2.alpha < 1))
+        if ((_title.velocity.y == 0) && (_title2.alpha < 1))
             _title2.alpha += FlxG.elapsed;
 
         if((_title2.alpha >= 1) && (_title3.alpha < 1))
