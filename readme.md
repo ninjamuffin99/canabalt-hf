@@ -26,4 +26,4 @@
      
 
 # License
-Licensing info can be found in the [LICENSE](LICENSE) file.
+Licensing info can be found in the [LICENSE.md](LICENSE.md) file.
