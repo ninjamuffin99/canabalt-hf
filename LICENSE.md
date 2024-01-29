@@ -1,4 +1,11 @@
-MIT License
+# Canabalt 
+
+The Canabalt (HaxeFlixel port) source code is licensed under the MIT License: (http://opensource.org/licenses/MIT)
+
+All non-code related assets that exists in the `assets` submodule is copyright Finji, LLC and Danny Baronowsky, All trademarks and copyrights reserved. 
+You can view the `canabalt-assets` license here: (https://github.com/ninjamuffin99/canabalt-assets/blob/main/LICENSE.md)
+
+## MIT License
 
 Copyright (c) 2024 Finji, LLC
 
