@@ -23,3 +23,7 @@
 - [ ] Newgrounds Leaderboard API
     - proper in-game filtering
     - shows leaderboards in-game on click, and then saves that preference
+     
+
+# License
+Licensing info can be found in the [LICENSE](LICENSE) file.
