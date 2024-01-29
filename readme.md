@@ -3,6 +3,10 @@
 
 ## Setup
 
+
+0. Make sure when you clone, you clone the submodules to get the assets repo:
+    - `git clone --recurse-submodules https://github.com/ninjamuffin99/canabalt-hf.git`
+    - If you accidentally cloned without the `assets` submodule (aka didn't follow the step above), you can run `git submodule update --init --recursive` to get the assets in a foolproof way.
 1. Install Haxe from [Haxe.org](https://haxe.org), using 4.3.3 as of writing!
     - Recommend using [`haxeget`](https://github.com/l0go/haxeget)
 2. Install `hmm` (run `haxelib --global install hmm` and then `haxelib --global run hmm setup`)
