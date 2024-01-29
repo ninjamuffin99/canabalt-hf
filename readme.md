@@ -27,3 +27,9 @@
 
 # License
 Licensing info can be found in the [LICENSE.md](LICENSE.md) file.
+
+Please note that this does not cover the usage of the "Canabalt" branding in any software, resources, advertising or promotion, as this is protected by trademark law. See [LICENSE.md from the canabalt-assets](https://github.com/ninjamuffin99/canabalt-assets/blob/main/LICENSE.md) repo for more clarifications.
+
+Please note that the game's assets are covered by a separate licence. Please see the [ninjamuffin99/canabalt-assets](https://github.com/ninjamuffin99/canabalt-assets/blob/main/LICENSE.md) repository for clarifications.
+
+
