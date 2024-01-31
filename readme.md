@@ -16,7 +16,8 @@
 
 ## Todos
 - [ ] Preloader.as 
-    - Convert / just remake the preloader, with a button to load the title screen.
+    - Better looking PLAY button
+- [ ] NG api fixes for Safari
 
 ### other notes
 - [ ] Newgrounds Leaderboard API

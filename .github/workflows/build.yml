@@ -1,0 +1,29 @@
+name: Build Canabalt
+
+on: [push, workflow_dispatch]
+
+jobs: 
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v4
+            - uses: krdlab/setup-haxe@v1
+              with:
+                haxe-version: 4.3.3
+            - name: Install HMM
+              run: |
+                haxelib install hmm
+            - name: Download Haxelibs
+              run: |
+                haxelib run hmm install
+            - name: Build
+              run: |
+                haxelib run lime build html5 -debug
+            - name: Archive production artifacts
+              uses: actions/upload-artifact@v4
+              with:
+                name: canabalt-html5
+                path: |
+                    export/html5/bin/
+                
