@@ -135,9 +135,11 @@ class Preloader extends FlxBasePreloader
     var swag:TextField;
 
     function forceLoad(_) {
-        Lib.current.stage.displayState = FULL_SCREEN;
+        // only force fullscreen on mobile
+        if (FlxG.onMobile)
+            Lib.current.stage.displayState = FULL_SCREEN;
         doForceLoad = true;
-        removeEventListener("click", forceLoad);
+        Lib.current.stage.removeEventListener("click", forceLoad);
         
         haxe.Timer.delay(function() {
             onLoaded();
