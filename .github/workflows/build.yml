@@ -30,6 +30,13 @@ jobs:
                 name: canabalt-html5
                 path: |
                     export/html5/bin/
+            - uses: manleydev/butler-publish-itchio-action@master
+              env:
+                BUTLER_CREDENTIALS: ${{ secrets.BUTLER_CREDENTIALS }}
+                CHANNEL: html5
+                ITCH_GAME: canabalt-hf
+                ITCH_USER: ninja-muffin24
+                PACKAGE: export/html5/bin
             - name: Get current date
               id: date
               run: echo "::set-output name=date::$(date +'%Y-%m-%d')"

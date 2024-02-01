@@ -17,6 +17,7 @@
 ## Todos
 - [ ] Preloader.as 
     - Better looking PLAY button
+    - Loading Canabalt text
 - [ ] NG api fixes for Safari
 
 ### other notes
