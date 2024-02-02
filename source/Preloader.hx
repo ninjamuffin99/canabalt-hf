@@ -1,5 +1,7 @@
 package source;
 
+import openfl.events.MouseEvent;
+import openfl.display.SimpleButton;
 import haxe.Timer;
 import openfl.display.BitmapDataChannel;
 import flixel.math.FlxMath;
@@ -52,6 +54,7 @@ class Preloader extends FlxBasePreloader
 		_buffer.addChild(_bmpBar);
 
 		_text = new TextField();
+        _text.text = "Loading Canabalt...";
 		_text.defaultTextFormat = new TextFormat(FlxAssets.FONT_DEFAULT, 8, 0xFFFFFFFF);
 		_text.embedFonts = true;
 		_text.selectable = false;
@@ -100,9 +103,7 @@ class Preloader extends FlxBasePreloader
 	{
 		_bmpBar.scaleX = lerp(_bmpBar.scaleX, Percent, 0.1);
         prevPercentage = lerp(prevPercentage, Percent, 0.1);
-		_text.text = "Loading Canabalt";
-        //_text.width = _width;
-        //noiseOverlay.noise(Std.int(Percent * 1000), 0, 255, 7, true);
+
         genNoise(Percent * Percent);
 
         if (noise.alpha < 1)
@@ -113,37 +114,65 @@ class Preloader extends FlxBasePreloader
 			//_buffer.alpha = 1 - (Percent - 0.9) / 0.1;
 		}
 
-        if (Percent == 1)
-        {
-            swag = new TextField();
-            swag.defaultTextFormat = new TextFormat(FlxAssets.FONT_DEFAULT, 16, 0xFFFFFFFF);
-            swag.embedFonts = true;
-            swag.selectable = false;
-            swag.multiline = false;
-            swag.width = _width;
-            swag.text = "click anywhere, to begin your daring escape";
-            swag.x = _width / 2 - swag.textWidth / 2;
-            swag.y = _height / 2 - swag.textHeight / 2;
+        if (Percent == 1 && swag == null)
+        {   
+            swag = new Sprite();
+            swag.graphics.beginFill(0xFFFFFF, 1);
+            swag.graphics.drawRect(0, 0, 180, 50);
+            swag.graphics.endFill();
+            swag.graphics.beginFill(0x000000, 1);
+            swag.graphics.drawRect(4, 4, 172, 42);
+            swag.graphics.endFill();
+            swag.buttonMode = true;
+            swag.x = (stage.stageWidth - swag.width) / 2;
+            swag.y = (stage.stageHeight - swag.height) / 2;
+            swag.addEventListener(MouseEvent.MOUSE_DOWN, this.forceLoad);
+            swag.addEventListener(MouseEvent.MOUSE_OVER, this.hoverPlay);
+            swag.addEventListener(MouseEvent.MOUSE_OUT, this.hoverOut);
             addChild(swag);
 
-            Lib.current.stage.addEventListener("click", forceLoad);    
+            var play:TextField = new TextField();
+            play.text = "Play Canabalt";
+            play.defaultTextFormat = new TextFormat(FlxAssets.FONT_DEFAULT, 16, 0xFFFFFF);
+            play.embedFonts = true;
+            play.selectable = false;
+            play.multiline = false;
+            play.x = (swag.width - play.textWidth) / 2;
+            play.y = (swag.height - play.textHeight) / 2;
+            play.width = 150;
+            play.height = 50;
+            swag.addChild(play);
+ 
         }
 
         super.update(Percent);
 	}
 
-    var swag:TextField;
+    var swag:Sprite;
+
+    function hoverPlay(e:MouseEvent)
+    {
+        swag.y += 2;
+        swag.alpha = 0.8;
+    }
+
+    function hoverOut(e:MouseEvent)
+    {
+        swag.y -= 2;
+        swag.alpha = 1;
+    }
 
     function forceLoad(_) {
         // only force fullscreen on mobile
         if (FlxG.onMobile)
             Lib.current.stage.displayState = FULL_SCREEN;
         doForceLoad = true;
-        Lib.current.stage.removeEventListener("click", forceLoad);
+        Lib.application.window.fullscreen = true;
+        swag.removeEventListener(MouseEvent.CLICK, forceLoad);
         
-        haxe.Timer.delay(function() {
-            onLoaded();
-        }, 100); 
+        
+        onLoaded();
+        
     }
 
     function genNoise(Percent:Float):Void

@@ -19,7 +19,7 @@
     - Better looking PLAY button
     - Loading Canabalt text
 - [ ] NG api fixes for Safari
-- [ ] TEXT BLURRY
+- [ ] Gameover screen text -> FlxBitmapText
 - [ ] Firefox rollback glitch
 
 ### other notes

@@ -244,16 +244,17 @@ class PlayState extends FlxState
 			s.scrollFactor.set();
 			add(s);
 
-			var t:FlxText;
+			var t:FlxBitmapText;
 			var distance:Int = Std.int(_player.x / 10);
 			_epitaph = "You ran " + distance + "m before " + _player.epitaph;
 
-			t = new FlxText(0, h + 50, FlxG.width, _epitaph, 8);
-			t.alignment = CENTER;
+			t = new FlxBitmapText(0, h + 50, _epitaph, _font);
+			t.screenCenter(X);
 			t.scrollFactor.set();
 			add(t);
 
-			var t = new FlxText(0, FlxG.height - 15, FlxG.width - 3, "Jump to retry your daring escape", 8);
+			var t = new FlxBitmapText(FlxG.width - 200, FlxG.height - 15, "Jump to retry your daring escape", _font);
+			t.autoSize = false;
 			t.alignment = RIGHT;
 			t.scrollFactor.set();
 			add(t);
