@@ -18,6 +18,7 @@ class MenuState extends FlxState
 
     override public function create()
     {   
+        FlxG.game.focusLostFramerate = 60;
         FlxG.fixedTimestep = false;
         FlxG.camera.bgColor = 0xff35353d;
         FlxSprite.defaultAntialiasing = false;

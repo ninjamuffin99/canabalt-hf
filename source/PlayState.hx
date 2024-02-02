@@ -253,10 +253,12 @@ class PlayState extends FlxState
 			t.scrollFactor.set();
 			add(t);
 
-			var t = new FlxBitmapText(FlxG.width - 200, FlxG.height - 15, "Jump to retry your daring escape", _font);
-			t.autoSize = false;
+			var t = new FlxBitmapText(FlxG.width - 200, FlxG.height - 15, "Jump to retry your daring escape.", _font);
+			t.autoSize = true;
 			t.alignment = RIGHT;
+			t.wordWrap = false;
 			t.scrollFactor.set();
+			t.x = FlxG.width - t.width - 4;
 			add(t);
 
 			_distText.visible = false;

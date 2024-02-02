@@ -170,8 +170,8 @@ class Preloader extends FlxBasePreloader
         Lib.application.window.fullscreen = true;
         swag.removeEventListener(MouseEvent.CLICK, forceLoad);
         
+        Timer.delay(() -> {onLoaded();}, 600);
         
-        onLoaded();
         
     }
 
