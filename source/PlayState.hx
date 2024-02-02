@@ -1,5 +1,7 @@
 package;
 
+import flixel.ui.FlxSpriteButton;
+import flixel.ui.FlxButton;
 import flixel.text.FlxBitmapText;
 import openfl.Assets;
 import flixel.graphics.frames.FlxBitmapFont;
@@ -265,6 +267,21 @@ class PlayState extends FlxState
 			_distText2.visible = false;
 			_distText3.visible = false;
 
+			var support:FlxButton = new FlxButton(4, FlxG.height - 15, "", () -> {
+				FlxG.openURL("https://finji.co");
+			});
+			support.scrollFactor.set();
+			support.loadGraphic("assets/images/panel_support_finji.png");
+			add(support);
+
+			var github:FlxButton = new FlxButton(support.x + support.width + 2, FlxG.height - 14, "", () -> {
+				FlxG.openURL("https://github.com/ninjamuffin99/canabalt-hf");
+			});
+			github.scrollFactor.set();
+			github.loadGraphic("assets/images/panel_github.png");
+
+			add(github);
+
 			postScore(distance);
 		}
 		
@@ -272,11 +289,6 @@ class PlayState extends FlxState
 
 	function postScore(distance:Int)
 	{	
-		var urlLoad:URLLoader = new URLLoader(new URLRequest("https://aicon.ngfiles.com/1268/1268788_medium.webp?f1701991388"));
-		urlLoad.addEventListener('progress', (e:ProgressEvent) -> {
-			trace(e.bytesLoaded + " / " + e.bytesTotal);
-		});
-
 		if (!NG.core.loggedIn)
 			return;
 
