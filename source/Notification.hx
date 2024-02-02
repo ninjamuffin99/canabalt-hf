@@ -1,13 +1,16 @@
 package;
 
+import flixel.util.FlxColor;
+import openfl.utils.Assets;
+import flixel.graphics.frames.FlxBitmapFont;
 import flixel.tweens.FlxEase;
 import flixel.group.FlxGroup;
 import flixel.tweens.FlxTween;
 import flixel.FlxG;
-import flixel.text.FlxText;
+import flixel.text.FlxBitmapText;
 import flixel.group.FlxGroup.FlxTypedGroup;
 
-class Notification extends FlxTypedGroup<FlxText>
+class Notification extends FlxTypedGroup<FlxBitmapText>
 {
     public static var instance(get, default):Notification;
 
@@ -31,9 +34,13 @@ class Notification extends FlxTypedGroup<FlxText>
         return instance;
     }
 
+    var font:FlxBitmapFont;
+
     public function new()
     {
         super();
+
+        font = FlxBitmapFont.fromAngelCode("assets/data/nokia/nokia.png", Xml.parse(Assets.getText("assets/data/nokia/nokia.fnt")));
     }
 
     override function update(elapsed:Float) {
@@ -49,27 +56,23 @@ class Notification extends FlxTypedGroup<FlxText>
 
     public function genTexts(text:String, notifTime:Float = 1.2, location:NotificationLocation = TOP_LEFT)
     {   
-
-        var txt:FlxText = new FlxText(2, 1, 0, text, 8);
+        var txt:FlxBitmapText = new FlxBitmapText(2, 1, text, font);
         txt.color = 0xFF35353d;
-        // txt.alignment = CENTER;
         txt.scrollFactor.x = txt.scrollFactor.y = 0;
         add(txt);
 
-        var txt2:FlxText = new FlxText(1, 1, 0, text, 8);
+        var txt2:FlxBitmapText = new FlxBitmapText(1, 1, text, font);
         txt2.color = 0xFF35353d;
-        // txt2.alignment = CENTER;
         txt2.scrollFactor.x = txt2.scrollFactor.y = 0;
         add(txt2);
 
-        var txt3:FlxText = new FlxText(2, 0, 0, text, 8);
-        // txt3.alignment = CENTER;
+        var txt3:FlxBitmapText = new FlxBitmapText(2, 0, text, font);
         txt3.scrollFactor.x = txt3.scrollFactor.y = 0;
         add(txt3);
 
         for (i in members.length - 3...members.length)
         {   
-            var txtMember:FlxText = members[i];
+            var txtMember:FlxBitmapText = members[i];
             txtMember.y = switch(location)
             {
                 case TOP_LEFT:

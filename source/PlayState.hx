@@ -1,5 +1,8 @@
 package;
 
+import flixel.text.FlxBitmapText;
+import openfl.Assets;
+import flixel.graphics.frames.FlxBitmapFont;
 import openfl.events.ProgressEvent;
 import openfl.net.URLRequest;
 import openfl.net.URLLoader;
@@ -21,9 +24,10 @@ class PlayState extends FlxState
 	private var _player:Player;
 	private var _focus:FlxObject;
 
-	private var _distText:FlxText;
-	private var _distText2:FlxText;
-	private var _distText3:FlxText;
+	private var _font:FlxBitmapFont;
+	private var _distText:FlxBitmapText;
+	private var _distText2:FlxBitmapText;
+	private var _distText3:FlxBitmapText;
 
 	private var _shardsA:FlxTypedGroup<Shard>;
 	private var _shardsB:FlxTypedGroup<Shard>;
@@ -36,6 +40,8 @@ class PlayState extends FlxState
 	override public function create()
 	{
 		super.create();
+
+		_font = FlxBitmapFont.fromAngelCode("assets/data/nokia/nokia.png", Xml.parse(Assets.getText("assets/data/nokia/nokia.fnt")));
 
 		FlxG.mouse.visible = false;
 
@@ -141,21 +147,27 @@ class PlayState extends FlxState
 		add(girder2);
 
 
-		_distText2 = new FlxText(FlxG.width - 80, 1, 80, "", 8);
+		_distText2 = new FlxBitmapText(FlxG.width - 4, 1, "", _font);
 		_distText2.color = 0xFF35353d;
+		_distText2.autoSize = false;
 		_distText2.alignment = RIGHT;
 		_distText2.scrollFactor.set();
+		_distText2.width = 80;
 		add(_distText2);
 
-		_distText3 = new FlxText(FlxG.width - 79, 1, 80, "", 8);
+		_distText3 = new FlxBitmapText(FlxG.width - 3, 1, "", _font);
 		_distText3.color = 0xFF35353d;
+		_distText3.autoSize = false;
 		_distText3.alignment = RIGHT;
 		_distText3.scrollFactor.set();
+		_distText3.width = 80;
 		add(_distText3);
 
-		_distText = new FlxText(FlxG.width - 80, 0, 80, "", 8);
+		_distText = new FlxBitmapText(FlxG.width - 4, 0, "", _font);
+		_distText.autoSize = false;
 		_distText.alignment = RIGHT;
 		_distText.scrollFactor.set();
+		_distText.width = 80;
 		add(_distText);
 
 		FlxG.camera.shake(0.01, 3, null, true, Y);

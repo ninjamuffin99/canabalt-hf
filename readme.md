@@ -19,6 +19,8 @@
     - Better looking PLAY button
     - Loading Canabalt text
 - [ ] NG api fixes for Safari
+- [ ] TEXT BLURRY
+- [ ] Firefox rollback glitch
 
 ### other notes
 - [ ] Newgrounds Leaderboard API
