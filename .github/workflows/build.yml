@@ -2,9 +2,68 @@ name: Build Canabalt
 
 on: [push, workflow_dispatch]
 
-jobs: 
-    build:
+env:
+  BRANCH_NAME: ${{ github.head_ref || github.ref_name }} 
+
+jobs:
+    create-latest:
         runs-on: ubuntu-latest
+        steps:
+          - name: Github Releases Upload
+            uses: marvinpinto/action-automatic-releases@v1.2.1
+            with:
+              repo_token: "${{ github.token }}"
+              automatic_release_tag: "latest"
+              prerelease: true
+              title: "Canabalt Bleeding edge"
+    download_haxe:
+        strategy:
+          matrix:
+            os: [ubuntu-latest, windows-latest]
+        runs-on: ${{ matrix.os }}
+        steps:
+          - name: Checkout repository
+            uses: actions/checkout@v4
+            with:
+              submodules: recursive
+              token: ${{ secrets.GH_TOKEN }}
+            
+          - uses: krdlab/setup-haxe@v1
+            with:
+              haxe-version: 4.3.3
+
+          - name: Retrieve Haxelib actions cache
+            uses: actions/cache@v4
+            with:
+              path: .haxelib
+              key: haxelib-${{ hashFiles('hmm.json') }}-${{ env.BRANCH_NAME }}
+          - name: Install HMM
+            run: |
+                haxelib install hmm --quiet
+          - name: Download Haxelibs
+            run: |
+              haxelib run hmm install --quiet
+    build:
+        needs: download_haxe
+        env:
+          BUTLER_API_KEY: ${{ secrets.BUTLER_CREDENTIALS }}
+        strategy:
+          fail-fast: false
+          matrix:
+              include:
+                  - os: ubuntu-latest
+                    target: html5
+                    butler: linux
+                  - os: ubuntu-latest
+                    target: linux
+                    butler: linux
+                  - os: windows-latest
+                    target: windows
+                    butler: windows
+                  - os: macos-latest
+                    target: mac
+                    butler: darwin
+        runs-on: ${{ matrix.os }}
         steps:
             - name: Checkout repository
               uses: actions/checkout@v4
@@ -15,45 +74,49 @@ jobs:
             - uses: krdlab/setup-haxe@v1
               with:
                 haxe-version: 4.3.3
-            - name: Install HMM
-              run: |
-                haxelib install hmm --quiet
-            - name: Download Haxelibs
-              run: |
-                haxelib run hmm install --quiet
+            - name: Get haxelibs
+              uses: actions/cache/restore@v3
+              with:
+                path: .haxelib
+                key: haxelib-${{ hashFiles('hmm.json') }}-${{ env.BRANCH_NAME }}
+            - name: Restore build cache
+              if: matrix.target != 'html5'
+              uses: actions/cache@v4
+              with:
+                path: export/*/obj/
+                key: cpp-${{matrix.target}}-${{ env.BRANCH_NAME }}
+            - run: haxelib run hmm install --quiet
             - name: Build
               run: |
-                haxelib run lime build html5 -debug -DNG_API=${{ secrets.NG_API }} -DNG_ENC=${{ secrets.NG_ENC }} 
-            - name: Archive production artifacts
-              uses: actions/upload-artifact@v4
-              with:
-                name: canabalt-html5
-                path: |
-                    export/html5/bin/
-            - uses: manleydev/butler-publish-itchio-action@master
-              env:
-                BUTLER_CREDENTIALS: ${{ secrets.BUTLER_CREDENTIALS }}
-                CHANNEL: html5
-                ITCH_GAME: canabalt-hf
-                ITCH_USER: ninja-muffin24
-                PACKAGE: export/html5/bin
+                haxelib run lime build ${{matrix.target}} -debug -DNG_API=${{ secrets.NG_API }} -DNG_ENC=${{ secrets.NG_ENC }}
+            - name: 7Zip Linux
+              if: matrix.os == 'ubuntu-latest'
+              run: |
+                sudo apt update
+                sudo apt install p7zip-full p7zip-rar
+            - name: Install and extract butler
+              run: |
+                curl -L -o butler.zip https://broth.itch.ovh/butler/${{matrix.butler}}-amd64/LATEST/archive/default
+                7z e butler.zip
+            - run: chmod +x butler
+              if: matrix.os == 'ubuntu-latest'
+            - name: Login to itch.io
+              run: |
+                ./butler login
+                ./butler -V
+            - name: Push to itch.io
+              run: |
+                ./butler push export/*/bin ninja-muffin24/canabalt-hf:${{ matrix.target }}
             - name: Get current date
               id: date
               run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
             - uses: vimtor/action-zip@v1.1
               with:
-                files: export/html5/bin/
-                dest: canabalt-html5-${{ steps.date.outputs.date }}.zip
-            - name: Github Releases Upload
-              uses: marvinpinto/action-automatic-releases@v1.2.1
-              with:
-                repo_token: "${{ github.token }}"
-                automatic_release_tag: "latest"
-                prerelease: true
-                title: "Canabalt Bleeding edge"
-                files: |
-                    canabalt-html5-${{ steps.date.outputs.date }}.zip
-                    LICENSE.md
-                    assets/LICENSE.md
+                files: export/*/bin/
+                dest: canabalt-${{matrix.target}}-${{ steps.date.outputs.date }}.zip
+            - name: Upload build
+              env: 
+                  GITHUB_TOKEN: ${{ github.token }}
+              run: gh release upload latest canabalt-${{matrix.target}}-${{ steps.date.outputs.date }}.zip --clobber
                 
                 

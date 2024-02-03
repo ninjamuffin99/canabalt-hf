@@ -1,6 +1,8 @@
 # Canabalt
 ### A HaxeFlixel port of CANABALT, by Adam 'Atomic' Saltsman, ported by Cameron 'ninjamuffin99' Taylor
 
+
+
 ## Setup
 
 
@@ -15,12 +17,8 @@
 
 
 ## Todos
-- [ ] Preloader.as 
-    - Better looking PLAY button
-    - Loading Canabalt text
 - [ ] NG api fixes for Safari
-- [ ] Gameover screen text -> FlxBitmapText
-- [ ] Firefox rollback glitch
+- [ ] Firefox rollback glitch (needs testing)
 
 ### other notes
 - [ ] Newgrounds Leaderboard API
