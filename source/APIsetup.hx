@@ -1,12 +1,15 @@
 package source;
 
+import haxe.macro.Compiler;
+
 /**
  * Rename this file to API.hx to fix compile!
  */
 class APIsetup
-{
-    public static inline var ngapi:String = "";
-    public static inline var ngenc:String = "";
+{   
+    // also supports NG_API and NG_ENC -D defines (used for github action)
+    public static inline var ngapi:String = #if NG_API Compiler.getDefine("NG_API") #else "" #end;
+    public static inline var ngenc:String = #if NG_ENC Compiler.getDefine("NG_ENC") #else "" #end;
     static function main()
     {
         #if sys

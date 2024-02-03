@@ -1,5 +1,6 @@
 package;
 
+import lime.app.Application;
 import flixel.ui.FlxSpriteButton;
 import flixel.ui.FlxButton;
 import flixel.text.FlxBitmapText;
@@ -213,6 +214,8 @@ class PlayState extends FlxState
 		FlxG.collide(_seqB.blocks, _shardsB);
 
 		var hud:String = Std.int(_player.x / 10) + "m";
+
+		Application.current.window.title = "Canabalt - " + hud;
 
 		_distText.text = hud;
 		_distText2.text = hud;
