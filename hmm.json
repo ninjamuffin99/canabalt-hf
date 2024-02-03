@@ -3,7 +3,7 @@
     {
       "name": "flixel",
       "type": "haxelib",
-      "version": "5.5.0"
+      "version": "5.6.0"
     },
     {
       "name": "hscript",
@@ -12,8 +12,10 @@
     },
     {
       "name": "hxcpp",
-      "type": "haxelib",
-      "version": "4.3.2"
+      "type": "git",
+      "dir": null,
+      "ref": "v4.3.19",
+      "url": "https://github.com/HaxeFoundation/hxcpp"
     },
     {
       "name": "lime",

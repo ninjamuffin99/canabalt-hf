@@ -199,6 +199,11 @@ class Preloader extends FlxBasePreloader
     var doForceLoad:Bool = false;
     override public function onLoaded() {
         //super.onLoaded();
+
+        #if desktop
+        doForceLoad = true;
+        #end
+        
         if (doForceLoad)
         {
             super.onLoaded();

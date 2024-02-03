@@ -1,5 +1,6 @@
 package;
 
+import lime.app.Application;
 import flixel.system.debug.watch.Tracker.TrackerProfile;
 import flixel.FlxG;
 import flixel.FlxSprite;
@@ -53,10 +54,9 @@ class Player extends FlxSprite {
 
 		epitaph = "falling to your death.";
 
-        FlxG.debugger.addTrackerProfile(new TrackerProfile(Player, ["_jump", "jumpLimit", "_onFloor", "_stumble", "_my", "touching"]));
-        FlxG.debugger.track(this);
-        FlxG.debugger.addTrackerProfile(new TrackerProfile(Controls, ["ka", "kb"]));
-        FlxG.debugger.track(Controls);
+		animation.callback = function(_, _, _):Void {
+			Application.current.window.setIcon(updateFramePixels().image);
+		}
 	}
 
 	override function update(elapsed:Float) {

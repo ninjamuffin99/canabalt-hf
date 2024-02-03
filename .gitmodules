@@ -1,3 +1,4 @@
 [submodule "assets"]
 	path = assets
 	url = https://github.com/ninjamuffin99/canabalt-assets
+	branch = main
