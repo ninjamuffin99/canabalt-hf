@@ -107,6 +107,7 @@ jobs:
             - name: Push to itch.io
               run: |
                 ./butler push export/*/bin ninja-muffin24/canabalt-hf:${{ matrix.target }}
+              shell: bash
             - name: Get current date
               id: date
               run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
