@@ -91,7 +91,7 @@ jobs:
           haxelib run lime build ${{matrix.target}} -debug -DNG_API=${{ secrets.NG_API }} -DNG_ENC=${{ secrets.NG_ENC }}
       - name: Obfuscate the Javascript
         if: matrix.target == 'html5'
-        uses: ninjamuffin99/js-obfuscate-action@main
+        uses: ninjamuffin99/js-obfuscate-action@master
         with:
           path: export/html5/bin/canabalt.js
       - name: 7Zip Linux
