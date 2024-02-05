@@ -61,7 +61,7 @@ jobs:
             target: windows
             butler: windows
           - os: macos-latest
-            target: mac
+            target: macos # needs to be macos! not just mac !
             butler: darwin
     runs-on: ${{ matrix.os }}
     steps:
@@ -118,9 +118,9 @@ jobs:
         run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
       - uses: vimtor/action-zip@v1.1
         with:
-          files: export/*/bin/
-          dest: ${{ github.workspace }}/canabalt-${{matrix.target}}-${{ steps.date.outputs.date }}.zip
+          files: export/${{matrix.target}}/bin/
+          dest: canabalt-${{matrix.target}}-${{ steps.date.outputs.date }}.zip
       - name: Upload build
         env:
           GITHUB_TOKEN: ${{ github.token }}
-        run: gh release upload latest ${{ github.workspace }}/canabalt-${{matrix.target}}-${{ steps.date.outputs.date }}.zip --clobber
+        run: gh release upload latest canabalt-${{matrix.target}}-${{ steps.date.outputs.date }}.zip --clobber
