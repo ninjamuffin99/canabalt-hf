@@ -119,8 +119,8 @@ jobs:
       - uses: vimtor/action-zip@v1.1
         with:
           files: export/*/bin/
-          dest: canabalt-${{matrix.target}}-${{ steps.date.outputs.date }}.zip
+          dest: ${{ github.workspace }}/canabalt-${{matrix.target}}-${{ steps.date.outputs.date }}.zip
       - name: Upload build
         env:
           GITHUB_TOKEN: ${{ github.token }}
-        run: gh release upload latest canabalt-${{matrix.target}}-${{ steps.date.outputs.date }}.zip --clobber
+        run: gh release upload latest ${{ github.workspace }}/canabalt-${{matrix.target}}-${{ steps.date.outputs.date }}.zip --clobber
