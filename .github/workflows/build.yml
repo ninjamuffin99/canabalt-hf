@@ -120,7 +120,6 @@ jobs:
         with:
           files: export/*/bin/
           dest: canabalt-${{matrix.target}}-${{ steps.date.outputs.date }}.zip
-        shell: bash
       - name: Upload build
         env:
           GITHUB_TOKEN: ${{ github.token }}
