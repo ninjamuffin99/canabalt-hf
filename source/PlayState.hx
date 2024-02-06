@@ -22,8 +22,7 @@ import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxState;
 
-class PlayState extends FlxState
-{
+class PlayState extends FlxState {
 	private var _player:Player;
 	private var _focus:FlxObject;
 
@@ -40,15 +39,17 @@ class PlayState extends FlxState
 	private var _gameover:Float;
 	private var _epitaph:String;
 
-	override public function create()
-	{
+	// used for overlap checks with mouse
+	private var buttons:FlxGroup;
+
+	override public function create() {
 		super.create();
 
 		_font = FlxBitmapFont.fromAngelCode("assets/data/nokia/nokia.png", Xml.parse(Assets.getText("assets/data/nokia/nokia.fnt")));
 
 		FlxG.mouse.visible = false;
 
-		var s:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, FlxG.height,0xffb0b0bf);
+		var s:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, 0xffb0b0bf);
 		s.scrollFactor.set();
 		add(s);
 
@@ -56,11 +57,9 @@ class PlayState extends FlxState
 		mothership.scrollFactor.set(0.01, 0);
 		add(mothership);
 
-		
 		_smoke = new FlxTypedGroup<FlxEmitter>();
-		
-		for (i in 0...5)
-		{	
+
+		for (i in 0...5) {
 			var e:FlxEmitter = new FlxEmitter(0, 0, 50);
 			e.launchMode = SQUARE;
 			e.frequency = 0.15;
@@ -76,13 +75,12 @@ class PlayState extends FlxState
 
 			// e.angularVelocity.set(-18, 0);
 			e.loadParticles("assets/images/smoke.png", 50, 0);
-			
+
 			for (p in e.members)
 				p.scrollFactor.set(0.1, 0.05);
 
 			add(e);
 			_smoke.add(e);
-
 		}
 
 		add(new Walker(_smoke));
@@ -100,7 +98,7 @@ class PlayState extends FlxState
 		mid.scrollFactor.set(0.4, 0.2);
 		add(mid);
 
-		var mid2:BG =  new BG("assets/images/midground2.png", 480, 42);
+		var mid2:BG = new BG("assets/images/midground2.png", 480, 42);
 		mid2.scrollFactor.set(0.4, 0.2);
 		add(mid2);
 
@@ -113,18 +111,16 @@ class PlayState extends FlxState
 		FlxG.camera.setScrollBounds(0, null, 0, 320);
 		FlxG.camera.followLead.set(1.5, 0);
 
-		_player = new Player(0, 80-14);
+		_player = new Player(0, 80 - 14);
 		// Infinite level sequence objects
 		var numShards:Int = 50;
 
 		_shardsA = new FlxTypedGroup<Shard>();
 		_shardsB = new FlxTypedGroup<Shard>();
-		for (i in 0...numShards)
-		{
+		for (i in 0...numShards) {
 			_shardsA.add(new Shard(_shardsA));
 			_shardsB.add(new Shard(_shardsB));
 		}
-			
 
 		Sequence.curIndex = 0;
 		Sequence.nextIndex = FlxG.random.int(3, 6);
@@ -148,7 +144,6 @@ class PlayState extends FlxState
 		var girder2:BG = new BG("assets/images/girder2.png", 3000, 0, true);
 		girder2.scrollFactor.set(4, 1.5);
 		add(girder2);
-
 
 		_distText2 = new FlxBitmapText(FlxG.width - 4, 1, "", _font);
 		_distText2.color = 0xFF35353d;
@@ -174,31 +169,34 @@ class PlayState extends FlxState
 		add(_distText);
 
 		FlxG.camera.shake(0.01, 3, null, true, Y);
-		FlxG.sound.play("assets/sounds/crumble" + Main.SOUND_EXT +  "");
+		FlxG.sound.play("assets/sounds/crumble" + Main.SOUND_EXT + "");
 
 		_gameover = 0;
 
-
 		// Pings every 3 minutes to keep session alive
 		// Hashlink isn't threaded / async! it stutters funny!
-		if (NG.core.loggedIn)
-		{
+		if (NG.core.loggedIn) {
 			new FlxTimer().start(180, _ -> {
 				if (NG.core.loggedIn)
 					NG.core.calls.gateway.ping().send();
 			}, 0);
 		}
+
+		buttons = new FlxGroup();
 	}
 
-	
-	override public function update(elapsed:Float)
-	{	
-		if (_gameover > 0) _gameover += elapsed;
-		if ((_gameover > 0.35) && (Controls.ka || Controls.kb))
+	override public function update(elapsed:Float) {
+		if (_gameover > 0)
+			_gameover += elapsed;
+		if ((_gameover > 0.35) && (Controls.ka || Controls.kb) && !FlxG.mouse.overlaps(buttons))
 			FlxG.switchState(new PlayState());
 
-		FlxG.worldBounds.set(camera.scroll.x - FlxG.width, camera.scroll.y - FlxG.height, camera.width + FlxG.width * 2, camera.height + FlxG.height * 2);
-		
+		FlxG.worldBounds.set(camera.scroll.x
+			- FlxG.width, camera.scroll.y
+			- FlxG.height, camera.width
+			+ FlxG.width * 2, camera.height
+			+ FlxG.height * 2);
+
 		var wasDead:Bool = !_player.alive;
 		super.update(elapsed);
 
@@ -221,14 +219,10 @@ class PlayState extends FlxState
 		_distText2.text = hud;
 		_distText3.text = hud;
 
-
-		if (!_player.alive && !wasDead)
-		{	
-			if (!FlxG.onMobile)
-			{
+		if (!_player.alive && !wasDead) {
+			if (!FlxG.onMobile) {
 				FlxG.mouse.visible = true;
 			}
-			
 
 			_gameover = 0.01;
 			var h:Int = 42;
@@ -276,6 +270,7 @@ class PlayState extends FlxState
 			support.scrollFactor.set();
 			support.loadGraphic("assets/images/panel_support_finji.png");
 			add(support);
+			buttons.add(support);
 
 			var github:FlxButton = new FlxButton(support.x + support.width + 2, FlxG.height - 14, "", () -> {
 				FlxG.openURL("https://github.com/ninjamuffin99/canabalt-hf");
@@ -284,32 +279,27 @@ class PlayState extends FlxState
 			github.loadGraphic("assets/images/panel_github.png");
 
 			add(github);
+			buttons.add(github);
 
 			postScore(distance);
 		}
-		
 	}
 
-	function postScore(distance:Int)
-	{	
+	function postScore(distance:Int) {
 		if (!NG.core.loggedIn)
 			return;
 
 		if (NG.core.scoreBoards.state == Loaded)
 			NG.core.scoreBoards.get(12451).postScore(distance, _player.epitaph);
-		else
-		{
+		else {
 			NG.core.scoreBoards.loadList(outcum -> {
-			switch (outcum)
-			{
-				case SUCCESS:
-					NG.core.scoreBoards.get(13451).postScore(distance, _player.epitaph);
-				case FAIL(error):
-					trace("Failed to load scoreboards: " + error);
-			}
+				switch (outcum) {
+					case SUCCESS:
+						NG.core.scoreBoards.get(13451).postScore(distance, _player.epitaph);
+					case FAIL(error):
+						trace("Failed to load scoreboards: " + error);
+				}
 			});
 		}
-
-		
 	}
 }

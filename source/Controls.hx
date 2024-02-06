@@ -6,83 +6,80 @@ import flixel.FlxG;
  * Old AS3 flixel had `FlxG.kb` and `FlxG.ka` for keyboard A and B.
  * This is a bit of a "port" of that convention, without touching FlxG!
  */
-class Controls
-{
-    public static var ka(get, default):Bool = false;
-    public static var kb(get, default):Bool = false;
-    public static var kaP(get, default):Bool = false;
-    public static var kbP(get, default):Bool = false;
-    public static var kbR(get, default):Bool = false;
-    public static var kaR(get, default):Bool = false;
+class Controls {
+	public static var ka(get, default):Bool = false;
+	public static var kb(get, default):Bool = false;
+	public static var kaP(get, default):Bool = false;
+	public static var kbP(get, default):Bool = false;
+	public static var kbR(get, default):Bool = false;
+	public static var kaR(get, default):Bool = false;
 
-    static function get_ka():Bool
-    {
-        var didPress:Bool = FlxG.keys.anyPressed(["X", "TAB"]);
+	static function get_ka():Bool {
+		var didPress:Bool = FlxG.keys.anyPressed(["X", "TAB"]);
 
-        if (FlxG.gamepads.lastActive != null)
-            didPress = didPress || FlxG.gamepads.lastActive.anyPressed(["B"]);
+		if (FlxG.gamepads.lastActive != null)
+			didPress = didPress || FlxG.gamepads.lastActive.anyPressed(["B"]);
 
-        if (FlxG.touches.list != null)
-            didPress = didPress || FlxG.touches.getFirst()?.pressed;
+		if (FlxG.touches.list != null)
+			didPress = didPress || FlxG.touches.getFirst()?.pressed;
 
-        return didPress;
-    }
+		didPress = didPress || FlxG.mouse.pressed;
 
-    static function get_kb():Bool
-    {
-        var didPress:Bool = FlxG.keys.anyPressed(["SPACE", "C"]);
+		return didPress;
+	}
 
-        if (FlxG.gamepads.lastActive != null)
-            didPress = didPress || FlxG.gamepads.lastActive.anyPressed(["A"]);
+	static function get_kb():Bool {
+		var didPress:Bool = FlxG.keys.anyPressed(["SPACE", "C"]);
 
-        return didPress;
-    }
+		if (FlxG.gamepads.lastActive != null)
+			didPress = didPress || FlxG.gamepads.lastActive.anyPressed(["A"]);
 
-    static function get_kaP():Bool
-    {
-        var didPress:Bool = FlxG.keys.anyJustPressed(["X", "TAB"]);
+		return didPress;
+	}
 
-        if (FlxG.gamepads.lastActive != null)
-            didPress = didPress || FlxG.gamepads.lastActive.anyJustPressed(["B"]);
+	static function get_kaP():Bool {
+		var didPress:Bool = FlxG.keys.anyJustPressed(["X", "TAB"]);
 
-        if (FlxG.touches.list != null)
-            didPress = didPress || FlxG.touches.getFirst()?.justPressed;
+		if (FlxG.gamepads.lastActive != null)
+			didPress = didPress || FlxG.gamepads.lastActive.anyJustPressed(["B"]);
 
-        return didPress;
-    }
+		if (FlxG.touches.list != null)
+			didPress = didPress || FlxG.touches.getFirst()?.justPressed;
 
-    static function get_kbP():Bool
-    {
-        var didPress:Bool = FlxG.keys.anyJustPressed(["SPACE", "C"]);
+		didPress = didPress || FlxG.mouse.justPressed;
 
-        if (FlxG.gamepads.lastActive != null)
-            didPress = didPress || FlxG.gamepads.lastActive.anyJustPressed(["A"]);
+		return didPress;
+	}
 
-        return didPress;
-    }
+	static function get_kbP():Bool {
+		var didPress:Bool = FlxG.keys.anyJustPressed(["SPACE", "C"]);
 
-    static function get_kaR():Bool
-    {
-        var didPress:Bool = FlxG.keys.anyJustReleased(["X", "TAB"]);
+		if (FlxG.gamepads.lastActive != null)
+			didPress = didPress || FlxG.gamepads.lastActive.anyJustPressed(["A"]);
 
-        if (FlxG.gamepads.lastActive != null)
-            didPress = didPress || FlxG.gamepads.lastActive.anyJustReleased(["B"]);
+		return didPress;
+	}
 
-        if (FlxG.touches.list != null)
-            didPress = didPress || FlxG.touches.getFirst()?.justReleased;
+	static function get_kaR():Bool {
+		var didPress:Bool = FlxG.keys.anyJustReleased(["X", "TAB"]);
 
-        return didPress;
-    }
+		if (FlxG.gamepads.lastActive != null)
+			didPress = didPress || FlxG.gamepads.lastActive.anyJustReleased(["B"]);
 
-    static function get_kbR():Bool
-    {
-        var didPress:Bool = FlxG.keys.anyJustReleased(["SPACE", "C"]);
+		if (FlxG.touches.list != null)
+			didPress = didPress || FlxG.touches.getFirst()?.justReleased;
 
-        if (FlxG.gamepads.lastActive != null)
-            didPress = didPress || FlxG.gamepads.lastActive.anyJustReleased(["A"]);
+		didPress = didPress || FlxG.mouse.justReleased;
 
-        return didPress;
-    }
+		return didPress;
+	}
 
+	static function get_kbR():Bool {
+		var didPress:Bool = FlxG.keys.anyJustReleased(["SPACE", "C"]);
 
+		if (FlxG.gamepads.lastActive != null)
+			didPress = didPress || FlxG.gamepads.lastActive.anyJustReleased(["A"]);
+
+		return didPress;
+	}
 }
