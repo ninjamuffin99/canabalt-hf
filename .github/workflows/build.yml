@@ -116,7 +116,7 @@ jobs:
       - name: Get current date
         id: date
         run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
-      - run: tar cf - export/${{matrix.target}}/bin/ | gzip canabalt-${{matrix.target}}-${{ steps.date.outputs.date }}.tar.gz
+      - run: tar cf - export/${{matrix.target}}/bin/ | gzip > canabalt-${{matrix.target}}-${{ steps.date.outputs.date }}.tar.gz
         if: matrix.target == 'linux'
       - uses: vimtor/action-zip@v1.1 # too lazy to figure out 7z grrr...
         if: matrix.target != 'linux'
@@ -127,3 +127,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: gh release upload latest canabalt-${{matrix.target}}-${{ steps.date.outputs.date }}.* --clobber
+        shell: bash
