@@ -88,7 +88,7 @@ jobs:
       - run: haxelib run hmm install --quiet
       - name: Build
         run: |
-          haxelib run lime build ${{matrix.target}} -final -DNG_API=${{ secrets.NG_API }} -DNG_ENC=${{ secrets.NG_ENC }}
+          haxelib run lime build ${{matrix.target}} -release -DNG_API=${{ secrets.NG_API }} -DNG_ENC=${{ secrets.NG_ENC }}
       - name: Obfuscate the Javascript
         if: matrix.target == 'html5'
         uses: ninjamuffin99/js-obfuscate-action@1.1.1
