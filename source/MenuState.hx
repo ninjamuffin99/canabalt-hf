@@ -19,7 +19,8 @@ class MenuState extends FlxState {
 
 	override public function create() {
 		FlxG.game.focusLostFramerate = 60;
-		FlxG.fixedTimestep = false;
+
+		FlxG.fixedTimestep = !FlxG.onMobile; // fixed framerate on mobile
 		FlxG.camera.bgColor = 0xff35353d;
 		FlxSprite.defaultAntialiasing = false;
 		FlxG.mouse.load("assets/images/cursor.png", 2);
