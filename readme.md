@@ -11,7 +11,7 @@ You can play the game on:
 - [Itch.io](https://finji.itch.io/canabalt-classic)
 - [Canabalt.com](https://canabalt.com/)
 
-## Setup
+## Compiling
 
 0. Make sure when you clone, you clone the submodules to get the assets repo:
     - `git clone --recurse-submodules https://github.com/ninjamuffin99/canabalt-hf.git`
