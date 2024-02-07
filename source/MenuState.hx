@@ -102,8 +102,8 @@ class MenuState extends FlxState {
 			_title3.alpha += FlxG.elapsed / 2;
 
 		if (Controls.kb || Controls.ka) {
-			if (FlxG.mouse.justPressed && mouseTimer < 4)
-				return;
+			if (!FlxG.onMobile && FlxG.mouse.pressed && mouseTimer < 4)
+				return; // wait a few seconds before accepting mouse input (unless on mobile!)
 			if (FlxG.onMobile && FlxG.touches.getFirst()?.justPressedPosition.y > FlxG.height - 20)
 				return;
 			FlxG.switchState(new PlayState());
