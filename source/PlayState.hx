@@ -289,17 +289,13 @@ class PlayState extends FlxState {
 		if (!NG.core.loggedIn)
 			return;
 
-		if (NG.core.scoreBoards.state == Loaded)
-			NG.core.scoreBoards.get(12451).postScore(distance, _player.epitaph);
-		else {
-			NG.core.scoreBoards.loadList(outcum -> {
-				switch (outcum) {
-					case SUCCESS:
-						NG.core.scoreBoards.get(13451).postScore(distance, _player.epitaph);
-					case FAIL(error):
-						trace("Failed to load scoreboards: " + error);
-				}
-			});
-		}
+		NG.core.scoreBoards.loadList(outcum -> {
+			switch (outcum) {
+				case SUCCESS:
+					NG.core.scoreBoards.get(13451).postScore(distance, _player.epitaph);
+				case FAIL(error):
+					trace("Failed to load scoreboards: " + error);
+			}
+		});
 	}
 }

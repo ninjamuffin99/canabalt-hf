@@ -31,7 +31,6 @@ class Main extends Sprite {
 		addChild(new FlxGame(480, 160, FlxSplash, framerate, framerate, true));
 
 		Lib.current.stage.addEventListener(openfl.events.KeyboardEvent.KEY_DOWN, (e:KeyboardEvent) -> {
-			trace(e.keyCode);
 			if (e.keyCode == FlxKey.F) {
 				Lib.application.window.fullscreen = !Lib.application.window.fullscreen;
 			}

@@ -1,6 +1,10 @@
 name: Build Canabalt
 
-on: [push, workflow_dispatch]
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
 
 env:
   BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
@@ -123,7 +127,8 @@ jobs:
         with:
           files: export/${{matrix.target}}/bin/
           dest: canabalt-${{matrix.target}}-${{ steps.date.outputs.date }}.zip
-      - name: Upload build
+      - name: Upload build to Github releases
+        if: startsWith(github.ref, 'refs/tags/')
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: gh release upload latest canabalt-${{matrix.target}}-${{ steps.date.outputs.date }}.* --clobber
