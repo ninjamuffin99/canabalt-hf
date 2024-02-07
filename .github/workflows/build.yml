@@ -13,7 +13,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Github Releases Bleeding Upload
-        if: env.BRANCH_NAME == 'main'
         uses: marvinpinto/action-automatic-releases@v1.2.1
         with:
           repo_token: "${{ github.token }}"
