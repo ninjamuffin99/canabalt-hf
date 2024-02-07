@@ -23,6 +23,11 @@ You can play the game on:
 
 The haxe code is as close to the original source code as it could get, with minor tweaks for modern "flixel", crossplatform controls support, and small bug fixes. If you look through the code, what you will look at is very close to what Adam Saltsman wrote for the original Actionscript 3 release of Canabalt, *hopefully* resulting in 1:1 gameplay.
 
+## Made with
+- [Haxe](https://haxe.org)
+- [HaxeFlixel](https://haxeflixel.com)
+- [newgrounds.io](https://newgrounds.io)
+
 # License
 Licensing info can be found in the [LICENSE.md](LICENSE.md) file.
 
