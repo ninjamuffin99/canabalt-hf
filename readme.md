@@ -1,7 +1,7 @@
 # Canabalt
 ### A HaxeFlixel port of CANABALT, by Adam 'Atomic' Saltsman, ported by Cameron 'ninjamuffin99' Taylor
 
-![image](https://github.com/ninjamuffin99/canabalt-hf/assets/22229331/70e3b71a-9625-4c51-a335-3d4781aa7de3)
+[![image](https://github.com/ninjamuffin99/canabalt-hf/assets/22229331/70e3b71a-9625-4c51-a335-3d4781aa7de3)](https://www.newgrounds.com/portal/view/510303)
 
 
 This is a port of classic flash game CANABALT, which was ported into HaxeFlixel (the descendant of Flixel, which was used in the original game). Now supports various cross platform goodness (HTML5, Windows, Mac, Linux), the Newgrounds API ([via Newgrounds.io](https://newgrounds.io)) for leaderboards, and touch + gamepad support!
