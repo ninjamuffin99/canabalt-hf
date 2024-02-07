@@ -16,16 +16,6 @@
 4. Compile via `lime test PLATFORM`, `mac`, `linux`, `windows`, `html5` and probably even `hl` 
 
 
-## Todos
-- [ ] NG api fixes for Safari
-- [ ] Firefox rollback glitch (needs testing)
-
-### other notes
-- [ ] Newgrounds Leaderboard API
-    - proper in-game filtering
-    - shows leaderboards in-game on click, and then saves that preference
-     
-
 # License
 Licensing info can be found in the [LICENSE.md](LICENSE.md) file.
 
