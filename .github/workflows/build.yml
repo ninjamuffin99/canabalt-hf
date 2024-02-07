@@ -6,7 +6,7 @@ on:
 
 env:
   BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
-  RELEASE_TAG: ${{startsWith(github.ref, 'refs/tags/') && github.ref || 'bleeding'}}
+  RELEASE_TAG: ${{startsWith(github.ref, 'refs/tags/') && github.ref_name || 'bleeding'}}
 
 jobs:
   create-latest:
