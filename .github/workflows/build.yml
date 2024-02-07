@@ -17,7 +17,7 @@ jobs:
         uses: marvinpinto/action-automatic-releases@v1.2.1
         with:
           repo_token: "${{ github.token }}"
-          automatic_release_tag: "latest"
+          automatic_release_tag: "bleeding"
           prerelease: true
           title: "Canabalt Bleeding edge"
   download_haxe:
@@ -30,7 +30,6 @@ jobs:
         uses: actions/checkout@v4
         with:
           submodules: recursive
-          token: ${{ secrets.GH_TOKEN }}
 
       - uses: krdlab/setup-haxe@v1
         with:
@@ -73,7 +72,6 @@ jobs:
         uses: actions/checkout@v4
         with:
           submodules: recursive
-          token: ${{ secrets.GH_TOKEN }}
 
       - uses: krdlab/setup-haxe@v1
         with:
@@ -131,5 +129,5 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/')
         env:
           GITHUB_TOKEN: ${{ github.token }}
-        run: gh release upload latest canabalt-${{matrix.target}}-${{ steps.date.outputs.date }}.* --clobber
+        run: gh release upload bleeding canabalt-${{matrix.target}}-${{ steps.date.outputs.date }}.* --clobber
         shell: bash
