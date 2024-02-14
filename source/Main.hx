@@ -39,17 +39,3 @@ class Main extends Sprite {
 		});
 	}
 }
-
-class Splash extends FlxSplash
-{
-	override function create()
-	{
-		// set bgColor before and after `super.create()` otherwise it will set it to black for a frame
-		FlxG.cameras.bgColor = 0xff35353d;
-		FlxSplash.muted = false;
-		
-		super.create();
-		
-		FlxG.cameras.bgColor = 0xff35353d;
-	}
-}
