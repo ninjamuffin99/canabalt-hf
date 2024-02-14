@@ -142,7 +142,7 @@ class Splash extends FlxState {
         if (_logoTimer >= times[times.length - 1])
         {
             // set full white, last call
-            setSpriteColors(times.length - 1, 1.0);
+            mixSpriteColors(times.length - 1, 1.0);
             _updateFunc = updateEnd;
             return;
         }
