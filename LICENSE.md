@@ -1,11 +1,11 @@
-# Canabalt 
+# Canabalt
 
 The Canabalt (HaxeFlixel port) source code is licensed under the MIT License: (http://opensource.org/licenses/MIT)
 
 Canabalt® © Finji, LLC. 2009-2024 . All rights reserved. Canabalt®, Finji® and regal weasel and crown logo are trademarks of Finji, LLC.
 
 Run! © Danny Baranowsky. 2009-2024.
-Daring Escape © Danny Baranowsky. 2009-2024. 
+Daring Escape © Danny Baranowsky. 2009-2024.
 
 You can view the `canabalt-assets` license here: (https://github.com/ninjamuffin99/canabalt-assets/blob/main/LICENSE.md)
 

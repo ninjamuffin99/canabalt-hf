@@ -1,0 +1,4 @@
+**/*.hx
+.haxelib
+export
+assets

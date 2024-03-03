@@ -1,6 +1,11 @@
 {
   "dependencies": [
     {
+      "name": "checkstyle",
+      "type": "haxelib",
+      "version": "2.8.5"
+    },
+    {
       "name": "flixel",
       "type": "haxelib",
       "version": "5.6.0"
@@ -8,7 +13,7 @@
     {
       "name": "hmm",
       "type": "haxelib",
-      "version": null
+      "version": "3.1.0"
     },
     {
       "name": "hscript",
@@ -23,7 +28,7 @@
     {
       "name": "lime",
       "type": "haxelib",
-      "version": "8.1.1"
+      "version": "8.0.2"
     },
     {
       "name": "newgrounds",

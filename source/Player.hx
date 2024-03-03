@@ -5,7 +5,8 @@ import flixel.system.debug.watch.Tracker.TrackerProfile;
 import flixel.FlxG;
 import flixel.FlxSprite;
 
-class Player extends FlxSprite {
+class Player extends FlxSprite
+{
 	private var _jump:Float;
 
 	public var jumpLimit:Float;
@@ -20,7 +21,8 @@ class Player extends FlxSprite {
 
 	public var epitaph:String;
 
-	public function new(x:Float, y:Float) {
+	public function new(x:Float, y:Float)
+	{
 		super(x, y);
 		loadGraphic("assets/images/player.png", true, 24, 24);
 		width = 12;
@@ -55,32 +57,38 @@ class Player extends FlxSprite {
 
 		epitaph = "falling to your death.";
 
-		animation.callback = function(_, _, _):Void {
+		animation.callback = function(_, _, _):Void
+		{
 			Application.current.window.setIcon(updateFramePixels().image);
 		}
 	}
 
-	override function update(elapsed:Float) {
+	override function update(elapsed:Float)
+	{
 		FlxG.watch.addQuick("touching", touching.toString());
-		if (y > 340) {
+		if (y > 340)
+		{
 			alive = false;
 			return;
 		}
 
-		if (justTouched(WALL)) {
+		if (justTouched(WALL))
+		{
 			acceleration.x = velocity.x = 0;
 			FlxG.sound.play("assets/sounds/wall" + Main.SOUND_EXT + "");
 			epitaph = "hitting a wall and tumbling to your death.";
 		}
 
 		// Walldeath
-		if (acceleration.x <= 0) {
+		if (acceleration.x <= 0)
+		{
 			maxVelocity.y = 1000;
 			super.update(elapsed);
 			return;
 		}
 
-		if (isTouching(FLOOR)) {
+		if (isTouching(FLOOR))
+		{
 			_onFloor = true;
 			if (_my > 0.235)
 				stumble();
@@ -89,7 +97,9 @@ class Player extends FlxSprite {
 				_jump = 0;
 
 			_my = 0;
-		} else {
+		}
+		else
+		{
 			_onFloor = false;
 
 			if (velocity.y > 0) // fall off window or ledge
@@ -107,17 +117,19 @@ class Player extends FlxSprite {
 			acceleration.x = 20;
 		else if (velocity.x < 600)
 			acceleration.x = 10;
-		else
-			acceleration.x = 4;
+		else acceleration.x = 4;
 
 		// Jumping
 		jumpLimit = velocity.x / (maxVelocity.x * 2.5);
 		if (jumpLimit > 0.35)
 			jumpLimit = 0.35;
-		if ((_jump >= 0) && (Controls.ka || Controls.kb)) {
-			if (_jump == 0) {
+		if ((_jump >= 0) && (Controls.ka || Controls.kb))
+		{
+			if (_jump == 0)
+			{
 				var rs:Int = FlxG.random.int(0, 3);
-				if (rs != 0) {
+				if (rs != 0)
+				{
 					FlxG.sound.play("assets/sounds/jump" + rs + "" + Main.SOUND_EXT + "");
 				}
 			}
@@ -129,47 +141,52 @@ class Player extends FlxSprite {
 		if (Controls.kbR || Controls.kaR)
 			_jump = -1;
 
-		if (_jump > 0) {
+		if (_jump > 0)
+		{
 			_onFloor = false;
 			_craneFeet = false;
 			if (_jump < 0.08)
 				velocity.y = -maxVelocity.y * 0.65;
-			else
-				velocity.y = -maxVelocity.y;
+			else velocity.y = -maxVelocity.y;
 		}
 
 		// Animation
-		if (_onFloor) {
+		if (_onFloor)
+		{
 			// Footsteps
 			_ft = (1 - velocity.x / maxVelocity.x) * 0.35;
 			if (_ft < 0.15)
 				_ft = 0.15;
 			_fc += elapsed;
-			if (_fc > _ft) {
+			if (_fc > _ft)
+			{
 				_fc = 0;
-				if (_craneFeet) {
+				if (_craneFeet)
+				{
 					FlxG.sound.play("assets/sounds/footc" + FlxG.random.int(1, 4) + "" + Main.SOUND_EXT + "");
 					_craneFeet = false;
-				} else
-					FlxG.sound.play("assets/sounds/foot" + FlxG.random.int(1, 4) + "" + Main.SOUND_EXT + "");
+				}
+				else FlxG.sound.play("assets/sounds/foot" + FlxG.random.int(1, 4) + "" + Main.SOUND_EXT + "");
 			}
 
 			// Stumble / run animations
 			if (_stumble && animation.finished)
 				_stumble = false;
-			if (!_stumble) {
+			if (!_stumble)
+			{
 				if (velocity.x < 150)
 					animation.play("run1");
 				else if (velocity.x < 300)
 					animation.play("run2");
 				else if (velocity.x < 600)
 					animation.play("run3");
-				else
-					animation.play("run4");
+				else animation.play("run4");
 			}
-		} else if (velocity.y < -140)
+		}
+		else if (velocity.y < -140)
 			animation.play("jump");
-		else if (velocity.y > -140) {
+		else if (velocity.y > -140)
+		{
 			animation.play("fall");
 			_stumble = false;
 		}
@@ -186,7 +203,8 @@ class Player extends FlxSprite {
 			_my += FlxG.elapsed;
 	}
 
-	public function stumble():Void {
+	public function stumble():Void
+	{
 		FlxG.sound.play("assets/sounds/tumble" + Main.SOUND_EXT + "");
 		_stumble = true;
 		if (velocity.x > 500)
@@ -195,11 +213,11 @@ class Player extends FlxSprite {
 			animation.play("stumble3", true);
 		else if (velocity.x > 150)
 			animation.play("stumble2", true);
-		else
-			animation.play("stumble1", true);
+		else animation.play("stumble1", true);
 	}
 
-	public function craneFeet():Void {
+	public function craneFeet():Void
+	{
 		_craneFeet = true;
 	}
 }

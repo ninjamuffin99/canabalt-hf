@@ -22,7 +22,8 @@ import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxState;
 
-class PlayState extends FlxState {
+class PlayState extends FlxState
+{
 	private var _player:Player;
 	private var _focus:FlxObject;
 
@@ -42,7 +43,8 @@ class PlayState extends FlxState {
 	// used for overlap checks with mouse
 	private var buttons:FlxGroup;
 
-	override public function create() {
+	override public function create()
+	{
 		super.create();
 
 		_font = FlxBitmapFont.fromAngelCode("assets/data/nokia/nokia.png", Xml.parse(Assets.getText("assets/data/nokia/nokia.fnt")));
@@ -59,7 +61,8 @@ class PlayState extends FlxState {
 
 		_smoke = new FlxTypedGroup<FlxEmitter>();
 
-		for (i in 0...5) {
+		for (i in 0...5)
+		{
 			var e:FlxEmitter = new FlxEmitter(0, 0, 50);
 			e.launchMode = SQUARE;
 			e.frequency = 0.15;
@@ -117,7 +120,8 @@ class PlayState extends FlxState {
 
 		_shardsA = new FlxTypedGroup<Shard>();
 		_shardsB = new FlxTypedGroup<Shard>();
-		for (i in 0...numShards) {
+		for (i in 0...numShards)
+		{
 			_shardsA.add(new Shard(_shardsA));
 			_shardsB.add(new Shard(_shardsB));
 		}
@@ -175,8 +179,10 @@ class PlayState extends FlxState {
 
 		// Pings every 3 minutes to keep session alive
 		// Hashlink isn't threaded / async! it stutters funny!
-		if (NG.core.loggedIn) {
-			new FlxTimer().start(180, _ -> {
+		if (NG.core.loggedIn)
+		{
+			new FlxTimer().start(180, _ ->
+			{
 				if (NG.core.loggedIn)
 					NG.core.calls.gateway.ping().send();
 			}, 0);
@@ -185,7 +191,8 @@ class PlayState extends FlxState {
 		buttons = new FlxGroup();
 	}
 
-	override public function update(elapsed:Float) {
+	override public function update(elapsed:Float)
+	{
 		if (_gameover > 0)
 			_gameover += elapsed;
 		if ((_gameover > 0.35) && (Controls.ka || Controls.kb) && !FlxG.mouse.overlaps(buttons))
@@ -219,8 +226,10 @@ class PlayState extends FlxState {
 		_distText2.text = hud;
 		_distText3.text = hud;
 
-		if (!_player.alive && !wasDead) {
-			if (!FlxG.onMobile) {
+		if (!_player.alive && !wasDead)
+		{
+			if (!FlxG.onMobile)
+			{
 				FlxG.mouse.visible = true;
 			}
 
@@ -255,7 +264,7 @@ class PlayState extends FlxState {
 			var t = new FlxBitmapText(FlxG.width - 200, FlxG.height - 15, "Jump to retry your daring escape.", _font);
 			t.autoSize = true;
 			t.alignment = RIGHT;
-			t.wordWrap = false;
+			t.wrap = NONE;
 			t.scrollFactor.set();
 			t.x = FlxG.width - t.width - 4;
 			add(t);
@@ -264,7 +273,8 @@ class PlayState extends FlxState {
 			_distText2.visible = false;
 			_distText3.visible = false;
 
-			var support:FlxButton = new FlxButton(4, FlxG.height - 15, "", () -> {
+			var support:FlxButton = new FlxButton(4, FlxG.height - 15, "", () ->
+			{
 				FlxG.openURL("https://finji.co");
 			});
 			support.scrollFactor.set();
@@ -272,7 +282,8 @@ class PlayState extends FlxState {
 			add(support);
 			buttons.add(support);
 
-			var github:FlxButton = new FlxButton(support.x + support.width + 2, FlxG.height - 14, "", () -> {
+			var github:FlxButton = new FlxButton(support.x + support.width + 2, FlxG.height - 14, "", () ->
+			{
 				FlxG.openURL("https://github.com/ninjamuffin99/canabalt-hf");
 			});
 			github.scrollFactor.set();
@@ -285,12 +296,15 @@ class PlayState extends FlxState {
 		}
 	}
 
-	function postScore(distance:Int) {
+	function postScore(distance:Int)
+	{
 		if (!NG.core.loggedIn)
 			return;
 
-		NG.core.scoreBoards.loadList(outcum -> {
-			switch (outcum) {
+		NG.core.scoreBoards.loadList(outcum ->
+		{
+			switch (outcum)
+			{
 				case SUCCESS:
 					NG.core.scoreBoards.get(13451).postScore(distance, _player.epitaph);
 				case FAIL(error):

@@ -23,7 +23,8 @@ private class GraphicLogoLight extends BitmapData {}
 private class GraphicLogoCorners extends BitmapData {}
 
 // A copy of FlxPreloader, but loads nicer with lerp, and PLAY button
-class Preloader extends FlxBasePreloader {
+class Preloader extends FlxBasePreloader
+{
 	var _buffer:Sprite;
 	var _bmpBar:Bitmap;
 	var _text:TextField;
@@ -31,11 +32,13 @@ class Preloader extends FlxBasePreloader {
 	var noiseOverlay:BitmapData;
 	var noise:Bitmap;
 
-	override public function new(MinDisplayTime:Float = 0, ?AllowedURLs:Array<String>):Void {
+	override public function new(MinDisplayTime:Float = 0, ?AllowedURLs:Array<String>):Void
+	{
 		super(MinDisplayTime, AllowedURLs);
 	}
 
-	override function create():Void {
+	override function create():Void
+	{
 		_buffer = new Sprite();
 		_buffer.scaleX = _buffer.scaleY = 2;
 		addChild(_buffer);
@@ -76,8 +79,10 @@ class Preloader extends FlxBasePreloader {
 	 * Cleanup your objects!
 	 * Make sure you call super.destroy()!
 	 */
-	override function destroy():Void {
-		if (_buffer != null) {
+	override function destroy():Void
+	{
+		if (_buffer != null)
+		{
 			removeChild(_buffer);
 		}
 		_buffer = null;
@@ -93,7 +98,8 @@ class Preloader extends FlxBasePreloader {
 	 * Update is called every frame, passing the current percent loaded. Use this to change your loading bar or whatever.
 	 * @param	Percent	The percentage that the project is loaded
 	 */
-	override public function update(Percent:Float):Void {
+	override public function update(Percent:Float):Void
+	{
 		_bmpBar.scaleX = lerp(_bmpBar.scaleX, Percent, 0.1);
 		prevPercentage = lerp(prevPercentage, Percent, 0.1);
 
@@ -102,11 +108,13 @@ class Preloader extends FlxBasePreloader {
 		if (noise.alpha < 1)
 			noise.alpha = (Percent / 1) + 0.2;
 
-		if (Percent > 0.9) {
+		if (Percent > 0.9)
+		{
 			// _buffer.alpha = 1 - (Percent - 0.9) / 0.1;
 		}
 
-		if (Percent == 1 && swag == null) {
+		if (Percent == 1 && swag == null)
+		{
 			swag = new Sprite();
 			swag.graphics.beginFill(0xFFFFFF, 1);
 			swag.graphics.drawRect(0, 0, 180, 50);
@@ -140,17 +148,20 @@ class Preloader extends FlxBasePreloader {
 
 	var swag:Sprite;
 
-	function hoverPlay(e:MouseEvent) {
+	function hoverPlay(e:MouseEvent)
+	{
 		swag.y += 2;
 		swag.alpha = 0.8;
 	}
 
-	function hoverOut(e:MouseEvent) {
+	function hoverOut(e:MouseEvent)
+	{
 		swag.y -= 2;
 		swag.alpha = 1;
 	}
 
-	function forceLoad(_) {
+	function forceLoad(_)
+	{
 		// only force fullscreen on mobile
 		if (FlxG.onMobile)
 			Lib.application.window.fullscreen = true;
@@ -158,15 +169,19 @@ class Preloader extends FlxBasePreloader {
 
 		swag.removeEventListener(MouseEvent.CLICK, forceLoad);
 
-		Timer.delay(() -> {
+		Timer.delay(() ->
+		{
 			onLoaded();
 		}, 600);
 	}
 
-	function genNoise(Percent:Float):Void {
+	function genNoise(Percent:Float):Void
+	{
 		noiseOverlay.lock();
-		for (i in 0...noiseOverlay.width) {
-			for (j in 0...noiseOverlay.height) {
+		for (i in 0...noiseOverlay.width)
+		{
+			for (j in 0...noiseOverlay.height)
+			{
 				var invPercent:Float = 1 - Percent;
 
 				var darkPix:Bool = Math.random() * 1 < Percent;
@@ -183,19 +198,22 @@ class Preloader extends FlxBasePreloader {
 
 	var doForceLoad:Bool = false;
 
-	override public function onLoaded() {
+	override public function onLoaded()
+	{
 		// super.onLoaded();
 
 		#if desktop
 		doForceLoad = true;
 		#end
 
-		if (doForceLoad) {
+		if (doForceLoad)
+		{
 			super.onLoaded();
 		}
 	}
 
-	function lerp(a:Float, b:Float, ratio:Float):Float {
+	function lerp(a:Float, b:Float, ratio:Float):Float
+	{
 		return a + ratio * (b - a);
 	}
 }

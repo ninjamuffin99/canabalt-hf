@@ -10,14 +10,16 @@ import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxState;
 
-class MenuState extends FlxState {
+class MenuState extends FlxState
+{
 	var _title:FlxSprite;
 	var _title2:FlxSprite;
 	var _title3:FlxSprite;
 
 	var mouseTimer:Float = 0;
 
-	override public function create() {
+	override public function create()
+	{
 		FlxG.game.focusLostFramerate = 60;
 
 		FlxG.fixedTimestep = !FlxG.onMobile; // fixed framerate on mobile
@@ -49,7 +51,8 @@ class MenuState extends FlxState {
 		super.create();
 	}
 
-	function initNG() {
+	function initNG()
+	{
 		// somewhat gracefully fallback if there's no API keys stuff
 
 		NG.createAndCheckSession(API.ngapi, true, null);
@@ -57,40 +60,48 @@ class MenuState extends FlxState {
 
 		var notifString:String = "Connected to Newgrounds";
 
-		if (!NG.core.loggedIn) {
+		if (!NG.core.loggedIn)
+		{
 			if (FlxG.onMobile)
 				notifString += ". Tap here to login";
-			else
-				notifString += ". Press N to login";
+			else notifString += ". Press N to login";
 		}
 
-		new FlxTimer().start(4, _ -> {
+		new FlxTimer().start(4, _ ->
+		{
 			Notification.instance.genTexts(notifString, 4, BOTTOM_LEFT);
 		});
 	}
 
-	function attemptLogin() {
-		NG.core.requestLogin((callback) -> {
+	function attemptLogin()
+	{
+		NG.core.requestLogin((callback) ->
+		{
 			var notifText:String = callback.getName();
-			if (callback.match(Outcome.SUCCESS)) {
+			if (callback.match(Outcome.SUCCESS))
+			{
 				notifText = "Connected user: " + NG.core.user.name;
 			}
 			Notification.instance.genTexts(notifText, 3, BOTTOM_LEFT);
 		});
 	}
 
-	override function update(elapsed:Float) {
+	override function update(elapsed:Float)
+	{
 		super.update(elapsed);
 
 		mouseTimer += elapsed;
 
-		if (!NG.core?.loggedIn && FlxG.keys.justPressed.N) {
+		if (!NG.core?.loggedIn && FlxG.keys.justPressed.N)
+		{
 			attemptLogin();
 		}
 
-		if (FlxG.onMobile) {
+		if (FlxG.onMobile)
+		{
 			var firstTouch = FlxG.touches.getFirst();
-			if (firstTouch?.justPressed) {
+			if (firstTouch?.justPressed)
+			{
 				if (firstTouch.y > FlxG.height - 20)
 					attemptLogin();
 			}
@@ -102,7 +113,8 @@ class MenuState extends FlxState {
 		if ((_title2.alpha >= 1) && (_title3.alpha < 1))
 			_title3.alpha += FlxG.elapsed / 2;
 
-		if (Controls.kb || Controls.ka) {
+		if (Controls.kb || Controls.ka)
+		{
 			if (!FlxG.onMobile && FlxG.mouse.pressed && mouseTimer < 4)
 				return; // wait a few seconds before accepting mouse input (unless on mobile!)
 			if (FlxG.onMobile && FlxG.touches.getFirst()?.justPressedPosition.y > FlxG.height - 20)
