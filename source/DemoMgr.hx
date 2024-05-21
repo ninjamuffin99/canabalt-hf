@@ -1,11 +1,9 @@
 package;
 
-import flixel.FlxBasic;
 import flixel.effects.particles.FlxEmitter;
 import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.group.FlxGroup;
-import flixel.FlxSprite;
 
 class DemoMgr extends FlxObject
 {

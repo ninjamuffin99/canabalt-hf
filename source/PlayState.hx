@@ -1,21 +1,13 @@
 package;
 
 import lime.app.Application;
-import flixel.ui.FlxSpriteButton;
 import flixel.ui.FlxButton;
 import flixel.text.FlxBitmapText;
 import openfl.Assets;
 import flixel.graphics.frames.FlxBitmapFont;
-import openfl.events.ProgressEvent;
-import openfl.net.URLRequest;
-import openfl.net.URLLoader;
-import io.newgrounds.Call.CallError;
-import io.newgrounds.objects.events.Outcome.TypedOutcome;
 import flixel.util.FlxTimer;
 import io.newgrounds.NG;
-import flixel.text.FlxText;
 import flixel.FlxObject;
-import flixel.effects.particles.FlxParticle;
 import flixel.group.FlxGroup;
 import flixel.effects.particles.FlxEmitter;
 import flixel.FlxG;

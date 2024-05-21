@@ -1,10 +1,8 @@
 package;
 
 import flixel.group.FlxGroup.FlxTypedGroup;
-import flixel.effects.particles.FlxEmitter;
 import flixel.effects.particles.FlxParticle;
 import flixel.FlxG;
-import flixel.FlxSprite;
 
 class Shard extends FlxParticle
 {
@@ -16,7 +14,6 @@ class Shard extends FlxParticle
 		this.parent = parent;
 		makeGraphic(FlxG.random.int(1, 5), FlxG.random.int(1, 5));
 		antialiasing = true;
-		// elasticity = 1;
 	}
 
 	override function update(elapsed:Float)
@@ -26,7 +23,6 @@ class Shard extends FlxParticle
 			if ((width + height > 6) && (Math.abs(velocity.y) > 150))
 				FlxG.sound.play("assets/sounds/glass" + FlxG.random.int(1, 2) + "" + Main.SOUND_EXT + "", 0.5);
 
-			// velocity.y = -velocity.y * 0.35;
 			velocity.x *= 0.65;
 			velocityRange.start.x = velocity.x;
 			velocityRange.end.x = velocity.x;

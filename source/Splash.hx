@@ -3,7 +3,6 @@ package;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxState;
-import flixel.math.FlxMath;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
 import flixel.util.typeLimit.NextState;
@@ -12,7 +11,6 @@ import openfl.Lib;
 import openfl.display.Bitmap;
 import openfl.display.BitmapData;
 import openfl.display.Sprite;
-import openfl.display.Graphics;
 import openfl.geom.Transform;
 import openfl.geom.ColorTransform;
 
@@ -75,7 +73,6 @@ class Splash extends FlxState
 		FlxG.stage.addChild(_camFade);
 		introFade(0xff000000, 0.2);
 
-		// onResize(Lib.current.stage.stageWidth, Lib.current.stage.stageHeight);
 		resizeShit(Lib.current.stage.stageWidth, Lib.current.stage.stageHeight);
 
 		#if FLX_SOUND_SYSTEM
@@ -102,8 +99,6 @@ class Splash extends FlxState
 
 	function resizeShit(Width:Int, Height:Int)
 	{
-		// super.onResize(Width, Height);
-
 		for (spr in _sprites)
 		{
 			spr.x = (Width / 2);

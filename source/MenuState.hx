@@ -2,9 +2,7 @@ package;
 
 import flixel.util.FlxTimer;
 import io.newgrounds.objects.events.Outcome;
-import io.newgrounds.NGLite.LoginOutcome;
 import io.newgrounds.NG;
-import flixel.system.scaleModes.PixelPerfectScaleMode;
 import openfl.Assets;
 import flixel.FlxG;
 import flixel.FlxSprite;

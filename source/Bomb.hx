@@ -1,7 +1,5 @@
 package;
 
-import flixel.FlxObject;
-import flixel.group.FlxGroup;
 import flixel.FlxG;
 import flixel.effects.particles.FlxEmitter;
 import flixel.FlxSprite;

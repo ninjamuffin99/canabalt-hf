@@ -1,7 +1,6 @@
 package;
 
 import flixel.util.FlxColor;
-import flixel.tile.FlxTilemap;
 import flixel.system.debug.watch.Tracker.TrackerProfile;
 import flixel.FlxSprite;
 import flixel.effects.particles.FlxEmitter;

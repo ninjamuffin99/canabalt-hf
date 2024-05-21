@@ -1,7 +1,6 @@
 package;
 
 import flixel.tile.FlxTilemap;
-import flixel.tile.FlxTileblock;
 
 class CBlock extends FlxTilemap
 {
