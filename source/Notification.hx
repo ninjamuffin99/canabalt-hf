@@ -1,10 +1,8 @@
 package;
 
-import flixel.util.FlxColor;
 import openfl.utils.Assets;
 import flixel.graphics.frames.FlxBitmapFont;
 import flixel.tweens.FlxEase;
-import flixel.group.FlxGroup;
 import flixel.tweens.FlxTween;
 import flixel.FlxG;
 import flixel.text.FlxBitmapText;

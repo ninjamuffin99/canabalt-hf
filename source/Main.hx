@@ -1,11 +1,7 @@
 package;
 
-import flixel.FlxG;
 import flixel.FlxGame;
 import flixel.input.keyboard.FlxKey;
-import flixel.input.keyboard.FlxKeyList;
-import flixel.system.FlxSplash;
-import lime.app.Event;
 import lime.app.Application;
 import openfl.Lib;
 import openfl.events.KeyboardEvent;

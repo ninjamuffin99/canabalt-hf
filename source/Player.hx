@@ -1,7 +1,6 @@
 package;
 
 import lime.app.Application;
-import flixel.system.debug.watch.Tracker.TrackerProfile;
 import flixel.FlxG;
 import flixel.FlxSprite;
 

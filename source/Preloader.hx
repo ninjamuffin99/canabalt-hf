@@ -1,10 +1,7 @@
 package source;
 
 import openfl.events.MouseEvent;
-import openfl.display.SimpleButton;
 import haxe.Timer;
-import openfl.display.BitmapDataChannel;
-import flixel.math.FlxMath;
 import flixel.system.FlxAssets;
 import openfl.display.Bitmap;
 import openfl.display.BitmapData;
