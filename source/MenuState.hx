@@ -26,8 +26,11 @@ class MenuState extends FlxState
 		FlxSprite.defaultAntialiasing = false;
 		FlxG.mouse.load("assets/images/cursor.png", 2);
 		FlxG.mouse.visible = false;
+		#if web
 		FlxG.stage.addEventListener(Event.DEACTIVATE, onFocusOut);
 		FlxG.stage.addEventListener(Event.ACTIVATE, onFocusIn);
+		#end
+
 		FlxG.sound.playMusic("assets/music/title" + Main.SOUND_EXT + "", 0);
 		FlxG.sound.music.fadeIn(1);
 
@@ -125,12 +128,12 @@ class MenuState extends FlxState
 		}
 	}
 
-	private function onFocusOut(event:Event):Void
+	private function onFocusOut(event:Event)
 	{
 		FlxG.sound.music.pause();
 	}
 
-	private function onFocusIn(event:Event):Void
+	private function onFocusIn(event:Event)
 	{
 		FlxG.sound.music.resume();
 	}
