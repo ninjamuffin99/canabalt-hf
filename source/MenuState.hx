@@ -4,6 +4,7 @@ import flixel.util.FlxTimer;
 import io.newgrounds.objects.events.Outcome;
 import io.newgrounds.NG;
 import openfl.Assets;
+import openfl.events.Event;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxState;
@@ -25,6 +26,8 @@ class MenuState extends FlxState
 		FlxSprite.defaultAntialiasing = false;
 		FlxG.mouse.load("assets/images/cursor.png", 2);
 		FlxG.mouse.visible = false;
+		FlxG.stage.addEventListener(Event.DEACTIVATE, onFocusOut);
+		FlxG.stage.addEventListener(Event.ACTIVATE, onFocusIn);
 		FlxG.sound.playMusic("assets/music/title" + Main.SOUND_EXT + "", 0);
 		FlxG.sound.music.fadeIn(1);
 
@@ -120,5 +123,15 @@ class MenuState extends FlxState
 			FlxG.switchState(new PlayState());
 			FlxG.sound.playMusic("assets/music/run" + Main.SOUND_EXT + "");
 		}
+	}
+
+	private function onFocusOut(event:Event):Void
+	{
+		FlxG.sound.music.pause();
+	}
+
+	private function onFocusIn(event:Event):Void
+	{
+		FlxG.sound.music.resume();
 	}
 }

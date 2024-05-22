@@ -49,8 +49,6 @@ class DemoMgr extends FlxObject
 				_go = true;
 				FlxG.sound.play("assets/sounds/crumble" + Main.SOUND_EXT);
 				FlxG.camera.shake(0.005, 3, null, true, Y);
-				// var c:FlxObject = cast _c.members[_c.length - 1];
-				// _c.members[_c.length - 1].reset();
 				emitter.start(false, emitter.frequency);
 			}
 		}
@@ -66,7 +64,6 @@ class DemoMgr extends FlxObject
 				c.moves = true;
 				c.active = true;
 				c.velocity.y = velocity.y;
-				// c.y += (y - oy) * (elapsed / (1 / 60)); // 144fps fix
 			}
 		}
 	}

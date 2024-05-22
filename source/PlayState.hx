@@ -68,7 +68,6 @@ class PlayState extends FlxState
 
 			e.lifespan.set(10, 20);
 
-			// e.angularVelocity.set(-18, 0);
 			e.loadParticles("assets/images/smoke.png", 50, 0);
 
 			for (p in e.members)

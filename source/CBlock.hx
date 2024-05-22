@@ -21,9 +21,6 @@ class CBlock extends FlxTilemap
 		var widthInTiles:Int = Math.ceil(Width / _tileSize);
 		var heightInTiles:Int = Math.ceil(Height / _tileSize);
 
-		// width = widthInTiles * _tileSize;
-		// height = heightInTiles * _tileSize;
-
 		var mapData:Array<Int> = [];
 		var numTiles:Int = widthInTiles * heightInTiles;
 

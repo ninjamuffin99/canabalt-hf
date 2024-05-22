@@ -49,7 +49,7 @@ class Bomb extends FlxSprite
 				y = _y;
 				angularVelocity = FlxG.random.float(-60, 60);
 				angularDrag = Math.abs(angularVelocity);
-				// _e.reset(); // figure out the hf equivalent
+				// figure out the hf equivalent
 				FlxG.camera.shake(0.065, 0.15);
 				_e.x = _s.x;
 				_e.width = _s.width;

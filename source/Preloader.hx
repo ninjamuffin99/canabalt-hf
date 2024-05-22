@@ -57,11 +57,9 @@ class Preloader extends FlxBasePreloader
 		_text.multiline = false;
 		_text.x = 2;
 		_text.y = _bmpBar.y - 11;
-		// _text.width = 300;
 		_buffer.addChild(_text);
 
 		noiseOverlay = new BitmapData(_width, _height, false);
-		// noiseOverlay.noise(200, 0, 255, 7, true);
 
 		noise = new Bitmap(noiseOverlay);
 		noise.blendMode = BlendMode.MULTIPLY;
@@ -104,11 +102,6 @@ class Preloader extends FlxBasePreloader
 
 		if (noise.alpha < 1)
 			noise.alpha = (Percent / 1) + 0.2;
-
-		if (Percent > 0.9)
-		{
-			// _buffer.alpha = 1 - (Percent - 0.9) / 0.1;
-		}
 
 		if (Percent == 1 && swag == null)
 		{
@@ -197,8 +190,6 @@ class Preloader extends FlxBasePreloader
 
 	override public function onLoaded()
 	{
-		// super.onLoaded();
-
 		#if desktop
 		doForceLoad = true;
 		#end
