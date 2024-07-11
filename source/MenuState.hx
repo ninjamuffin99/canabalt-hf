@@ -68,7 +68,8 @@ class MenuState extends FlxState
 		{
 			if (FlxG.onMobile)
 				notifString += ". Tap here to login";
-			else notifString += ". Press N to login";
+			else
+				notifString += ". Press N to login";
 		}
 
 		new FlxTimer().start(4, _ ->

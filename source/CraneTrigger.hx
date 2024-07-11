@@ -16,7 +16,7 @@ class CraneTrigger extends FlxObject
 		_p = P;
 	}
 
-	override public function update(elapsed:Float):Void
+	override public function update(elapsed:Float)
 	{
 		if (overlaps(_p))
 		{

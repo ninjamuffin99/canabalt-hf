@@ -116,7 +116,8 @@ class Player extends FlxSprite
 			acceleration.x = 20;
 		else if (velocity.x < 600)
 			acceleration.x = 10;
-		else acceleration.x = 4;
+		else
+			acceleration.x = 4;
 
 		// Jumping
 		jumpLimit = velocity.x / (maxVelocity.x * 2.5);
@@ -146,7 +147,8 @@ class Player extends FlxSprite
 			_craneFeet = false;
 			if (_jump < 0.08)
 				velocity.y = -maxVelocity.y * 0.65;
-			else velocity.y = -maxVelocity.y;
+			else
+				velocity.y = -maxVelocity.y;
 		}
 
 		// Animation
@@ -165,7 +167,8 @@ class Player extends FlxSprite
 					FlxG.sound.play("assets/sounds/footc" + FlxG.random.int(1, 4) + "" + Main.SOUND_EXT + "");
 					_craneFeet = false;
 				}
-				else FlxG.sound.play("assets/sounds/foot" + FlxG.random.int(1, 4) + "" + Main.SOUND_EXT + "");
+				else
+					FlxG.sound.play("assets/sounds/foot" + FlxG.random.int(1, 4) + "" + Main.SOUND_EXT + "");
 			}
 
 			// Stumble / run animations
@@ -179,7 +182,8 @@ class Player extends FlxSprite
 					animation.play("run2");
 				else if (velocity.x < 600)
 					animation.play("run3");
-				else animation.play("run4");
+				else
+					animation.play("run4");
 			}
 		}
 		else if (velocity.y < -140)
@@ -202,7 +206,7 @@ class Player extends FlxSprite
 			_my += FlxG.elapsed;
 	}
 
-	public function stumble():Void
+	public function stumble()
 	{
 		FlxG.sound.play("assets/sounds/tumble" + Main.SOUND_EXT + "");
 		_stumble = true;
@@ -212,10 +216,11 @@ class Player extends FlxSprite
 			animation.play("stumble3", true);
 		else if (velocity.x > 150)
 			animation.play("stumble2", true);
-		else animation.play("stumble1", true);
+		else
+			animation.play("stumble1", true);
 	}
 
-	public function craneFeet():Void
+	public function craneFeet()
 	{
 		_craneFeet = true;
 	}

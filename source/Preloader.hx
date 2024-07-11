@@ -34,7 +34,7 @@ class Preloader extends FlxBasePreloader
 		super(MinDisplayTime, AllowedURLs);
 	}
 
-	override function create():Void
+	override function create()
 	{
 		_buffer = new Sprite();
 		_buffer.scaleX = _buffer.scaleY = 2;
@@ -74,7 +74,7 @@ class Preloader extends FlxBasePreloader
 	 * Cleanup your objects!
 	 * Make sure you call super.destroy()!
 	 */
-	override function destroy():Void
+	override function destroy()
 	{
 		if (_buffer != null)
 		{
@@ -93,7 +93,7 @@ class Preloader extends FlxBasePreloader
 	 * Update is called every frame, passing the current percent loaded. Use this to change your loading bar or whatever.
 	 * @param	Percent	The percentage that the project is loaded
 	 */
-	override public function update(Percent:Float):Void
+	override public function update(Percent:Float)
 	{
 		_bmpBar.scaleX = lerp(_bmpBar.scaleX, Percent, 0.1);
 		prevPercentage = lerp(prevPercentage, Percent, 0.1);
@@ -165,7 +165,7 @@ class Preloader extends FlxBasePreloader
 		}, 600);
 	}
 
-	function genNoise(Percent:Float):Void
+	function genNoise(Percent:Float)
 	{
 		noiseOverlay.lock();
 		for (i in 0...noiseOverlay.width)

@@ -120,7 +120,8 @@ class Sequence extends FlxObject
 				hallHeight = 5;
 			else if (_player.velocity.x > 320)
 				hallHeight = 4;
-			else hallHeight = 3;
+			else
+				hallHeight = 3;
 		}
 
 		// Figure out building position and dimensions
@@ -302,7 +303,8 @@ class Sequence extends FlxObject
 		{
 			if (type == HALLWAY)
 				_layer.add(new CBlock(Std.int(x), Std.int(y), Std.int(width), _tileSize, "assets/images/floor" + FlxG.random.int(1, 2) + ".png"));
-			else _layer.add(new CBlock(Std.int(x), Std.int(y), Std.int(width), _tileSize, "assets/images/roof" + FlxG.random.int(1, 5) + ".png"));
+			else
+				_layer.add(new CBlock(Std.int(x), Std.int(y), Std.int(width), _tileSize, "assets/images/roof" + FlxG.random.int(1, 5) + ".png"));
 
 			_layer.add(new CBlock(Std.int(x), Std.int(y + _tileSize), Std.int(width), Std.int(height - _tileSize), wallPath));
 

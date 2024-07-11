@@ -8,10 +8,11 @@
     "emptyCurly": "noBreak"
   },
   "sameLine": {
+    "ifBody": "next",
     "ifElse": "next",
     "doWhile": "next",
     "tryBody": "next",
     "tryCatch": "next",
-    "elseBody": "same"
+    "elseBody": "next"
   }
 }

@@ -36,7 +36,8 @@ class CBlock extends FlxTilemap
 			{
 				index = 2;
 			}
-			else index = 1;
+			else
+				index = 1;
 
 			mapData.push(index);
 		}

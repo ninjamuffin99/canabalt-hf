@@ -10,7 +10,7 @@ import openfl.display.Sprite;
 class Main extends Sprite
 {
 	// Why can't Safari play .ogg in 2024.... :(
-	public static var SOUND_EXT:String = #if web ".mp3" #else ".ogg" #end;
+	public static final SOUND_EXT:String = #if web ".mp3" #else ".ogg" #end;
 
 	#if web
 	var framerate:Int = 60;

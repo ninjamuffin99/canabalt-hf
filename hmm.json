@@ -11,6 +11,11 @@
       "version": "5.8.0"
     },
     {
+      "name": "formatter",
+      "type": "haxelib",
+      "version": "1.16.0"
+    },
+    {
       "name": "hmm",
       "type": "haxelib",
       "version": "3.1.0"

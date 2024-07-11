@@ -25,7 +25,8 @@ class BG extends FlxSprite
 				x += FlxG.random.int(FlxG.width * 10, FlxG.width * 20);
 				scrollFactor.x = FlxG.random.float(2, 5);
 			}
-			else x += width * 2;
+			else
+				x += width * 2;
 		}
 	}
 }

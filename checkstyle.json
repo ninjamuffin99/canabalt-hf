@@ -25,7 +25,7 @@
       "props": {
         "allowReturn": false,
         "allowFunction": false,
-        "allowCurlyBody": false,
+        "allowCurlyBody": true,
         "allowSingleArgParens": false
       }
     },
@@ -37,10 +37,6 @@
     },
     {
       "type": "AvoidStarImport",
-      "props": {}
-    },
-    {
-      "type": "AvoidTernaryOperator",
       "props": {}
     },
     {
@@ -62,35 +58,10 @@
       }
     },
     {
-      "type": "CommentedOutCode",
-      "props": {}
-    },
-    {
       "type": "ConditionalCompilation",
       "props": {
         "policy": "aligned",
         "allowSingleline": true
-      }
-    },
-    {
-      "type": "ConstantName",
-      "props": {
-        "severity": "IGNORE"
-      }
-    },
-    {
-      "type": "CyclomaticComplexity",
-      "props": {
-        "thresholds": [
-          {
-            "severity": "WARNING",
-            "complexity": 20
-          },
-          {
-            "severity": "ERROR",
-            "complexity": 25
-          }
-        ]
       }
     },
     {
@@ -156,12 +127,6 @@
         "exact": [],
         "upto": [],
         "atleast": []
-      }
-    },
-    {
-      "type": "FieldDocComment",
-      "props": {
-        "severity": "IGNORE"
       }
     },
     {
@@ -272,13 +237,6 @@
       }
     },
     {
-      "type": "MethodLength",
-      "props": {
-        "max": 50,
-        "ignoreEmptyLines": true
-      }
-    },
-    {
       "type": "MethodName",
       "props": {
         "format": "^[a-z][a-zA-Z0-9]*$",
@@ -301,31 +259,11 @@
       }
     },
     {
-      "type": "MultipleStringLiterals",
-      "props": {
-        "allowDuplicates": 2,
-        "minLength": 2,
-        "ignore": "^\\s+$"
-      }
-    },
-    {
       "type": "MultipleVariableDeclarations",
       "props": {}
     },
     {
-      "type": "NestedControlFlow",
-      "props": {
-        "max": 3
-      }
-    },
-    {
       "type": "NestedForDepth",
-      "props": {
-        "max": 1
-      }
-    },
-    {
-      "type": "NestedIfDepth",
       "props": {
         "max": 1
       }
@@ -354,7 +292,7 @@
         "boolOpPolicy": "around",
         "intervalOpPolicy": "none",
         "arrowPolicy": "around",
-        "arrowFunctionPolicy": "around",
+        "arrowFunctionPolicy": "ignore",
         "oldFunctionTypePolicy": "around",
         "newFunctionTypePolicy": "around"
       }
@@ -403,15 +341,6 @@
       }
     },
     {
-      "type": "ParameterName",
-      "props": {
-        "format": "^(_|[a-z][a-zA-Z0-9]*$)",
-        "tokens": [],
-        "ignoreExtern": true,
-        "severity": "IGNORE"
-      }
-    },
-    {
       "type": "ParameterNumber",
       "props": {
         "max": 7,
@@ -432,12 +361,6 @@
       "type": "RedundantAllowMeta",
       "props": {
         "prohibitMeta": false
-      }
-    },
-    {
-      "type": "RedundantModifier",
-      "props": {
-        "severity": "IGNORE"
       }
     },
     {
@@ -530,12 +453,6 @@
       "type": "TabForAligning",
       "props": {
         "ignorePattern": "^$"
-      }
-    },
-    {
-      "type": "Trace",
-      "props": {
-        "severity": "IGNORE"
       }
     },
     {

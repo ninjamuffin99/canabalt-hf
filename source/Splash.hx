@@ -19,14 +19,14 @@ import openfl.geom.ColorTransform;
  */
 class Splash extends FlxState
 {
-	static inline var BG_COLOR:FlxColor = 0xFF35353d;
-	static inline var GREEN:FlxColor = 0xFF00b922;
-	static inline var YELLOW:FlxColor = 0xFFffc132;
-	static inline var RED:FlxColor = 0xFFf5274e;
-	static inline var BLUE:FlxColor = 0xFF3641ff;
-	static inline var CYAN:FlxColor = 0xFF04cdfb;
+	static inline final BG_COLOR:FlxColor = 0xFF35353d;
+	static inline final GREEN:FlxColor = 0xFF00b922;
+	static inline final YELLOW:FlxColor = 0xFFffc132;
+	static inline final RED:FlxColor = 0xFFf5274e;
+	static inline final BLUE:FlxColor = 0xFF3641ff;
+	static inline final CYAN:FlxColor = 0xFF04cdfb;
 
-	static final colors = [GREEN, YELLOW, RED, BLUE, CYAN];
+	static final colors:Array<FlxColor> = [GREEN, YELLOW, RED, BLUE, CYAN];
 	static final shapes = [MIDDLE, TOP_LEFT, TOP_RIGHT, BOTTOM_LEFT, BOTTOM_RIGHT];
 
 	var _logoTimer:Float = 0;
@@ -132,7 +132,7 @@ class Splash extends FlxState
 			_updateFunc();
 	}
 
-	static final times = [0.0, 0.2, 0.4, 0.6, 0.8, 1.5];
+	static final times:Array<Float> = [0.0, 0.2, 0.4, 0.6, 0.8, 1.5];
 
 	/** When to change colors, in seconds, last is all white */
 	function updateColors()
@@ -169,7 +169,7 @@ class Splash extends FlxState
 		}
 	}
 
-	inline function getStepColor(step:Int, colorIndex:Int)
+	inline function getStepColor(step:Int, colorIndex:Int):FlxColor
 	{
 		return if (step >= times.length) FlxColor.WHITE; else colors[(step + colorIndex) % colors.length];
 	}
@@ -220,7 +220,7 @@ abstract LogoSprite(Sprite) to Sprite
 		setColor(this.transform, FlxColor.interpolate(color1, color2, mix));
 	}
 
-	public function drawShape(shape:LogoShape):Void
+	public function drawShape(shape:LogoShape)
 	{
 		this.graphics.beginFill(0xFFffffff);
 		switch shape
@@ -239,7 +239,7 @@ abstract LogoSprite(Sprite) to Sprite
 		this.graphics.endFill();
 	}
 
-	inline function drawMiddle():Void
+	inline function drawMiddle()
 	{
 		this.graphics.moveTo(-1, -37);
 		this.graphics.lineTo(1, -37);
@@ -252,7 +252,7 @@ abstract LogoSprite(Sprite) to Sprite
 		this.graphics.lineTo(-1, -37);
 	}
 
-	inline function drawTopLeft():Void
+	inline function drawTopLeft()
 	{
 		this.graphics.moveTo(-50, -50);
 		this.graphics.lineTo(-25, -50);
@@ -262,7 +262,7 @@ abstract LogoSprite(Sprite) to Sprite
 		this.graphics.lineTo(-50, -50);
 	}
 
-	inline function drawTopRight():Void
+	inline function drawTopRight()
 	{
 		this.graphics.moveTo(50, -50);
 		this.graphics.lineTo(25, -50);
@@ -272,7 +272,7 @@ abstract LogoSprite(Sprite) to Sprite
 		this.graphics.lineTo(50, -50);
 	}
 
-	inline function drawBottomLeft():Void
+	inline function drawBottomLeft()
 	{
 		this.graphics.moveTo(-50, 50);
 		this.graphics.lineTo(-25, 50);
@@ -282,7 +282,7 @@ abstract LogoSprite(Sprite) to Sprite
 		this.graphics.lineTo(-50, 50);
 	}
 
-	inline function drawBottomRight():Void
+	inline function drawBottomRight()
 	{
 		this.graphics.moveTo(50, 50);
 		this.graphics.lineTo(25, 50);
