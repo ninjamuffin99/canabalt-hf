@@ -43,7 +43,7 @@ class Walker extends FlxSprite
 				velocity.x = 0;
 				if (++_s >= _smoke.length)
 					_s = 0;
-				_smoke.members[_s].x = x + ((facing == LEFT) ? (width - 22) : 10);
+				_smoke.members[_s].x = x + ((facing == LEFT) ? 10 : (width - 22));
 				_smoke.members[_s].y = y + height;
 				_smoke.members[_s].start(false, _smoke.members[_s].frequency);
 			}
@@ -66,7 +66,7 @@ class Walker extends FlxSprite
 				{
 					_walkTimer = FlxG.random.float(2, 6);
 					animation.play("walk");
-					velocity.x = (facing == LEFT) ? 40 : -40;
+					velocity.x = (facing == LEFT) ? -40 : 40;
 				}
 				else
 				{
@@ -75,7 +75,7 @@ class Walker extends FlxSprite
 
 					if (++_s >= _smoke.length)
 						_s = 0;
-					_smoke.members[_s].x = x + ((facing == LEFT) ? (width - 22) : 10);
+					_smoke.members[_s].x = x + ((facing == LEFT) ? 10 : (width - 22));
 					_smoke.members[_s].y = y + height;
 					_smoke.members[_s].start(false, _smoke.members[_s].frequency);
 				}
