@@ -3,6 +3,7 @@ package;
 import flixel.effects.particles.FlxEmitter;
 import flixel.FlxG;
 import flixel.FlxSprite;
+import flixel.group.FlxGroup.FlxTypedGroup;
 
 class Walker extends FlxSprite
 {

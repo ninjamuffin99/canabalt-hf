@@ -5,6 +5,7 @@ import flixel.ui.FlxButton;
 import flixel.text.FlxBitmapText;
 import openfl.Assets;
 import flixel.graphics.frames.FlxBitmapFont;
+import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.util.FlxTimer;
 import io.newgrounds.NG;
 import flixel.FlxObject;
