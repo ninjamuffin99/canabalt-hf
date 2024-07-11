@@ -164,6 +164,7 @@ class PlayState extends FlxState
 		_distText.width = 80;
 		add(_distText);
 
+		FlxG.camera.pixelPerfectShake = true;
 		FlxG.camera.shake(0.01, 3, null, true, Y);
 		FlxG.sound.play("assets/sounds/crumble" + Main.SOUND_EXT + "");
 
